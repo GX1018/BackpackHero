@@ -25,6 +25,7 @@ public class CharacterMain : MonoBehaviour
             this.gameObject.GetComponent<Animator>().SetBool("isInventory", false);
             this.gameObject.GetComponent<Animator>().SetBool("isMap", true);
         }
+        
 
         
     }
