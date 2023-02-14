@@ -18,7 +18,7 @@ public class InvenSlot : MonoBehaviour
 
     //test
     private float Dist;
-    GameObject[] target;
+    GameObject[] targets;
     //test
 
 
@@ -30,7 +30,7 @@ public class InvenSlot : MonoBehaviour
         {
             isActive = true;
         }
-        target = GameObject.FindGameObjectsWithTag("ItemBlock");
+        targets = GameObject.FindGameObjectsWithTag("ItemBlock");
 
     }
 
@@ -66,20 +66,21 @@ public class InvenSlot : MonoBehaviour
 
 
 
-        /* if (GameObject.Find("item").GetComponent<Item>().isClicked ==true&& isActive == true&& target[0].GetComponent<itemSize>().inInventory == false)
+        if (GameObject.Find("item").GetComponent<Item>().isClicked ==true&& isActive == true)//&& target.GetComponent<itemSize>().inInventory == false)
         {
             
-            Dist =Vector2.Distance(transform.position, target[0].transform.position);
-            Debug.Log(this.name);
-            Debug.Log(Dist);
-
-            if(Dist < 1.8f)
+            for(int i = 0; i< targets.Length; i++)
             {
-                target[0].transform.position = this.gameObject.transform.position;
-                target[0].GetComponent<itemSize>().inInventory = true;
-                //GameObject.Find("item").GetComponent<Item>().isClicked = false;
+                Dist =Vector2.Distance(transform.position, targets[i].transform.position);
+                if(Dist < 1.8f)
+                {
+                    targets[i].transform.position = this.gameObject.transform.position;
+                    targets[i].GetComponent<itemSize>().inInventory = true;
+                    //GameObject.Find("item").GetComponent<Item>().isClicked = false;
+                }
             }
-        } */
+
+        }
 
         //test
 
