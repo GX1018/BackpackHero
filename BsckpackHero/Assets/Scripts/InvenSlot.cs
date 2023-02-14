@@ -7,6 +7,18 @@ public class InvenSlot : MonoBehaviour
 {
     public bool isActive = false;
     public bool isTemporary = false;
+
+    
+    
+    //{ 아이템을 인벤토리에 넣기위한 변수들
+    public bool isFilled = false;
+    public bool readyToFill = false;
+
+
+
+    //} 아이템을 인벤토리에 넣기위한 변수들
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -52,6 +64,14 @@ public class InvenSlot : MonoBehaviour
             transform.parent.gameObject.GetComponent<Inventory>().lvUpPoint --;
             isTemporary = false;
         }
+    }
+
+    private void OnCollisionEnter2D(Collision2D other) {
+        readyToFill = true;
+    }
+
+    private void OnCollisionExit2D(Collision2D other) {
+        readyToFill = false;
     }
 
 

@@ -19,7 +19,8 @@ public class Item : MonoBehaviour, IPointerDownHandler,
     // Update is called once per frame
     void Update()
     {
-        
+
+
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -37,9 +38,7 @@ public class Item : MonoBehaviour, IPointerDownHandler,
         if(isClicked == true)
         {
             gameObject.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, 
-				Input.mousePosition.y, -Camera.main.transform.position.z));
-            
-            
+				Input.mousePosition.y, 1));
         }
     }
 }
