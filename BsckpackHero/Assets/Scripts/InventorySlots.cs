@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class InventorySlots : MonoBehaviour
 {
-    public bool isLvup = false;
-    public int lvUpPoint = 0;
-
     public GameObject slotPrefab;
     // Start is called before the first frame update
     void Start()
@@ -16,18 +13,15 @@ public class InventorySlots : MonoBehaviour
         {
             GameObject invenSlot = Instantiate(slotPrefab, gameObject.transform);
             invenSlot.name = i.ToString();
-            
         }
-
-        
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(isLvup == true)
+        if(InventoryManager.Instance.isLvup == true)
         {
-            lvUpPoint = 3;
+            InventoryManager.Instance.lvUpPoint = 3;
             for(int i = 0; i<44; i++)
             {
                 if(GameObject.Find($"{i+1}").GetComponent<InvenSlot>().isActive ==true&&GameObject.Find($"{i}").GetComponent<InvenSlot>().isActive==false)
@@ -56,7 +50,7 @@ public class InventorySlots : MonoBehaviour
                     GameObject.Find($"{i}").GetComponent<InvenSlot>().isTemporary = true;
                 }
             }
-            isLvup = false;
+            InventoryManager.Instance.isLvup = false;
         }
     }
 }

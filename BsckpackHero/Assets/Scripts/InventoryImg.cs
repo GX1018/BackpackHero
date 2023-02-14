@@ -4,22 +4,14 @@ using UnityEngine;
 
 public class InventoryImg : MonoBehaviour
 {
-    public int expandRight =0;
-    public int expandLeft =0;
-    public int expandUp =0;
-    public int expandDown =0;
-
-    
-    // Start is called before the first frame update
     void Start()
     {
+        
     }
-
-    // Update is called once per frame
     void Update()
     {
         #region expandLeft
-        if(expandLeft == 0)
+        if(InventoryManager.Instance.expandLeft == 0)
         {
             if(GameObject.Find("2").GetComponent<InvenSlot>().isActive == true ||
                 GameObject.Find("11").GetComponent<InvenSlot>().isActive == true||
@@ -34,10 +26,10 @@ public class InventoryImg : MonoBehaviour
                 = new Vector2(GameObject.Find("bagBg").GetComponent<RectTransform>().sizeDelta.x +100*0.7f, GameObject.Find("bagBg").GetComponent<RectTransform>().sizeDelta.y);
 
                 gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector3(gameObject.GetComponent<RectTransform>().anchoredPosition.x-50*0.7f,gameObject.GetComponent<RectTransform>().anchoredPosition.y);
-                expandLeft ++;
+                InventoryManager.Instance.expandLeft ++;
             }
         }
-        if(expandLeft == 1)
+        if(InventoryManager.Instance.expandLeft == 1)
         {
             if(GameObject.Find("1").GetComponent<InvenSlot>().isActive == true ||
                 GameObject.Find("10").GetComponent<InvenSlot>().isActive == true||
@@ -52,10 +44,10 @@ public class InventoryImg : MonoBehaviour
                 = new Vector2(GameObject.Find("bagBg").GetComponent<RectTransform>().sizeDelta.x +100*0.7f, GameObject.Find("bagBg").GetComponent<RectTransform>().sizeDelta.y);
 
                 gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector3(gameObject.GetComponent<RectTransform>().anchoredPosition.x-50*0.7f,gameObject.GetComponent<RectTransform>().anchoredPosition.y);
-                expandLeft ++;
+                InventoryManager.Instance.expandLeft ++;
             }
         }
-        if(expandLeft == 2)
+        if(InventoryManager.Instance.expandLeft == 2)
         {
             if(GameObject.Find("0").GetComponent<InvenSlot>().isActive == true ||
                 GameObject.Find("9").GetComponent<InvenSlot>().isActive == true||
@@ -70,13 +62,13 @@ public class InventoryImg : MonoBehaviour
                 = new Vector2(GameObject.Find("bagBg").GetComponent<RectTransform>().sizeDelta.x +100*0.7f, GameObject.Find("bagBg").GetComponent<RectTransform>().sizeDelta.y);
 
                 gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector3(gameObject.GetComponent<RectTransform>().anchoredPosition.x-50*0.7f,gameObject.GetComponent<RectTransform>().anchoredPosition.y);
-                expandLeft ++;
+                InventoryManager.Instance.expandLeft ++;
             }
         }
         #endregion
 
         #region expandRight
-        if(expandRight == 0)
+        if(InventoryManager.Instance.expandRight == 0)
         {
             if(GameObject.Find("6").GetComponent<InvenSlot>().isActive == true ||
                 GameObject.Find("15").GetComponent<InvenSlot>().isActive == true||
@@ -91,10 +83,10 @@ public class InventoryImg : MonoBehaviour
                 = new Vector2(GameObject.Find("bagBg").GetComponent<RectTransform>().sizeDelta.x +100*0.7f, GameObject.Find("bagBg").GetComponent<RectTransform>().sizeDelta.y);
 
                 gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector3(gameObject.GetComponent<RectTransform>().anchoredPosition.x+50*0.7f,gameObject.GetComponent<RectTransform>().anchoredPosition.y);
-                expandRight ++;
+                InventoryManager.Instance.expandRight ++;
             }
         }
-        if(expandRight == 1)
+        if(InventoryManager.Instance.expandRight == 1)
         {
             if(GameObject.Find("7").GetComponent<InvenSlot>().isActive == true ||
                 GameObject.Find("16").GetComponent<InvenSlot>().isActive == true||
@@ -109,10 +101,10 @@ public class InventoryImg : MonoBehaviour
                 = new Vector2(GameObject.Find("bagBg").GetComponent<RectTransform>().sizeDelta.x +100*0.7f, GameObject.Find("bagBg").GetComponent<RectTransform>().sizeDelta.y);
 
                 gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector3(gameObject.GetComponent<RectTransform>().anchoredPosition.x+50*0.7f,gameObject.GetComponent<RectTransform>().anchoredPosition.y);
-                expandRight ++;
+                InventoryManager.Instance.expandRight ++;
             }
         }
-        if(expandRight == 2)
+        if(InventoryManager.Instance.expandRight == 2)
         {
             if(GameObject.Find("8").GetComponent<InvenSlot>().isActive == true ||
                 GameObject.Find("17").GetComponent<InvenSlot>().isActive == true||
@@ -127,13 +119,13 @@ public class InventoryImg : MonoBehaviour
                 = new Vector2(GameObject.Find("bagBg").GetComponent<RectTransform>().sizeDelta.x +100*0.7f, GameObject.Find("bagBg").GetComponent<RectTransform>().sizeDelta.y);
 
                 gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector3(gameObject.GetComponent<RectTransform>().anchoredPosition.x+50*0.7f,gameObject.GetComponent<RectTransform>().anchoredPosition.y);
-                expandRight ++;
+                InventoryManager.Instance.expandRight ++;
             }
         }
         #endregion
 
         #region expandUp
-        if(expandUp == 0)
+        if(InventoryManager.Instance.expandUp == 0)
         {
             if(GameObject.Find("0").GetComponent<InvenSlot>().isActive == true ||
                 GameObject.Find("1").GetComponent<InvenSlot>().isActive == true||
@@ -152,13 +144,13 @@ public class InventoryImg : MonoBehaviour
                 = new Vector2(GameObject.Find("bagBg").GetComponent<RectTransform>().sizeDelta.x, GameObject.Find("bagBg").GetComponent<RectTransform>().sizeDelta.y +120*0.5f);
 
                 gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector3(gameObject.GetComponent<RectTransform>().anchoredPosition.x,gameObject.GetComponent<RectTransform>().anchoredPosition.y+50*0.5f);
-                expandUp ++;
+                InventoryManager.Instance.expandUp ++;
             }
         }
         #endregion
 
         #region expandDown
-        if(expandDown == 0)
+        if(InventoryManager.Instance.expandDown == 0)
         {
             if(GameObject.Find("36").GetComponent<InvenSlot>().isActive == true ||
                 GameObject.Find("37").GetComponent<InvenSlot>().isActive == true||
@@ -177,7 +169,7 @@ public class InventoryImg : MonoBehaviour
                 = new Vector2(GameObject.Find("bagBg").GetComponent<RectTransform>().sizeDelta.x, GameObject.Find("bagBg").GetComponent<RectTransform>().sizeDelta.y +130*0.5f);
                 
                 gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector3(gameObject.GetComponent<RectTransform>().anchoredPosition.x,gameObject.GetComponent<RectTransform>().anchoredPosition.y-50*0.5f);
-                expandDown ++;
+                InventoryManager.Instance.expandDown ++;
             }
         }
         #endregion

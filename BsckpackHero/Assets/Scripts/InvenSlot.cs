@@ -18,7 +18,7 @@ public class InvenSlot : MonoBehaviour
 
     //test
     private float Dist;
-    GameObject[] targets;
+    GameObject target;
     //test
 
 
@@ -30,7 +30,7 @@ public class InvenSlot : MonoBehaviour
         {
             isActive = true;
         }
-        targets = GameObject.FindGameObjectsWithTag("ItemBlock");
+        
 
     }
 
@@ -42,12 +42,12 @@ public class InvenSlot : MonoBehaviour
             gameObject.GetComponent<Image>().enabled =true;
         }
         
-        else if(isTemporary ==true&&gameObject.transform.parent.gameObject.GetComponent<InventorySlots>().lvUpPoint>0)
+        else if(isTemporary ==true&&InventoryManager.Instance.lvUpPoint>0)
         {
             gameObject.GetComponent<Image>().enabled = true;
             gameObject.GetComponent<Image>().color = new Color(1,1,1,0.5f);
         }
-        else if(gameObject.transform.parent.gameObject.GetComponent<InventorySlots>().lvUpPoint<=0)
+        else if(InventoryManager.Instance.lvUpPoint<=0)
         {
             gameObject.GetComponent<Image>().enabled = false;
             isTemporary =false;
@@ -64,23 +64,162 @@ public class InvenSlot : MonoBehaviour
         
 
 
+        Debug.Log("부모");
+        Debug.Log(GameObject.Find("item").transform.position);
+        Debug.Log("자식");
+        Debug.Log(GameObject.Find("itemImg").transform.position);
+
+        target = GameObject.FindWithTag("SelectedCore");
 
 
-        if (GameObject.Find("item").GetComponent<Item>().isClicked ==true&& isActive == true)//&& target.GetComponent<itemSize>().inInventory == false)
+        if (GameObject.Find("item").GetComponent<ItemTest>().isClicked ==true&& isActive == false)//&& target.GetComponent<itemSize>().CheckStart == false)
         {
-            
-            for(int i = 0; i< targets.Length; i++)
-            {
-                Dist =Vector2.Distance(transform.position, targets[i].transform.position);
-                if(Dist < 1.8f)
+            //target = GameObject.FindWithTag("SelectedCore");
+                Dist =Vector2.Distance(transform.position, target.transform.position);
+                if(Dist < 0.5f)
                 {
-                    targets[i].transform.position = this.gameObject.transform.position;
-                    targets[i].GetComponent<itemSize>().inInventory = true;
+                    InventoryManager.Instance.addItemAvailable = false;
+                    GameObject.Find("itemImg").transform.position = GameObject.Find("item").transform.position;
+                    GameObject.Find("itemImg").GetComponent<Image>().color = new Color32(255, 255, 255, 100);
+                }
+        }
+
+        if (GameObject.Find("item").GetComponent<ItemTest>().isClicked ==true&& isActive == true)//&& target.GetComponent<itemSize>().CheckStart == false)
+        {
+            //target = GameObject.FindWithTag("SelectedCore");
+                Dist =Vector2.Distance(transform.position, target.transform.position);
+                if(Dist < 0.5f)
+                {
+                    //target.transform.position = this.gameObject.transform.position;
+                    target.GetComponent<itemSize>().CheckStart = true;
+                    //Debug.Log(target.GetComponent<itemSize>().CheckStart);
                     //GameObject.Find("item").GetComponent<Item>().isClicked = false;
+                }
+                else if(Dist > 0.5f)
+                {
+                    target.GetComponent<itemSize>().CheckStart = false;
+                    //Debug.Log(target.GetComponent<itemSize>().CheckStart);
+                }
+        }
+        if(GameObject.Find("item").GetComponent<ItemTest>()._Rotation%2==0)
+        {
+            if(GameObject.Find("item").GetComponent<ItemTest>().isClicked ==true&&target.GetComponent<itemSize>().CheckStart == true)
+            {
+                //test-> sizeX=1, sizeY=3
+                if(GameObject.Find($"{(int.Parse(this.name)-9)}").GetComponent<InvenSlot>().isFilled == false)
+                    //&& GameObject.Find($"{(int.Parse(this.name)-9)}").GetComponent<InvenSlot>().isActive == true)
+                {
+                    GameObject.Find("Block1").GetComponent<itemSize>().isReady = true;
+                }
+
+                if(GameObject.Find($"{this.name}").GetComponent<InvenSlot>().isFilled == false)
+                    //&& GameObject.Find($"{this.name}").GetComponent<InvenSlot>().isActive ==true)
+                {
+                    GameObject.Find("Core").GetComponent<itemSize>().isReady = true;
+                }
+                if(GameObject.Find($"{(int.Parse(this.name)+9)}").GetComponent<InvenSlot>().isFilled == false)
+                    //&& GameObject.Find($"{(int.Parse(this.name)+9)}").GetComponent<InvenSlot>().isActive == true)
+                {
+                    GameObject.Find("Block2").GetComponent<itemSize>().isReady = true;
                 }
             }
 
+            if(GameObject.Find("Block1").GetComponent<itemSize>().isReady == true &&
+            GameObject.Find("Block2").GetComponent<itemSize>().isReady == true &&
+            GameObject.Find("Core").GetComponent<itemSize>().isReady == true)
+            {
+                if(GameObject.Find($"{(int.Parse(this.name)-9)}").GetComponent<InvenSlot>().isActive == true &&
+                GameObject.Find($"{this.name}").GetComponent<InvenSlot>().isActive ==true &&
+                GameObject.Find($"{(int.Parse(this.name)+9)}").GetComponent<InvenSlot>().isActive == true)
+                {
+                    InventoryManager.Instance.addItemAvailable = true;
+                    GameObject.Find("itemImg").transform.position = this.gameObject.transform.position;
+                    GameObject.Find("itemImg").GetComponent<Image>().color = new Color32(255, 255, 255, 100);
+                    target.GetComponent<itemSize>().CheckStart = false;
+                }
+                //GameObject.Find("item").transform.position = this.gameObject.transform.position;
+                else if(GameObject.Find($"{(int.Parse(this.name)-9)}").GetComponent<InvenSlot>().isActive == false ||
+                GameObject.Find($"{this.name}").GetComponent<InvenSlot>().isActive ==false ||
+                GameObject.Find($"{(int.Parse(this.name)+9)}").GetComponent<InvenSlot>().isActive == false)
+                {
+                    InventoryManager.Instance.addItemAvailable = false;
+                    GameObject.Find("itemImg").transform.position = this.gameObject.transform.position;
+                    GameObject.Find("itemImg").GetComponent<Image>().color = new Color32(255, 0, 0, 100);
+                    target.GetComponent<itemSize>().CheckStart = false;
+                }
+
+            }
         }
+
+        if(GameObject.Find("item").GetComponent<ItemTest>()._Rotation%2==1)
+        {
+            if(GameObject.Find("item").GetComponent<ItemTest>().isClicked ==true&&target.GetComponent<itemSize>().CheckStart == true)
+            {
+                //test-> sizeX=3, sizeY=1
+                if(GameObject.Find($"{(int.Parse(this.name)-1)}").GetComponent<InvenSlot>().isFilled == false)
+                    //&& GameObject.Find($"{(int.Parse(this.name)-9)}").GetComponent<InvenSlot>().isActive == true)
+                {
+                    GameObject.Find("Block1").GetComponent<itemSize>().isReady = true;
+                }
+
+                if(GameObject.Find($"{this.name}").GetComponent<InvenSlot>().isFilled == false)
+                    //&& GameObject.Find($"{this.name}").GetComponent<InvenSlot>().isActive ==true)
+                {
+                    GameObject.Find("Core").GetComponent<itemSize>().isReady = true;
+                }
+                if(GameObject.Find($"{(int.Parse(this.name)+1)}").GetComponent<InvenSlot>().isFilled == false)
+                    //&& GameObject.Find($"{(int.Parse(this.name)+9)}").GetComponent<InvenSlot>().isActive == true)
+                {
+                    GameObject.Find("Block2").GetComponent<itemSize>().isReady = true;
+                }
+            }
+
+            if(GameObject.Find("Block1").GetComponent<itemSize>().isReady == true &&
+            GameObject.Find("Block2").GetComponent<itemSize>().isReady == true &&
+            GameObject.Find("Core").GetComponent<itemSize>().isReady == true)
+            {
+                if(GameObject.Find($"{(int.Parse(this.name)-1)}").GetComponent<InvenSlot>().isActive == true &&
+                GameObject.Find($"{this.name}").GetComponent<InvenSlot>().isActive ==true &&
+                GameObject.Find($"{(int.Parse(this.name)+1)}").GetComponent<InvenSlot>().isActive == true)
+                {
+                    InventoryManager.Instance.addItemAvailable = true;
+                    GameObject.Find("itemImg").transform.position = this.gameObject.transform.position;
+                    GameObject.Find("itemImg").GetComponent<Image>().color = new Color32(255, 255, 255, 100);
+                    target.GetComponent<itemSize>().CheckStart = false;
+                }
+                //GameObject.Find("item").transform.position = this.gameObject.transform.position;
+                else if(GameObject.Find($"{(int.Parse(this.name)-1)}").GetComponent<InvenSlot>().isActive == false ||
+                GameObject.Find($"{this.name}").GetComponent<InvenSlot>().isActive ==false ||
+                GameObject.Find($"{(int.Parse(this.name)+1)}").GetComponent<InvenSlot>().isActive == false)
+                {
+                    InventoryManager.Instance.addItemAvailable = false;
+                    GameObject.Find("itemImg").transform.position = this.gameObject.transform.position;
+                    GameObject.Find("itemImg").GetComponent<Image>().color = new Color32(255, 0, 0, 100);
+                    target.GetComponent<itemSize>().CheckStart = false;
+                }
+
+            }
+        }
+        
+
+        if(GameObject.Find("item").GetComponent<ItemTest>().isClicked ==true&&target.GetComponent<itemSize>().CheckStart == false)
+        {
+                GameObject.Find("Block1").GetComponent<itemSize>().isReady = false;
+                GameObject.Find("Block2").GetComponent<itemSize>().isReady = false;
+                GameObject.Find("Core").GetComponent<itemSize>().isReady =false;//?
+                
+        }
+
+        //Debug.Log(Vector2.Distance(GameObject.Find("itemImg").transform.position, GameObject.Find("item").transform.position));
+        /* if(Vector2.Distance(GameObject.Find("itemImg").transform.position, GameObject.Find("item").transform.position)>0.4)
+        {
+            GameObject.Find("itemImg").transform.position = GameObject.Find("item").transform.position;
+            GameObject.Find("itemImg").GetComponent<Image>().color = new Color32(255, 255, 255, 100);
+
+        } */
+
+
+
 
         //test
 
@@ -92,7 +231,7 @@ public class InvenSlot : MonoBehaviour
         {
             isActive = true;
             gameObject.GetComponent<Image>().color = new Color(1,1,1,1);
-            transform.parent.gameObject.GetComponent<InventorySlots>().lvUpPoint --;
+            InventoryManager.Instance.lvUpPoint --;
             isTemporary = false;
         }
     }

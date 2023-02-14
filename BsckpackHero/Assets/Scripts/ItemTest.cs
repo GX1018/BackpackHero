@@ -4,10 +4,15 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class Item : MonoBehaviour, IPointerDownHandler, 
+public class ItemTest : MonoBehaviour, IPointerDownHandler, 
     IPointerUpHandler, IDragHandler
 {
     public bool isClicked = false;
+
+    public int sizeX = 1;
+    public int sizeY = 3;
+    public int _Rotation = 0;
+
     private RectTransform objRect = default;
     // Start is called before the first frame update
     void Start()
@@ -22,6 +27,7 @@ public class Item : MonoBehaviour, IPointerDownHandler,
         if(Input.GetMouseButtonDown(1))
         {
             objRect.rotation = Quaternion.Euler(0, 0, objRect.rotation.eulerAngles.z+90);
+            _Rotation++;
         }
 
     }
@@ -30,11 +36,25 @@ public class Item : MonoBehaviour, IPointerDownHandler,
     //test
     public void OnPointerDown(PointerEventData eventData)
     {
+        //test
+        transform.Find("Core").gameObject.tag = "SelectedCore";
+        this.tag = "SelectedItem";
+        //
         isClicked = true;
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
+        transform.Find("Core").gameObject.tag = "Core";
+        this.tag = "Item";
+        
+        Vector3 targetPos = new Vector3(GameObject.Find("itemImg").transform.position.x,GameObject.Find("itemImg").transform.position.y,1);
+        GameObject.Find("item").transform.position = targetPos;
+        GameObject.Find("itemImg").transform.position = GameObject.Find("item").transform.position;
+
+        //GameObject.Find("item").transform.position = GameObject.Find("itemImg").transform.position;
+        InventoryManager.Instance.addItemAvailable = false;
+
         isClicked = false;
     }
 

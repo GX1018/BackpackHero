@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class itemSize : MonoBehaviour
 {
-    public bool inInventory = false;
+    public bool isReady = false;
+    public bool CheckStart = false;
+
     // Start is called before the first frame update
     void Start()
     {
-        inInventory = false;
+        isReady = false;
+        CheckStart = false;
     }
 
     // Update is called once per frame
