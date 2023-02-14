@@ -19,10 +19,15 @@ public class Item : MonoBehaviour, IPointerDownHandler,
     // Update is called once per frame
     void Update()
     {
-
+        if(Input.GetMouseButtonDown(1))
+        {
+            objRect.rotation = Quaternion.Euler(0, 0, objRect.rotation.eulerAngles.z+90);
+        }
 
     }
 
+
+    //test
     public void OnPointerDown(PointerEventData eventData)
     {
         isClicked = true;
@@ -41,4 +46,7 @@ public class Item : MonoBehaviour, IPointerDownHandler,
 				Input.mousePosition.y, 1));
         }
     }
+    //test
+
+    
 }

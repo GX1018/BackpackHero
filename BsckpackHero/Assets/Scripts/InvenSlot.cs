@@ -14,9 +14,12 @@ public class InvenSlot : MonoBehaviour
     public bool isFilled = false;
     public bool readyToFill = false;
 
-
-
     //} 아이템을 인벤토리에 넣기위한 변수들
+
+    //test
+    private float Dist;
+    GameObject[] target;
+    //test
 
 
     // Start is called before the first frame update
@@ -27,6 +30,8 @@ public class InvenSlot : MonoBehaviour
         {
             isActive = true;
         }
+        target = GameObject.FindGameObjectsWithTag("ItemBlock");
+
     }
 
     // Update is called once per frame
@@ -53,6 +58,31 @@ public class InvenSlot : MonoBehaviour
             gameObject.GetComponent<Image>().enabled = false;
             //gameObject.GetComponent<BoxCollider2D>().enabled =false;
         }
+
+
+        //test 테스트  테스트  테스트  // 아이템 기본 칼
+        
+
+
+
+
+        /* if (GameObject.Find("item").GetComponent<Item>().isClicked ==true&& isActive == true&& target[0].GetComponent<itemSize>().inInventory == false)
+        {
+            
+            Dist =Vector2.Distance(transform.position, target[0].transform.position);
+            Debug.Log(this.name);
+            Debug.Log(Dist);
+
+            if(Dist < 1.8f)
+            {
+                target[0].transform.position = this.gameObject.transform.position;
+                target[0].GetComponent<itemSize>().inInventory = true;
+                //GameObject.Find("item").GetComponent<Item>().isClicked = false;
+            }
+        } */
+
+        //test
+
     }
 
     private void OnMouseDown() {
