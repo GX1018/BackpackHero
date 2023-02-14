@@ -42,12 +42,12 @@ public class InvenSlot : MonoBehaviour
             gameObject.GetComponent<Image>().enabled =true;
         }
         
-        else if(isTemporary ==true&&gameObject.transform.parent.gameObject.GetComponent<Inventory>().lvUpPoint>0)
+        else if(isTemporary ==true&&gameObject.transform.parent.gameObject.GetComponent<InventorySlots>().lvUpPoint>0)
         {
             gameObject.GetComponent<Image>().enabled = true;
             gameObject.GetComponent<Image>().color = new Color(1,1,1,0.5f);
         }
-        else if(gameObject.transform.parent.gameObject.GetComponent<Inventory>().lvUpPoint<=0)
+        else if(gameObject.transform.parent.gameObject.GetComponent<InventorySlots>().lvUpPoint<=0)
         {
             gameObject.GetComponent<Image>().enabled = false;
             isTemporary =false;
@@ -91,7 +91,7 @@ public class InvenSlot : MonoBehaviour
         {
             isActive = true;
             gameObject.GetComponent<Image>().color = new Color(1,1,1,1);
-            transform.parent.gameObject.GetComponent<Inventory>().lvUpPoint --;
+            transform.parent.gameObject.GetComponent<InventorySlots>().lvUpPoint --;
             isTemporary = false;
         }
     }

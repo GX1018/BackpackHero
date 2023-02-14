@@ -28,12 +28,12 @@ public class InventoryImg : MonoBehaviour
                 GameObject.Find("38").GetComponent<InvenSlot>().isActive == true )
             {
                 gameObject.GetComponent<RectTransform>().sizeDelta 
-                = new Vector2(gameObject.GetComponent<RectTransform>().sizeDelta.x + 165, gameObject.GetComponent<RectTransform>().sizeDelta.y);
+                = new Vector2(gameObject.GetComponent<RectTransform>().sizeDelta.x + 165*0.7f, gameObject.GetComponent<RectTransform>().sizeDelta.y);
                 
                 GameObject.Find("bagBg").GetComponent<RectTransform>().sizeDelta
-                = new Vector2(GameObject.Find("bagBg").GetComponent<RectTransform>().sizeDelta.x +100, GameObject.Find("bagBg").GetComponent<RectTransform>().sizeDelta.y);
+                = new Vector2(GameObject.Find("bagBg").GetComponent<RectTransform>().sizeDelta.x +100*0.7f, GameObject.Find("bagBg").GetComponent<RectTransform>().sizeDelta.y);
 
-                gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector3(gameObject.GetComponent<RectTransform>().anchoredPosition.x-50,gameObject.GetComponent<RectTransform>().anchoredPosition.y);
+                gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector3(gameObject.GetComponent<RectTransform>().anchoredPosition.x-50*0.7f,gameObject.GetComponent<RectTransform>().anchoredPosition.y);
                 expandLeft ++;
             }
         }
@@ -46,12 +46,12 @@ public class InventoryImg : MonoBehaviour
                 GameObject.Find("37").GetComponent<InvenSlot>().isActive == true )
             {
                 gameObject.GetComponent<RectTransform>().sizeDelta 
-                = new Vector2(gameObject.GetComponent<RectTransform>().sizeDelta.x + 165, gameObject.GetComponent<RectTransform>().sizeDelta.y);
+                = new Vector2(gameObject.GetComponent<RectTransform>().sizeDelta.x + 165*0.7f, gameObject.GetComponent<RectTransform>().sizeDelta.y);
                 
                 GameObject.Find("bagBg").GetComponent<RectTransform>().sizeDelta
-                = new Vector2(GameObject.Find("bagBg").GetComponent<RectTransform>().sizeDelta.x +100, GameObject.Find("bagBg").GetComponent<RectTransform>().sizeDelta.y);
+                = new Vector2(GameObject.Find("bagBg").GetComponent<RectTransform>().sizeDelta.x +100*0.7f, GameObject.Find("bagBg").GetComponent<RectTransform>().sizeDelta.y);
 
-                gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector3(gameObject.GetComponent<RectTransform>().anchoredPosition.x-50,gameObject.GetComponent<RectTransform>().anchoredPosition.y);
+                gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector3(gameObject.GetComponent<RectTransform>().anchoredPosition.x-50*0.7f,gameObject.GetComponent<RectTransform>().anchoredPosition.y);
                 expandLeft ++;
             }
         }
@@ -64,12 +64,12 @@ public class InventoryImg : MonoBehaviour
                 GameObject.Find("36").GetComponent<InvenSlot>().isActive == true )
             {
                 gameObject.GetComponent<RectTransform>().sizeDelta 
-                = new Vector2(gameObject.GetComponent<RectTransform>().sizeDelta.x + 165, gameObject.GetComponent<RectTransform>().sizeDelta.y);
+                = new Vector2(gameObject.GetComponent<RectTransform>().sizeDelta.x + 165*0.7f, gameObject.GetComponent<RectTransform>().sizeDelta.y);
                 
                 GameObject.Find("bagBg").GetComponent<RectTransform>().sizeDelta
-                = new Vector2(GameObject.Find("bagBg").GetComponent<RectTransform>().sizeDelta.x +100, GameObject.Find("bagBg").GetComponent<RectTransform>().sizeDelta.y);
+                = new Vector2(GameObject.Find("bagBg").GetComponent<RectTransform>().sizeDelta.x +100*0.7f, GameObject.Find("bagBg").GetComponent<RectTransform>().sizeDelta.y);
 
-                gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector3(gameObject.GetComponent<RectTransform>().anchoredPosition.x-50,gameObject.GetComponent<RectTransform>().anchoredPosition.y);
+                gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector3(gameObject.GetComponent<RectTransform>().anchoredPosition.x-50*0.7f,gameObject.GetComponent<RectTransform>().anchoredPosition.y);
                 expandLeft ++;
             }
         }
@@ -85,12 +85,12 @@ public class InventoryImg : MonoBehaviour
                 GameObject.Find("42").GetComponent<InvenSlot>().isActive == true )
             {
                 gameObject.GetComponent<RectTransform>().sizeDelta 
-                = new Vector2(gameObject.GetComponent<RectTransform>().sizeDelta.x + 165, gameObject.GetComponent<RectTransform>().sizeDelta.y);
+                = new Vector2(gameObject.GetComponent<RectTransform>().sizeDelta.x + 165*0.7f, gameObject.GetComponent<RectTransform>().sizeDelta.y);
                 
                 GameObject.Find("bagBg").GetComponent<RectTransform>().sizeDelta
-                = new Vector2(GameObject.Find("bagBg").GetComponent<RectTransform>().sizeDelta.x +100, GameObject.Find("bagBg").GetComponent<RectTransform>().sizeDelta.y);
+                = new Vector2(GameObject.Find("bagBg").GetComponent<RectTransform>().sizeDelta.x +100*0.7f, GameObject.Find("bagBg").GetComponent<RectTransform>().sizeDelta.y);
 
-                gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector3(gameObject.GetComponent<RectTransform>().anchoredPosition.x+50,gameObject.GetComponent<RectTransform>().anchoredPosition.y);
+                gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector3(gameObject.GetComponent<RectTransform>().anchoredPosition.x+50*0.7f,gameObject.GetComponent<RectTransform>().anchoredPosition.y);
                 expandRight ++;
             }
         }
@@ -103,12 +103,12 @@ public class InventoryImg : MonoBehaviour
                 GameObject.Find("43").GetComponent<InvenSlot>().isActive == true )
             {
                 gameObject.GetComponent<RectTransform>().sizeDelta 
-                = new Vector2(gameObject.GetComponent<RectTransform>().sizeDelta.x + 165, gameObject.GetComponent<RectTransform>().sizeDelta.y);
+                = new Vector2(gameObject.GetComponent<RectTransform>().sizeDelta.x + 165*0.7f, gameObject.GetComponent<RectTransform>().sizeDelta.y);
                 
                 GameObject.Find("bagBg").GetComponent<RectTransform>().sizeDelta
-                = new Vector2(GameObject.Find("bagBg").GetComponent<RectTransform>().sizeDelta.x +100, GameObject.Find("bagBg").GetComponent<RectTransform>().sizeDelta.y);
+                = new Vector2(GameObject.Find("bagBg").GetComponent<RectTransform>().sizeDelta.x +100*0.7f, GameObject.Find("bagBg").GetComponent<RectTransform>().sizeDelta.y);
 
-                gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector3(gameObject.GetComponent<RectTransform>().anchoredPosition.x+50,gameObject.GetComponent<RectTransform>().anchoredPosition.y);
+                gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector3(gameObject.GetComponent<RectTransform>().anchoredPosition.x+50*0.7f,gameObject.GetComponent<RectTransform>().anchoredPosition.y);
                 expandRight ++;
             }
         }
@@ -121,12 +121,12 @@ public class InventoryImg : MonoBehaviour
                 GameObject.Find("44").GetComponent<InvenSlot>().isActive == true )
             {
                 gameObject.GetComponent<RectTransform>().sizeDelta 
-                = new Vector2(gameObject.GetComponent<RectTransform>().sizeDelta.x + 165, gameObject.GetComponent<RectTransform>().sizeDelta.y);
+                = new Vector2(gameObject.GetComponent<RectTransform>().sizeDelta.x + 165*0.7f, gameObject.GetComponent<RectTransform>().sizeDelta.y);
                 
                 GameObject.Find("bagBg").GetComponent<RectTransform>().sizeDelta
-                = new Vector2(GameObject.Find("bagBg").GetComponent<RectTransform>().sizeDelta.x +100, GameObject.Find("bagBg").GetComponent<RectTransform>().sizeDelta.y);
+                = new Vector2(GameObject.Find("bagBg").GetComponent<RectTransform>().sizeDelta.x +100*0.7f, GameObject.Find("bagBg").GetComponent<RectTransform>().sizeDelta.y);
 
-                gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector3(gameObject.GetComponent<RectTransform>().anchoredPosition.x+50,gameObject.GetComponent<RectTransform>().anchoredPosition.y);
+                gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector3(gameObject.GetComponent<RectTransform>().anchoredPosition.x+50*0.7f,gameObject.GetComponent<RectTransform>().anchoredPosition.y);
                 expandRight ++;
             }
         }
@@ -146,12 +146,12 @@ public class InventoryImg : MonoBehaviour
                 GameObject.Find("8").GetComponent<InvenSlot>().isActive == true )
             {
                 gameObject.GetComponent<RectTransform>().sizeDelta 
-                = new Vector2(gameObject.GetComponent<RectTransform>().sizeDelta.x, gameObject.GetComponent<RectTransform>().sizeDelta.y + 165);
+                = new Vector2(gameObject.GetComponent<RectTransform>().sizeDelta.x, gameObject.GetComponent<RectTransform>().sizeDelta.y + 165*0.5f);
                 
                 GameObject.Find("bagBg").GetComponent<RectTransform>().sizeDelta
-                = new Vector2(GameObject.Find("bagBg").GetComponent<RectTransform>().sizeDelta.x, GameObject.Find("bagBg").GetComponent<RectTransform>().sizeDelta.y +120);
+                = new Vector2(GameObject.Find("bagBg").GetComponent<RectTransform>().sizeDelta.x, GameObject.Find("bagBg").GetComponent<RectTransform>().sizeDelta.y +120*0.5f);
 
-                gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector3(gameObject.GetComponent<RectTransform>().anchoredPosition.x,gameObject.GetComponent<RectTransform>().anchoredPosition.y+50);
+                gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector3(gameObject.GetComponent<RectTransform>().anchoredPosition.x,gameObject.GetComponent<RectTransform>().anchoredPosition.y+50*0.5f);
                 expandUp ++;
             }
         }
@@ -171,12 +171,12 @@ public class InventoryImg : MonoBehaviour
                 GameObject.Find("44").GetComponent<InvenSlot>().isActive == true )
             {
                 gameObject.GetComponent<RectTransform>().sizeDelta 
-                = new Vector2(gameObject.GetComponent<RectTransform>().sizeDelta.x, gameObject.GetComponent<RectTransform>().sizeDelta.y + 165);
+                = new Vector2(gameObject.GetComponent<RectTransform>().sizeDelta.x, gameObject.GetComponent<RectTransform>().sizeDelta.y + 165*0.5f);
                 
                 GameObject.Find("bagBg").GetComponent<RectTransform>().sizeDelta
-                = new Vector2(GameObject.Find("bagBg").GetComponent<RectTransform>().sizeDelta.x, GameObject.Find("bagBg").GetComponent<RectTransform>().sizeDelta.y +130);
+                = new Vector2(GameObject.Find("bagBg").GetComponent<RectTransform>().sizeDelta.x, GameObject.Find("bagBg").GetComponent<RectTransform>().sizeDelta.y +130*0.5f);
                 
-                gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector3(gameObject.GetComponent<RectTransform>().anchoredPosition.x,gameObject.GetComponent<RectTransform>().anchoredPosition.y-50);
+                gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector3(gameObject.GetComponent<RectTransform>().anchoredPosition.x,gameObject.GetComponent<RectTransform>().anchoredPosition.y-50*0.5f);
                 expandDown ++;
             }
         }
