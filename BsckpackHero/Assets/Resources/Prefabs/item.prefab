@@ -331,9 +331,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isClicked: 0
-  sizeX: 1
+  sizeX: 2
   sizeY: 3
   _Rotation: 0
+  size2D: 6
+  isReadyCount: 0
 --- !u!61 &2773040533584463017
 BoxCollider2D:
   m_ObjectHideFlags: 0

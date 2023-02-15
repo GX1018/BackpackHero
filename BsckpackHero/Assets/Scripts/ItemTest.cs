@@ -9,9 +9,14 @@ public class ItemTest : MonoBehaviour, IPointerDownHandler,
 {
     public bool isClicked = false;
 
-    public int sizeX = 1;
+    public int sizeX = 2;//변경 1->2 테스트후 다시 1로 변경요망
     public int sizeY = 3;
     public int _Rotation = 0;
+
+    public int size2D;
+
+    public int isReadyCount = 0;
+
 
     private RectTransform objRect = default;
     // Start is called before the first frame update
@@ -19,6 +24,9 @@ public class ItemTest : MonoBehaviour, IPointerDownHandler,
     {
         isClicked = false;
         objRect = gameObject.GetComponent<RectTransform>();
+        size2D = 6;
+        //size2D = GameObject.Find("TestCreateItem").GetComponent<TestCreateItem>().size2D;
+        isReadyCount = 0;
     }
 
     // Update is called once per frame
@@ -29,7 +37,6 @@ public class ItemTest : MonoBehaviour, IPointerDownHandler,
             objRect.rotation = Quaternion.Euler(0, 0, objRect.rotation.eulerAngles.z+90);
             _Rotation++;
         }
-
     }
 
 

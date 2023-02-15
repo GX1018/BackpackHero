@@ -9,6 +9,8 @@ TagManager:
   - Core
   - SelectedCore
   - SelectedItem
+  - ItemImgMain
+  - ItemImgSub
   layers:
   - Default
   - TransparentFX
