@@ -28,6 +28,8 @@ public class InvenSlot : MonoBehaviour
     public InvenSlot slot7;    // 우측 한칸 아래
     // }
 
+    public InvenSlot[] slot;
+
 
 
 
@@ -49,14 +51,53 @@ public class InvenSlot : MonoBehaviour
             isActive = true;
         }
 
-        slot0 = GameObject.Find($"{(int.Parse(this.name) - 12)}").GetComponent<InvenSlot>();
-        slot1 = GameObject.Find($"{(int.Parse(this.name) - 11)}").GetComponent<InvenSlot>();
-        slot2 = GameObject.Find($"{(int.Parse(this.name) - 10)}").GetComponent<InvenSlot>();
-        slot3 = GameObject.Find($"{(int.Parse(this.name) - 1)}").GetComponent<InvenSlot>();
-        slot4 = GameObject.Find($"{(int.Parse(this.name) + 1)}").GetComponent<InvenSlot>();
-        slot5 = GameObject.Find($"{(int.Parse(this.name) + 10)}").GetComponent<InvenSlot>();
-        slot6 = GameObject.Find($"{(int.Parse(this.name) + 11)}").GetComponent<InvenSlot>();
-        slot7 = GameObject.Find($"{(int.Parse(this.name) + 12)}").GetComponent<InvenSlot>();
+        //배열에 넣었을때
+        /* slot = new InvenSlot[9];
+
+        if(GameObject.Find($"{(int.Parse(this.name) - 12)}").GetComponent<InvenSlot>() == null)
+        {
+            slot[0] = null;
+        }
+        else
+        {
+            slot[0] = GameObject.Find($"{(int.Parse(this.name) - 12)}").GetComponent<InvenSlot>();
+        }
+        if(GameObject.Find($"{(int.Parse(this.name) - 11)}").GetComponent<InvenSlot>() == null)
+        {
+            slot[1] = null;
+        }
+        else
+        {
+            slot[1] = GameObject.Find($"{(int.Parse(this.name) - 11)}").GetComponent<InvenSlot>();
+        }
+        slot[0] = GameObject.Find($"{(int.Parse(this.name) - 12)}").GetComponent<InvenSlot>();
+        slot[1] = GameObject.Find($"{(int.Parse(this.name) - 11)}").GetComponent<InvenSlot>();
+        slot[2] = GameObject.Find($"{(int.Parse(this.name) - 10)}").GetComponent<InvenSlot>();
+        slot[3] = GameObject.Find($"{(int.Parse(this.name) - 1)}").GetComponent<InvenSlot>();
+        slot[4] = this;
+        slot[5] = GameObject.Find($"{(int.Parse(this.name) + 1)}").GetComponent<InvenSlot>();
+        slot[6] = GameObject.Find($"{(int.Parse(this.name) + 10)}").GetComponent<InvenSlot>();
+        slot[7] = GameObject.Find($"{(int.Parse(this.name) + 11)}").GetComponent<InvenSlot>();
+        slot[8] = GameObject.Find($"{(int.Parse(this.name) + 12)}").GetComponent<InvenSlot>(); */
+        //배열에 넣었을때 // 차후 사용
+
+        //현재 임시 사용
+
+        if (int.Parse(this.name) - 12 >= 0 && int.Parse(this.name) - 11 >= 0 && int.Parse(this.name) - 10 >= 0 &&
+         int.Parse(this.name) - 1 >= 0 && int.Parse(this.name) + 1 <= 76 && int.Parse(this.name) + 10 <= 76 &&
+          int.Parse(this.name) + 11 <= 76 && int.Parse(this.name) + 12 <= 76)
+        {
+
+            slot0 = GameObject.Find($"{(int.Parse(this.name) - 12)}").GetComponent<InvenSlot>();
+            slot1 = GameObject.Find($"{(int.Parse(this.name) - 11)}").GetComponent<InvenSlot>();
+            slot2 = GameObject.Find($"{(int.Parse(this.name) - 10)}").GetComponent<InvenSlot>();
+            slot3 = GameObject.Find($"{(int.Parse(this.name) - 1)}").GetComponent<InvenSlot>();
+            slot4 = GameObject.Find($"{(int.Parse(this.name) + 1)}").GetComponent<InvenSlot>();
+            slot5 = GameObject.Find($"{(int.Parse(this.name) + 10)}").GetComponent<InvenSlot>();
+            slot6 = GameObject.Find($"{(int.Parse(this.name) + 11)}").GetComponent<InvenSlot>();
+            slot7 = GameObject.Find($"{(int.Parse(this.name) + 12)}").GetComponent<InvenSlot>();
+        }
+        //현재 임시 사용
     }
 
     // Update is called once per frame
@@ -70,6 +111,7 @@ public class InvenSlot : MonoBehaviour
         else if (isTemporary == true && InventoryManager.Instance.lvUpPoint > 0)
         {
             gameObject.GetComponent<Image>().enabled = true;
+            gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/Inventory/blankBorder");
             gameObject.GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
         }
         else if (InventoryManager.Instance.lvUpPoint <= 0)
@@ -261,6 +303,7 @@ public class InvenSlot : MonoBehaviour
         if (isTemporary == true)
         {
             isActive = true;
+            gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/Inventory/backpackBox");
             gameObject.GetComponent<Image>().color = new Color(1, 1, 1, 1);
             InventoryManager.Instance.lvUpPoint--;
             isTemporary = false;
@@ -282,166 +325,171 @@ public class InvenSlot : MonoBehaviour
         //Debug.Log(GameObject.FindWithTag("SelectedItem").GetComponent<ItemTest>());
 
         //GameObject.FindWithTag("SelectedItem").GetComponent<ItemTest>()를 item_Drag 로 변경
-        item_Drag = GameObject.FindWithTag("SelectedItem").GetComponent<ItemTest>();
-        selectedItem = GameObject.FindWithTag("SelectedItem");
-
-        //{ 활성화된 인벤토리 이외의 위치에 있을때 itemcheckImg 위치 초기화
-        if (item_Drag.isClicked == true && isActive == false)
+        if (!(item_Drag == null) && !(selectedItem == null))
         {
-            Dist = Vector2.Distance(transform.position, target.transform.position);
-            
-            if (Dist < 0.5f)
-            {
-                InventoryManager.Instance.addItemAvailable = false;
-                GameObject.FindWithTag("ItemImgSub").transform.position = GameObject.FindWithTag("ItemImgMain").transform.position;
-                GameObject.FindWithTag("ItemImgSub").GetComponent<Image>().color = new Color32(255, 255, 255, 100);
-            }
-        }
-        //} 활성화된 인벤토리 이외의 위치에 있을때 itemcheckImg 위치 초기화
 
-        //{ 아이템 드래그 중이고, 활성화된 인벤토리 안의 위치에 있들때
-        if (item_Drag.isClicked == true && isActive == true)
-        {
-            Dist = Vector2.Distance(transform.position, target.transform.position);
-            
+            item_Drag = GameObject.FindWithTag("SelectedItem").GetComponent<ItemTest>();
+            selectedItem = GameObject.FindWithTag("SelectedItem");
 
-            //아이템 슬롯과 일정거리 이내에 접근하면 CheckStart변수를 true로 변경
-            if (Dist < 0.5f)
+            //{ 활성화된 인벤토리 이외의 위치에 있을때 itemcheckImg 위치 초기화
+            if (item_Drag.isClicked == true && isActive == false)
             {
-                target.GetComponent<itemSize>().CheckStart = true;
-                
-            }
-            else if (Dist > 0.5f)
-            {
-                target.GetComponent<itemSize>().CheckStart = false;
-            }
-        }
-        //} 아이템 드래그 중이고, 활성화된 인벤토리 안의 위치에 있들때
+                Dist = Vector2.Distance(transform.position, target.transform.position);
 
-
-        //{ 드래그 중인 아이템의 회전 상태가 짝수일때
-        if (item_Drag._Rotation % 2 == 0)
-        {
-            if (item_Drag.isClicked == true && target.GetComponent<itemSize>().CheckStart == true)
-            {
-                //Debug.Log("1");
-                //아이템사이즈 1(1x1),2(1x2),3(1x3),4(2x2),6(2x3)
-                int isReadyCount = 0;
-                int isActiveCount = 0;
-                switch (item_Drag.size2D)
+                if (Dist < 0.5f)
                 {
-                    case 1:
-                        if (isFilled == false && isActive == true)
-                        {
-                            selectedItem.transform.GetChild(0).GetComponent<itemSize>().isReady = true;
-                        }
-                        break;
-                    case 2:
-                        if (isFilled == false && isActive == true)
-                        {
-                            selectedItem.transform.GetChild(0).GetComponent<itemSize>().isReady = true;
-                        }
-                        if (slot6.isFilled == false && slot6.isActive == true)
-                        {
-                            selectedItem.transform.GetChild(1).GetComponent<itemSize>().isReady = true;
-                        }
-                        break;
-
-                    case 3:
-                        if (slot2.isFilled == false && slot2.isActive ==true)
-                        {
-                            selectedItem.transform.GetChild(0).GetComponent<itemSize>().isReady = true;
-                        }
-                        if (isFilled == false && isActive == true)
-                        {
-                            selectedItem.transform.GetChild(1).GetComponent<itemSize>().isReady = true;
-                        }
-                        if (slot6.isFilled == false && slot6.isActive == true)
-                        {
-                            selectedItem.transform.GetChild(2).GetComponent<itemSize>().isReady = true;
-                        }
-                        break;
-                    case 4:
-                        if (isFilled == false && isActive == true)
-                        {
-                            selectedItem.transform.GetChild(0).GetComponent<itemSize>().isReady = true;
-                        }
-                        if (slot4.isFilled == false && slot4.isActive == true)
-                        {
-                            selectedItem.transform.GetChild(1).GetComponent<itemSize>().isReady = true;
-                        }
-                        if (slot6.isFilled == false && slot6.isActive == true)
-                        {
-                            selectedItem.transform.GetChild(2).GetComponent<itemSize>().isReady = true;
-                        }
-                        if (slot7.isFilled == false && slot7.isActive == true)
-                        {
-                            selectedItem.transform.GetChild(2).GetComponent<itemSize>().isReady = true;
-                        }
-
-                        break;
-                    case 6:
-                        Debug.Log(slot1);
-                        if (slot1.isFilled == false && slot1.isActive == true)
-                        {
-                            selectedItem.transform.GetChild(0).GetComponent<itemSize>().isReady = true;
-                        }
-                        if (slot2.isFilled == false && slot2.isActive == true)
-                        {
-                            selectedItem.transform.GetChild(1).GetComponent<itemSize>().isReady = true;
-                        }
-                        if (isFilled == false && isActive == true)
-                        {
-                            selectedItem.transform.GetChild(2).GetComponent<itemSize>().isReady = true;
-                        }
-                        if (slot4.isFilled == false && slot4.isActive == true)
-                        {
-                            selectedItem.transform.GetChild(3).GetComponent<itemSize>().isReady = true;
-                        }
-                        if (slot6.isFilled == false && slot6.isActive == true)
-                        {
-                            selectedItem.transform.GetChild(4).GetComponent<itemSize>().isReady = true;
-                        }
-                        if (slot7.isFilled == false && slot7.isActive == true)
-                        {
-                            selectedItem.transform.GetChild(5).GetComponent<itemSize>().isReady = true;
-                        }
-                        //포문으로 안됨?
-
-                        //아이템 슬롯의 isReady 상태 체크
-                        for (int i = 0; i < selectedItem.transform.childCount - 2; i++)
-                        {
-                            if (selectedItem.transform.GetChild(i).GetComponent<itemSize>().isReady == true)
-                            {
-                                isReadyCount++;
-                            }
-                        }
-                        Debug.Log(isReadyCount);
-
-                        //모든 아이템 슬롯의 isReady가 true일때
-                        if (isReadyCount == selectedItem.transform.childCount - 2)
-                        {
-                            if (slot1.isActive == true && slot2.isActive == true && isActive == true && slot4.isActive == true
-                            && slot6.isActive == true && slot7.isActive == true)
-                            {
-                                InventoryManager.Instance.addItemAvailable = true;
-                                selectedItem.transform.GetChild(7).transform.position = transform.position; //this.gameObject.transform.position; legacy(transform.position)
-                                selectedItem.transform.GetChild(7).GetComponent<Image>().color = new Color32(255, 255, 255, 100);
-                                target.GetComponent<itemSize>().CheckStart = false;
-                            }
-                            else if (slot1.isActive == false || slot2.isActive == false || isActive == false || slot4.isActive == false ||
-                            slot6.isActive == false || slot7.isActive == false)
-                            {
-                                InventoryManager.Instance.addItemAvailable = false;
-                                selectedItem.transform.GetChild(7).transform.position = transform.position;
-                                selectedItem.transform.GetChild(7).GetComponent<Image>().color = new Color32(255, 0, 0, 100);
-                                target.GetComponent<itemSize>().CheckStart = false;
-                            }
-
-                        }
-                        break;
+                    InventoryManager.Instance.addItemAvailable = false;
+                    GameObject.FindWithTag("ItemImgSub").transform.position = GameObject.FindWithTag("ItemImgMain").transform.position;
+                    GameObject.FindWithTag("ItemImgSub").GetComponent<Image>().color = new Color32(255, 255, 255, 100);
                 }
-                //} 드래그 중인 아이템의 회전 상태가 짝수일때
+            }
+            //} 활성화된 인벤토리 이외의 위치에 있을때 itemcheckImg 위치 초기화
+
+            //{ 아이템 드래그 중이고, 활성화된 인벤토리 안의 위치에 있들때
+            if (item_Drag.isClicked == true && isActive == true)
+            {
+                Dist = Vector2.Distance(transform.position, target.transform.position);
+
+
+                //아이템 슬롯과 일정거리 이내에 접근하면 CheckStart변수를 true로 변경
+                if (Dist < 0.5f)
+                {
+                    target.GetComponent<itemSize>().CheckStart = true;
+
+                }
+                else if (Dist > 0.5f)
+                {
+                    target.GetComponent<itemSize>().CheckStart = false;
+                }
+            }
+            //} 아이템 드래그 중이고, 활성화된 인벤토리 안의 위치에 있들때
+
+
+            //{ 드래그 중인 아이템의 회전 상태가 짝수일때
+            if (item_Drag._Rotation % 2 == 0)
+            {
+                if (item_Drag.isClicked == true && target.GetComponent<itemSize>().CheckStart == true)
+                {
+                    //Debug.Log("1");
+                    //아이템사이즈 1(1x1),2(1x2),3(1x3),4(2x2),6(2x3)
+                    int isReadyCount = 0;
+                    int isActiveCount = 0;
+                    switch (item_Drag.size2D)
+                    {
+                        case 1:
+                            if (isFilled == false && isActive == true)
+                            {
+                                selectedItem.transform.GetChild(0).GetComponent<itemSize>().isReady = true;
+                            }
+                            break;
+                        case 2:
+                            if (isFilled == false && isActive == true)
+                            {
+                                selectedItem.transform.GetChild(0).GetComponent<itemSize>().isReady = true;
+                            }
+                            if (slot6.isFilled == false && slot6.isActive == true)
+                            {
+                                selectedItem.transform.GetChild(1).GetComponent<itemSize>().isReady = true;
+                            }
+                            break;
+
+                        case 3:
+                            if (slot2.isFilled == false && slot2.isActive == true)
+                            {
+                                selectedItem.transform.GetChild(0).GetComponent<itemSize>().isReady = true;
+                            }
+                            if (isFilled == false && isActive == true)
+                            {
+                                selectedItem.transform.GetChild(1).GetComponent<itemSize>().isReady = true;
+                            }
+                            if (slot6.isFilled == false && slot6.isActive == true)
+                            {
+                                selectedItem.transform.GetChild(2).GetComponent<itemSize>().isReady = true;
+                            }
+                            break;
+                        case 4:
+                            if (isFilled == false && isActive == true)
+                            {
+                                selectedItem.transform.GetChild(0).GetComponent<itemSize>().isReady = true;
+                            }
+                            if (slot4.isFilled == false && slot4.isActive == true)
+                            {
+                                selectedItem.transform.GetChild(1).GetComponent<itemSize>().isReady = true;
+                            }
+                            if (slot6.isFilled == false && slot6.isActive == true)
+                            {
+                                selectedItem.transform.GetChild(2).GetComponent<itemSize>().isReady = true;
+                            }
+                            if (slot7.isFilled == false && slot7.isActive == true)
+                            {
+                                selectedItem.transform.GetChild(2).GetComponent<itemSize>().isReady = true;
+                            }
+
+                            break;
+                        case 6:
+                            Debug.Log(slot1);
+                            if (slot1.isFilled == false && slot1.isActive == true)
+                            {
+                                selectedItem.transform.GetChild(0).GetComponent<itemSize>().isReady = true;
+                            }
+                            if (slot2.isFilled == false && slot2.isActive == true)
+                            {
+                                selectedItem.transform.GetChild(1).GetComponent<itemSize>().isReady = true;
+                            }
+                            if (isFilled == false && isActive == true)
+                            {
+                                selectedItem.transform.GetChild(2).GetComponent<itemSize>().isReady = true;
+                            }
+                            if (slot4.isFilled == false && slot4.isActive == true)
+                            {
+                                selectedItem.transform.GetChild(3).GetComponent<itemSize>().isReady = true;
+                            }
+                            if (slot6.isFilled == false && slot6.isActive == true)
+                            {
+                                selectedItem.transform.GetChild(4).GetComponent<itemSize>().isReady = true;
+                            }
+                            if (slot7.isFilled == false && slot7.isActive == true)
+                            {
+                                selectedItem.transform.GetChild(5).GetComponent<itemSize>().isReady = true;
+                            }
+                            //포문으로 안됨?
+
+                            //아이템 슬롯의 isReady 상태 체크
+                            for (int i = 0; i < selectedItem.transform.childCount - 2; i++)
+                            {
+                                if (selectedItem.transform.GetChild(i).GetComponent<itemSize>().isReady == true)
+                                {
+                                    isReadyCount++;
+                                }
+                            }
+                            Debug.Log(isReadyCount);
+
+                            //모든 아이템 슬롯의 isReady가 true일때
+                            if (isReadyCount == selectedItem.transform.childCount - 2)
+                            {
+                                if (slot1.isActive == true && slot2.isActive == true && isActive == true && slot4.isActive == true
+                                && slot6.isActive == true && slot7.isActive == true)
+                                {
+                                    InventoryManager.Instance.addItemAvailable = true;
+                                    selectedItem.transform.GetChild(7).transform.position = transform.position; //this.gameObject.transform.position; legacy(transform.position)
+                                    selectedItem.transform.GetChild(7).GetComponent<Image>().color = new Color32(255, 255, 255, 100);
+                                    target.GetComponent<itemSize>().CheckStart = false;
+                                }
+                                else if (slot1.isActive == false || slot2.isActive == false || isActive == false || slot4.isActive == false ||
+                                slot6.isActive == false || slot7.isActive == false)
+                                {
+                                    InventoryManager.Instance.addItemAvailable = false;
+                                    selectedItem.transform.GetChild(7).transform.position = transform.position;
+                                    selectedItem.transform.GetChild(7).GetComponent<Image>().color = new Color32(255, 0, 0, 100);
+                                    target.GetComponent<itemSize>().CheckStart = false;
+                                }
+
+                            }
+                            break;
+                    }
+                    //} 드래그 중인 아이템의 회전 상태가 짝수일때
+
+                }
 
             }
         }

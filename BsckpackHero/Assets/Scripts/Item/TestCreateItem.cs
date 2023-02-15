@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class TestCreateItem : MonoBehaviour
 {
     GameObject item;
-    
+
     GameObject itemPrefab;
 
     List<int> itemSize;
@@ -14,7 +14,7 @@ public class TestCreateItem : MonoBehaviour
     int sizeY;
 
     public int size2D;
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,33 +23,12 @@ public class TestCreateItem : MonoBehaviour
 
         sizeX = item.GetComponent<ItemTest>().sizeX;
         sizeY = item.GetComponent<ItemTest>().sizeY;
-
-        if(sizeX ==1&& sizeY ==1)
-        {
-            size2D = 1;
-        }
-        if(sizeX ==1&& sizeY ==2)
-        {
-            size2D = 2;
-        }
-        if(sizeX ==1&& sizeY ==3)
-        {
-            size2D = 3;
-        }
-        if(sizeX ==2&& sizeY ==2)
-        {
-            size2D = 4;
-        }
-        if(sizeX ==2&& sizeY ==3)
-        {
-            size2D = 6;
-        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void CreateItem()
@@ -61,15 +40,12 @@ public class TestCreateItem : MonoBehaviour
         GameObject clone = Instantiate(itemPrefab, GameObject.Find("GameObjs").transform);//transform 조정
         clone.name = item.GetComponent<ItemTest>().name;
 
-
-
-
         clone.AddComponent<ItemTest>(); // 스크립트 삽입// 나중에 개별 스크립트 설정후 변경?
 
-        
-        switch(sizeX)
+
+        switch (sizeX)
         {
-            case 1 :
+            case 1:
                 clone.transform.GetChild(0).gameObject.SetActive(false);
                 clone.transform.GetChild(2).gameObject.SetActive(false);
                 clone.transform.GetChild(3).gameObject.SetActive(false);
@@ -79,18 +55,18 @@ public class TestCreateItem : MonoBehaviour
 
                 break;
 
-            case 2 :
+            case 2:
                 clone.transform.GetChild(0).gameObject.SetActive(false);
                 clone.transform.GetChild(3).gameObject.SetActive(false);
                 clone.transform.GetChild(6).gameObject.SetActive(false);
                 break;
-            case 3 :
-            break;
+            case 3:
+                break;
         }
-        
-        switch(sizeY)
+
+        switch (sizeY)
         {
-            case 1 :
+            case 1:
                 clone.transform.GetChild(0).gameObject.SetActive(false);
                 clone.transform.GetChild(1).gameObject.SetActive(false);
                 clone.transform.GetChild(2).gameObject.SetActive(false);
@@ -99,46 +75,49 @@ public class TestCreateItem : MonoBehaviour
                 clone.transform.GetChild(8).gameObject.SetActive(false);
                 break;
 
-            case 2 :
+            case 2:
                 clone.transform.GetChild(0).gameObject.SetActive(false);
                 clone.transform.GetChild(1).gameObject.SetActive(false);
                 clone.transform.GetChild(2).gameObject.SetActive(false);
                 break;
 
-            case 3 :
-            break;
+            case 3:
+                break;
         }
 
-        for(int i =0; i <clone.transform.childCount; i++)
+        for (int i = 0; i < clone.transform.childCount; i++)
         {
-            if(clone.transform.GetChild(i).gameObject.activeSelf==false)
-            Destroy(clone.transform.GetChild(i).gameObject);
+            if (clone.transform.GetChild(i).gameObject.activeSelf == false)
+            {
+                Destroy(clone.transform.GetChild(i).gameObject);
+            }
         }
-
 
         //메인 이미지
-        clone.transform.GetChild(9).GetComponent<Image>().sprite = item.GetComponent<Image>().sprite;
-        clone.transform.GetChild(9).GetComponent<RectTransform>().sizeDelta = new Vector2(70*sizeX, 70*sizeY);
-        //인벤 체크용 이미지
         clone.transform.GetChild(10).GetComponent<Image>().sprite = item.GetComponent<Image>().sprite;
-        clone.transform.GetChild(10).GetComponent<RectTransform>().sizeDelta = new Vector2(70*sizeX, 70*sizeY);
+        clone.transform.GetChild(10).GetComponent<RectTransform>().sizeDelta = new Vector2(70 * sizeX, 70 * sizeY);
+        //인벤 체크용 이미지
+        clone.transform.GetChild(9).GetComponent<Image>().sprite = item.GetComponent<Image>().sprite;
+        clone.transform.GetChild(9).GetComponent<RectTransform>().sizeDelta = new Vector2(70 * sizeX, 70 * sizeY);
 
-        if(sizeX ==2)
+
+
+        if (sizeX == 2)
         {
-            clone.transform.GetChild(9).GetComponent<RectTransform>().anchoredPosition = new Vector2(clone.transform.GetChild(9).GetComponent<RectTransform>().anchoredPosition.x+35,
+            clone.transform.GetChild(9).GetComponent<RectTransform>().anchoredPosition = new Vector2(clone.transform.GetChild(9).GetComponent<RectTransform>().anchoredPosition.x + 35,
             clone.transform.GetChild(9).GetComponent<RectTransform>().anchoredPosition.y);
-            clone.transform.GetChild(10).GetComponent<RectTransform>().anchoredPosition = new Vector2(clone.transform.GetChild(10).GetComponent<RectTransform>().anchoredPosition.x+35,
+            clone.transform.GetChild(10).GetComponent<RectTransform>().anchoredPosition = new Vector2(clone.transform.GetChild(10).GetComponent<RectTransform>().anchoredPosition.x + 35,
             clone.transform.GetChild(10).GetComponent<RectTransform>().anchoredPosition.y);
         }
-        if(sizeY == 2)
+        if (sizeY == 2)
         {
             clone.transform.GetChild(9).GetComponent<RectTransform>().anchoredPosition = new Vector2(clone.transform.GetChild(9).GetComponent<RectTransform>().anchoredPosition.x,
-            clone.transform.GetChild(9).GetComponent<RectTransform>().anchoredPosition.y+35);
+            clone.transform.GetChild(9).GetComponent<RectTransform>().anchoredPosition.y + 35);
             clone.transform.GetChild(10).GetComponent<RectTransform>().anchoredPosition = new Vector2(clone.transform.GetChild(10).GetComponent<RectTransform>().anchoredPosition.x,
-            clone.transform.GetChild(10).GetComponent<RectTransform>().anchoredPosition.y+35);
+            clone.transform.GetChild(10).GetComponent<RectTransform>().anchoredPosition.y + 35);
         }
 
-        
+
 
 
     }
