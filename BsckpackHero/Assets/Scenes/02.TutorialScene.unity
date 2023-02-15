@@ -2929,8 +2929,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b898720719594b946a8d583c9070d9f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isLvup: 0
-  lvUpPoint: 0
   slotPrefab: {fileID: 0}
 --- !u!114 &891091231
 MonoBehaviour:
@@ -3286,10 +3284,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49f1e840d9458fe44baa4b6cb1aeeedf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  expandRight: 0
-  expandLeft: 0
-  expandUp: 0
-  expandDown: 0
 --- !u!1 &1115935816
 GameObject:
   m_ObjectHideFlags: 0

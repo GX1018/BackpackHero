@@ -64,10 +64,10 @@ public class InvenSlot : MonoBehaviour
         
 
 
-        Debug.Log("부모");
-        Debug.Log(GameObject.Find("item").transform.position);
-        Debug.Log("자식");
-        Debug.Log(GameObject.Find("itemImg").transform.position);
+        //Debug.Log("부모");
+        //Debug.Log(GameObject.Find("item").transform.position);
+        //Debug.Log("자식");
+        //Debug.Log(GameObject.Find("itemImg").transform.position);
 
         target = GameObject.FindWithTag("SelectedCore");
 
