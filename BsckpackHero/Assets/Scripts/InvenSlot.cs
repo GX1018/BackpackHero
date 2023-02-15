@@ -18,16 +18,15 @@ public class InvenSlot : MonoBehaviour
     private GameObject selectedItem;
 
     // { 슬롯 변수화
-    InvenSlot slot0;    // 좌측 한칸 위
-    InvenSlot slot1;    // 한칸 위의 슬롯
-    InvenSlot slot2;    // 우측 한칸 위
-    InvenSlot slot3;    // 좌측 슬롯
-    InvenSlot slot4;    // 우측 슬롯
-    InvenSlot slot5;    // 좌측 한칸 아래
-    InvenSlot slot6;    // 한칸 아래의 슬롯
-    InvenSlot slot7;    // 우측 한칸 아래
-                        // }
-
+    public InvenSlot slot0;    // 좌측 한칸 위
+    public InvenSlot slot1;    // 한칸 위의 슬롯
+    public InvenSlot slot2;    // 우측 한칸 위
+    public InvenSlot slot3;    // 좌측 슬롯
+    public InvenSlot slot4;    // 우측 슬롯
+    public InvenSlot slot5;    // 좌측 한칸 아래
+    public InvenSlot slot6;    // 한칸 아래의 슬롯
+    public InvenSlot slot7;    // 우측 한칸 아래
+    // }
 
 
 
@@ -43,27 +42,21 @@ public class InvenSlot : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (this.name == "12" || this.name == "13" || this.name == "14" || this.name == "21" || this.name == "22" || this.name == "23"
-        || this.name == "30" || this.name == "31" || this.name == "32")
+
+        if (this.name == "26" || this.name == "27" || this.name == "28" || this.name == "37" || this.name == "38" || this.name == "39"
+        || this.name == "48" || this.name == "49" || this.name == "50")
         {
             isActive = true;
         }
 
-        item_Drag = GameObject.FindWithTag("SelectedItem").GetComponent<ItemTest>();
-        selectedItem = GameObject.FindWithTag("SelectedItem");
-
-
-
-        slot0 = GameObject.Find($"{(int.Parse(this.name) - 8)}").GetComponent<InvenSlot>();
-        slot1 = GameObject.Find($"{(int.Parse(this.name) - 9)}").GetComponent<InvenSlot>();
+        slot0 = GameObject.Find($"{(int.Parse(this.name) - 12)}").GetComponent<InvenSlot>();
+        slot1 = GameObject.Find($"{(int.Parse(this.name) - 11)}").GetComponent<InvenSlot>();
         slot2 = GameObject.Find($"{(int.Parse(this.name) - 10)}").GetComponent<InvenSlot>();
         slot3 = GameObject.Find($"{(int.Parse(this.name) - 1)}").GetComponent<InvenSlot>();
         slot4 = GameObject.Find($"{(int.Parse(this.name) + 1)}").GetComponent<InvenSlot>();
-        slot5 = GameObject.Find($"{(int.Parse(this.name) + 8)}").GetComponent<InvenSlot>();
-        slot6 = GameObject.Find($"{(int.Parse(this.name) + 9)}").GetComponent<InvenSlot>();
-        slot7 = GameObject.Find($"{(int.Parse(this.name) + 10)}").GetComponent<InvenSlot>();
-
-
+        slot5 = GameObject.Find($"{(int.Parse(this.name) + 10)}").GetComponent<InvenSlot>();
+        slot6 = GameObject.Find($"{(int.Parse(this.name) + 11)}").GetComponent<InvenSlot>();
+        slot7 = GameObject.Find($"{(int.Parse(this.name) + 12)}").GetComponent<InvenSlot>();
     }
 
     // Update is called once per frame
@@ -338,79 +331,78 @@ public class InvenSlot : MonoBehaviour
                 switch (item_Drag.size2D)
                 {
                     case 1:
-                        if (isFilled == false)
+                        if (isFilled == false && isActive == true)
                         {
                             selectedItem.transform.GetChild(0).GetComponent<itemSize>().isReady = true;
                         }
                         break;
                     case 2:
-                        if (isFilled == false)
+                        if (isFilled == false && isActive == true)
                         {
                             selectedItem.transform.GetChild(0).GetComponent<itemSize>().isReady = true;
                         }
-                        if (slot6.isFilled == false)
+                        if (slot6.isFilled == false && slot6.isActive == true)
                         {
                             selectedItem.transform.GetChild(1).GetComponent<itemSize>().isReady = true;
                         }
                         break;
 
                     case 3:
-                        if (slot2.isFilled == false)
+                        if (slot2.isFilled == false && slot2.isActive ==true)
                         {
                             selectedItem.transform.GetChild(0).GetComponent<itemSize>().isReady = true;
                         }
-                        if (isFilled == false)
+                        if (isFilled == false && isActive == true)
                         {
                             selectedItem.transform.GetChild(1).GetComponent<itemSize>().isReady = true;
                         }
-                        if (slot6.isFilled == false)
+                        if (slot6.isFilled == false && slot6.isActive == true)
                         {
                             selectedItem.transform.GetChild(2).GetComponent<itemSize>().isReady = true;
                         }
                         break;
                     case 4:
-                        if (isFilled == false)
+                        if (isFilled == false && isActive == true)
                         {
                             selectedItem.transform.GetChild(0).GetComponent<itemSize>().isReady = true;
                         }
-                        if (slot4.isFilled == false)
+                        if (slot4.isFilled == false && slot4.isActive == true)
                         {
                             selectedItem.transform.GetChild(1).GetComponent<itemSize>().isReady = true;
                         }
-                        if (slot6.isFilled == false)
+                        if (slot6.isFilled == false && slot6.isActive == true)
                         {
                             selectedItem.transform.GetChild(2).GetComponent<itemSize>().isReady = true;
                         }
-                        if (slot7.isFilled == false)
+                        if (slot7.isFilled == false && slot7.isActive == true)
                         {
                             selectedItem.transform.GetChild(2).GetComponent<itemSize>().isReady = true;
                         }
 
                         break;
                     case 6:
-                        Debug.Log("1");
-                        if (slot1.isFilled == false)
+                        Debug.Log(slot1);
+                        if (slot1.isFilled == false && slot1.isActive == true)
                         {
-                            //Debug.Log("2");
                             selectedItem.transform.GetChild(0).GetComponent<itemSize>().isReady = true;
                         }
-                        if (slot2.isFilled == false)
+                        if (slot2.isFilled == false && slot2.isActive == true)
                         {
                             selectedItem.transform.GetChild(1).GetComponent<itemSize>().isReady = true;
                         }
-                        if (isFilled == false)
+                        if (isFilled == false && isActive == true)
                         {
                             selectedItem.transform.GetChild(2).GetComponent<itemSize>().isReady = true;
                         }
-                        if (slot4.isFilled == false)
+                        if (slot4.isFilled == false && slot4.isActive == true)
                         {
                             selectedItem.transform.GetChild(3).GetComponent<itemSize>().isReady = true;
                         }
-                        if (slot6.isFilled == false)
+                        if (slot6.isFilled == false && slot6.isActive == true)
                         {
                             selectedItem.transform.GetChild(4).GetComponent<itemSize>().isReady = true;
                         }
-                        if (slot7.isFilled == false)
+                        if (slot7.isFilled == false && slot7.isActive == true)
                         {
                             selectedItem.transform.GetChild(5).GetComponent<itemSize>().isReady = true;
                         }
@@ -424,6 +416,8 @@ public class InvenSlot : MonoBehaviour
                                 isReadyCount++;
                             }
                         }
+                        Debug.Log(isReadyCount);
+
                         //모든 아이템 슬롯의 isReady가 true일때
                         if (isReadyCount == selectedItem.transform.childCount - 2)
                         {

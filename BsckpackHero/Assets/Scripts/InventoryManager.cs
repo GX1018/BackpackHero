@@ -48,4 +48,6 @@ public class InventoryManager : MonoBehaviour
     public bool addItemAvailable =false;
     //
 
+    public GameObject[,] itemSlot2DArray = new GameObject[11,7]; 
+
 }

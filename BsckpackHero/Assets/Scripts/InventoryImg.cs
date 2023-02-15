@@ -13,11 +13,11 @@ public class InventoryImg : MonoBehaviour
         #region expandLeft
         if(InventoryManager.Instance.expandLeft == 0)
         {
-            if(GameObject.Find("2").GetComponent<InvenSlot>().isActive == true ||
-                GameObject.Find("11").GetComponent<InvenSlot>().isActive == true||
-                GameObject.Find("20").GetComponent<InvenSlot>().isActive == true||
-                GameObject.Find("29").GetComponent<InvenSlot>().isActive == true||
-                GameObject.Find("38").GetComponent<InvenSlot>().isActive == true )
+            if(GameObject.Find("14").GetComponent<InvenSlot>().isActive == true ||
+                GameObject.Find("25").GetComponent<InvenSlot>().isActive == true||
+                GameObject.Find("36").GetComponent<InvenSlot>().isActive == true||
+                GameObject.Find("47").GetComponent<InvenSlot>().isActive == true||
+                GameObject.Find("58").GetComponent<InvenSlot>().isActive == true )
             {
                 gameObject.GetComponent<RectTransform>().sizeDelta 
                 = new Vector2(gameObject.GetComponent<RectTransform>().sizeDelta.x + 165*0.7f, gameObject.GetComponent<RectTransform>().sizeDelta.y);
@@ -31,11 +31,11 @@ public class InventoryImg : MonoBehaviour
         }
         if(InventoryManager.Instance.expandLeft == 1)
         {
-            if(GameObject.Find("1").GetComponent<InvenSlot>().isActive == true ||
-                GameObject.Find("10").GetComponent<InvenSlot>().isActive == true||
-                GameObject.Find("19").GetComponent<InvenSlot>().isActive == true||
-                GameObject.Find("28").GetComponent<InvenSlot>().isActive == true||
-                GameObject.Find("37").GetComponent<InvenSlot>().isActive == true )
+            if(GameObject.Find("13").GetComponent<InvenSlot>().isActive == true ||
+                GameObject.Find("24").GetComponent<InvenSlot>().isActive == true||
+                GameObject.Find("35").GetComponent<InvenSlot>().isActive == true||
+                GameObject.Find("46").GetComponent<InvenSlot>().isActive == true||
+                GameObject.Find("57").GetComponent<InvenSlot>().isActive == true )
             {
                 gameObject.GetComponent<RectTransform>().sizeDelta 
                 = new Vector2(gameObject.GetComponent<RectTransform>().sizeDelta.x + 165*0.7f, gameObject.GetComponent<RectTransform>().sizeDelta.y);
@@ -49,11 +49,11 @@ public class InventoryImg : MonoBehaviour
         }
         if(InventoryManager.Instance.expandLeft == 2)
         {
-            if(GameObject.Find("0").GetComponent<InvenSlot>().isActive == true ||
-                GameObject.Find("9").GetComponent<InvenSlot>().isActive == true||
-                GameObject.Find("18").GetComponent<InvenSlot>().isActive == true||
-                GameObject.Find("27").GetComponent<InvenSlot>().isActive == true||
-                GameObject.Find("36").GetComponent<InvenSlot>().isActive == true )
+            if(GameObject.Find("12").GetComponent<InvenSlot>().isActive == true ||
+                GameObject.Find("23").GetComponent<InvenSlot>().isActive == true||
+                GameObject.Find("34").GetComponent<InvenSlot>().isActive == true||
+                GameObject.Find("45").GetComponent<InvenSlot>().isActive == true||
+                GameObject.Find("56").GetComponent<InvenSlot>().isActive == true )
             {
                 gameObject.GetComponent<RectTransform>().sizeDelta 
                 = new Vector2(gameObject.GetComponent<RectTransform>().sizeDelta.x + 165*0.7f, gameObject.GetComponent<RectTransform>().sizeDelta.y);
@@ -70,11 +70,11 @@ public class InventoryImg : MonoBehaviour
         #region expandRight
         if(InventoryManager.Instance.expandRight == 0)
         {
-            if(GameObject.Find("6").GetComponent<InvenSlot>().isActive == true ||
-                GameObject.Find("15").GetComponent<InvenSlot>().isActive == true||
-                GameObject.Find("24").GetComponent<InvenSlot>().isActive == true||
-                GameObject.Find("33").GetComponent<InvenSlot>().isActive == true||
-                GameObject.Find("42").GetComponent<InvenSlot>().isActive == true )
+            if(GameObject.Find("18").GetComponent<InvenSlot>().isActive == true ||
+                GameObject.Find("29").GetComponent<InvenSlot>().isActive == true||
+                GameObject.Find("40").GetComponent<InvenSlot>().isActive == true||
+                GameObject.Find("51").GetComponent<InvenSlot>().isActive == true||
+                GameObject.Find("62").GetComponent<InvenSlot>().isActive == true )
             {
                 gameObject.GetComponent<RectTransform>().sizeDelta 
                 = new Vector2(gameObject.GetComponent<RectTransform>().sizeDelta.x + 165*0.7f, gameObject.GetComponent<RectTransform>().sizeDelta.y);
@@ -88,11 +88,11 @@ public class InventoryImg : MonoBehaviour
         }
         if(InventoryManager.Instance.expandRight == 1)
         {
-            if(GameObject.Find("7").GetComponent<InvenSlot>().isActive == true ||
-                GameObject.Find("16").GetComponent<InvenSlot>().isActive == true||
-                GameObject.Find("25").GetComponent<InvenSlot>().isActive == true||
-                GameObject.Find("34").GetComponent<InvenSlot>().isActive == true||
-                GameObject.Find("43").GetComponent<InvenSlot>().isActive == true )
+            if(GameObject.Find("19").GetComponent<InvenSlot>().isActive == true ||
+                GameObject.Find("30").GetComponent<InvenSlot>().isActive == true||
+                GameObject.Find("41").GetComponent<InvenSlot>().isActive == true||
+                GameObject.Find("52").GetComponent<InvenSlot>().isActive == true||
+                GameObject.Find("63").GetComponent<InvenSlot>().isActive == true )
             {
                 gameObject.GetComponent<RectTransform>().sizeDelta 
                 = new Vector2(gameObject.GetComponent<RectTransform>().sizeDelta.x + 165*0.7f, gameObject.GetComponent<RectTransform>().sizeDelta.y);
@@ -106,11 +106,11 @@ public class InventoryImg : MonoBehaviour
         }
         if(InventoryManager.Instance.expandRight == 2)
         {
-            if(GameObject.Find("8").GetComponent<InvenSlot>().isActive == true ||
-                GameObject.Find("17").GetComponent<InvenSlot>().isActive == true||
-                GameObject.Find("26").GetComponent<InvenSlot>().isActive == true||
-                GameObject.Find("35").GetComponent<InvenSlot>().isActive == true||
-                GameObject.Find("44").GetComponent<InvenSlot>().isActive == true )
+            if(GameObject.Find("20").GetComponent<InvenSlot>().isActive == true ||
+                GameObject.Find("31").GetComponent<InvenSlot>().isActive == true||
+                GameObject.Find("42").GetComponent<InvenSlot>().isActive == true||
+                GameObject.Find("53").GetComponent<InvenSlot>().isActive == true||
+                GameObject.Find("64").GetComponent<InvenSlot>().isActive == true )
             {
                 gameObject.GetComponent<RectTransform>().sizeDelta 
                 = new Vector2(gameObject.GetComponent<RectTransform>().sizeDelta.x + 165*0.7f, gameObject.GetComponent<RectTransform>().sizeDelta.y);
@@ -127,15 +127,15 @@ public class InventoryImg : MonoBehaviour
         #region expandUp
         if(InventoryManager.Instance.expandUp == 0)
         {
-            if(GameObject.Find("0").GetComponent<InvenSlot>().isActive == true ||
-                GameObject.Find("1").GetComponent<InvenSlot>().isActive == true||
-                GameObject.Find("2").GetComponent<InvenSlot>().isActive == true||
-                GameObject.Find("3").GetComponent<InvenSlot>().isActive == true||
-                GameObject.Find("4").GetComponent<InvenSlot>().isActive == true||
-                GameObject.Find("5").GetComponent<InvenSlot>().isActive == true||
-                GameObject.Find("6").GetComponent<InvenSlot>().isActive == true||
-                GameObject.Find("7").GetComponent<InvenSlot>().isActive == true||
-                GameObject.Find("8").GetComponent<InvenSlot>().isActive == true )
+            if(GameObject.Find("12").GetComponent<InvenSlot>().isActive == true ||
+                GameObject.Find("13").GetComponent<InvenSlot>().isActive == true||
+                GameObject.Find("14").GetComponent<InvenSlot>().isActive == true||
+                GameObject.Find("15").GetComponent<InvenSlot>().isActive == true||
+                GameObject.Find("16").GetComponent<InvenSlot>().isActive == true||
+                GameObject.Find("17").GetComponent<InvenSlot>().isActive == true||
+                GameObject.Find("18").GetComponent<InvenSlot>().isActive == true||
+                GameObject.Find("19").GetComponent<InvenSlot>().isActive == true||
+                GameObject.Find("20").GetComponent<InvenSlot>().isActive == true )
             {
                 gameObject.GetComponent<RectTransform>().sizeDelta 
                 = new Vector2(gameObject.GetComponent<RectTransform>().sizeDelta.x, gameObject.GetComponent<RectTransform>().sizeDelta.y + 165*0.5f);
@@ -152,15 +152,15 @@ public class InventoryImg : MonoBehaviour
         #region expandDown
         if(InventoryManager.Instance.expandDown == 0)
         {
-            if(GameObject.Find("36").GetComponent<InvenSlot>().isActive == true ||
-                GameObject.Find("37").GetComponent<InvenSlot>().isActive == true||
-                GameObject.Find("38").GetComponent<InvenSlot>().isActive == true||
-                GameObject.Find("39").GetComponent<InvenSlot>().isActive == true||
-                GameObject.Find("40").GetComponent<InvenSlot>().isActive == true||
-                GameObject.Find("41").GetComponent<InvenSlot>().isActive == true||
-                GameObject.Find("42").GetComponent<InvenSlot>().isActive == true||
-                GameObject.Find("43").GetComponent<InvenSlot>().isActive == true||
-                GameObject.Find("44").GetComponent<InvenSlot>().isActive == true )
+            if(GameObject.Find("56").GetComponent<InvenSlot>().isActive == true ||
+                GameObject.Find("57").GetComponent<InvenSlot>().isActive == true||
+                GameObject.Find("58").GetComponent<InvenSlot>().isActive == true||
+                GameObject.Find("59").GetComponent<InvenSlot>().isActive == true||
+                GameObject.Find("60").GetComponent<InvenSlot>().isActive == true||
+                GameObject.Find("61").GetComponent<InvenSlot>().isActive == true||
+                GameObject.Find("62").GetComponent<InvenSlot>().isActive == true||
+                GameObject.Find("63").GetComponent<InvenSlot>().isActive == true||
+                GameObject.Find("64").GetComponent<InvenSlot>().isActive == true )
             {
                 gameObject.GetComponent<RectTransform>().sizeDelta 
                 = new Vector2(gameObject.GetComponent<RectTransform>().sizeDelta.x, gameObject.GetComponent<RectTransform>().sizeDelta.y + 165*0.5f);
