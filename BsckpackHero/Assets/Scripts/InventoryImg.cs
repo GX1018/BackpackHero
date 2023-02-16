@@ -4,13 +4,31 @@ using UnityEngine;
 
 public class InventoryImg : MonoBehaviour
 {
+    Transform slots;
+
+    Vector2 imgSize;
+    Vector2 imgPosition;
+    Vector2 childImgSize;
+
+    RectTransform rectTransform;
+    RectTransform childRectTransform;
+
+
     void Start()
     {
-        
+        slots = GameObject.Find("InventorySlots").transform;
+        imgSize = gameObject.GetComponent<RectTransform>().sizeDelta;
+        imgPosition = gameObject.GetComponent<RectTransform>().anchoredPosition;
+        childImgSize = transform.GetChild(0).gameObject.GetComponent<RectTransform>().sizeDelta;
+
+        rectTransform = gameObject.GetComponent<RectTransform>();
+        childRectTransform = transform.GetChild(0).gameObject.GetComponent<RectTransform>();
+
     }
     void Update()
     {
-        #region expandLeft
+
+        /* #region expandLeft
         if(InventoryManager.Instance.expandLeft == 0)
         {
             if(GameObject.Find("14").GetComponent<InvenSlot>().isActive == true ||
@@ -172,8 +190,179 @@ public class InventoryImg : MonoBehaviour
                 InventoryManager.Instance.expandDown ++;
             }
         }
-        #endregion
+        #endregion */
 
+        InvenImgExpand();
+    }
+
+    public void InvenImgExpand()
+    {
+
+        int compareX = 5;
+        int minX = 0;
+        int maxX = 0;
+        int compareY = 3;
+        int minY = 0;
+        int maxY = 0;
+
+
+        for (int i = 0; i < slots.childCount; i++)
+        {
+            if (slots.GetChild(i).GetComponent<InvenSlot>().isActive == true)
+            {
+                if (compareX > slots.GetChild(i).GetComponent<InvenSlot>().xInArray)
+                {
+                    compareX = slots.GetChild(i).GetComponent<InvenSlot>().xInArray;
+                    minX = compareX;
+                }
+                if (compareY > slots.GetChild(i).GetComponent<InvenSlot>().yInArray)
+                {
+                    compareY = slots.GetChild(i).GetComponent<InvenSlot>().yInArray;
+                    minY = compareY;
+                }
+            }
+        }
+
+        for (int i = 0; i < slots.childCount; i++)
+        {
+            if (slots.GetChild(i).GetComponent<InvenSlot>().isActive == true)
+            {
+                if (compareX < slots.GetChild(i).GetComponent<InvenSlot>().xInArray)
+                {
+                    compareX = slots.GetChild(i).GetComponent<InvenSlot>().xInArray;
+                    maxX = compareX;
+                }
+                if (compareY < slots.GetChild(i).GetComponent<InvenSlot>().yInArray)
+                {
+                    compareY = slots.GetChild(i).GetComponent<InvenSlot>().yInArray;
+                    maxY = compareY;
+                }
+            }
+        }
+        //find min, max
+
+        if (InventoryManager.Instance.expandLeft == 0)
+        {
+            if (minX == 3)
+            {
+                rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x + 165 * 0.7f, rectTransform.sizeDelta.y);
+
+                childRectTransform.sizeDelta
+                = new Vector2(childRectTransform.sizeDelta.x + 100 * 0.7f, childRectTransform.sizeDelta.y);
+
+                rectTransform.anchoredPosition
+                = new Vector3(rectTransform.anchoredPosition.x - 50 * 0.7f, rectTransform.anchoredPosition.y);
+                InventoryManager.Instance.expandLeft++;
+            }
+        }
+
+        if (InventoryManager.Instance.expandLeft == 1)
+        {
+            if (minX == 2)
+            {
+                rectTransform.sizeDelta
+                = new Vector2(rectTransform.sizeDelta.x + 165 * 0.7f, rectTransform.sizeDelta.y);
+
+                childRectTransform.sizeDelta
+                = new Vector2(childRectTransform.sizeDelta.x + 100 * 0.7f, childRectTransform.sizeDelta.y);
+
+                rectTransform.anchoredPosition = new Vector3(imgPosition.x - 50 * 0.7f, imgPosition.y);
+                InventoryManager.Instance.expandLeft++;
+            }
+        }
+        if (InventoryManager.Instance.expandLeft == 2)
+        {
+            if (minX == 1)
+            {
+                rectTransform.sizeDelta
+                = new Vector2(rectTransform.sizeDelta.x + 165 * 0.7f, rectTransform.sizeDelta.y);
+
+                childRectTransform.sizeDelta
+                = new Vector2(childRectTransform.sizeDelta.x + 100 * 0.7f, childRectTransform.sizeDelta.y);
+
+                rectTransform.anchoredPosition
+                = new Vector3(rectTransform.anchoredPosition.x - 50 * 0.7f, rectTransform.anchoredPosition.y);
+
+                InventoryManager.Instance.expandLeft++;
+            }
+        }
+
+        if (InventoryManager.Instance.expandRight == 0)
+        {
+            if (maxX == 7)
+            {
+                rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x + 165 * 0.7f, rectTransform.sizeDelta.y);
+
+                childRectTransform.sizeDelta
+                = new Vector2(childRectTransform.sizeDelta.x + 100 * 0.7f, childRectTransform.sizeDelta.y);
+
+                rectTransform.anchoredPosition
+                = new Vector3(rectTransform.anchoredPosition.x + 50 * 0.7f, rectTransform.anchoredPosition.y);
+                InventoryManager.Instance.expandRight++;
+            }
+        }
+
+        if (InventoryManager.Instance.expandRight == 1)
+        {
+            if (maxX == 8)
+            {
+                rectTransform.sizeDelta
+                = new Vector2(rectTransform.sizeDelta.x + 165 * 0.7f, rectTransform.sizeDelta.y);
+
+                childRectTransform.sizeDelta
+                = new Vector2(childRectTransform.sizeDelta.x + 100 * 0.7f, childRectTransform.sizeDelta.y);
+
+                rectTransform.anchoredPosition 
+                = new Vector3(rectTransform.anchoredPosition.x + 50 * 0.7f, rectTransform.anchoredPosition.y);
+                InventoryManager.Instance.expandRight++;
+            }
+        }
+        if (InventoryManager.Instance.expandRight == 2)
+        {
+            if (maxX == 9)
+            {
+                rectTransform.sizeDelta
+                = new Vector2(rectTransform.sizeDelta.x + 165 * 0.7f, rectTransform.sizeDelta.y);
+
+                childRectTransform.sizeDelta
+                = new Vector2(childRectTransform.sizeDelta.x + 100 * 0.7f, childRectTransform.sizeDelta.y);
+
+                rectTransform.anchoredPosition
+                = new Vector3(rectTransform.anchoredPosition.x + 50 * 0.7f, rectTransform.anchoredPosition.y);
+
+                InventoryManager.Instance.expandRight++;
+            }
+        }
+
+        if (InventoryManager.Instance.expandUp == 0)
+        {
+            if (minY == 1)
+            {
+                rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x, rectTransform.sizeDelta.y + 165 * 0.5f);
+
+                childRectTransform.sizeDelta
+                = new Vector2(childRectTransform.sizeDelta.x, childRectTransform.sizeDelta.y + 130 * 0.5f);
+
+                rectTransform.anchoredPosition
+                = new Vector3(rectTransform.anchoredPosition.x, rectTransform.anchoredPosition.y + 50 * 0.5f);
+                InventoryManager.Instance.expandUp++;
+            }
+        }
+
+        if (InventoryManager.Instance.expandDown == 0)
+        {
+            if (maxY == 5)
+            {
+                rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x, rectTransform.sizeDelta.y + 165 * 0.5f);
+
+                childRectTransform.sizeDelta
+                = new Vector2(childRectTransform.sizeDelta.x, childRectTransform.sizeDelta.y + 130 * 0.5f);
+
+                rectTransform.anchoredPosition
+                = new Vector3(rectTransform.anchoredPosition.x, rectTransform.anchoredPosition.y - 50 * 0.5f);
+                InventoryManager.Instance.expandDown++;
+            }
+        }
 
     }
 }
