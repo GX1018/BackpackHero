@@ -59,7 +59,6 @@ public class InvenSlot : MonoBehaviour
         else if (isActive == false && isTemporary == false)
         {
             gameObject.GetComponent<Image>().enabled = false;
-            //gameObject.GetComponent<BoxCollider2D>().enabled =false;
         }
 
         
@@ -75,11 +74,6 @@ public class InvenSlot : MonoBehaviour
             InventoryManager.Instance.lvUpPoint--;
             isTemporary = false;
         }
-        Debug.Log(xInArray);
-        Debug.Log(yInArray);
-
-        //Debug.Log(InventoryManager.Instance.itemSlot2DArray[10,6]);
-
     }
 
 }

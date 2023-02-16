@@ -48,7 +48,7 @@ public class ItemTest : MonoBehaviour, IPointerDownHandler,
 
         for(int i = 0; i <transform.childCount-2; i++)
         {
-            if(transform.GetChild(i).GetComponent<itemSize>().invenSlotisActive ==true)
+            if(transform.GetChild(i).GetComponent<itemBlock>().invenSlotisActive ==true)
             {
                 invenSlotisActiveCnt ++;
             }
@@ -57,7 +57,6 @@ public class ItemTest : MonoBehaviour, IPointerDownHandler,
 
         if(invenSlotisActiveCnt == 0)
         {
-            //Debug.Log("!");
             transform.GetChild(transform.childCount-2).transform.position 
             = transform.GetChild(transform.childCount-1).transform.position;
             transform.GetChild(transform.childCount-2).GetComponent<Image>().color = new Color32(255, 255, 255, 100);
@@ -66,20 +65,18 @@ public class ItemTest : MonoBehaviour, IPointerDownHandler,
 
         if(invenSlotisActiveCnt > 0 && invenSlotisActiveCnt < transform.childCount-2)
         {
-            //Debug.Log("!");
             transform.GetChild(transform.childCount-2).transform.position 
-            = (transform.GetChild(0).GetComponent<itemSize>().nearestSlot.transform.position
-            + transform.GetChild(transform.childCount-3).GetComponent<itemSize>().nearestSlot.transform.position)/2;
+            = (transform.GetChild(0).GetComponent<itemBlock>().nearestSlot.transform.position
+            + transform.GetChild(transform.childCount-3).GetComponent<itemBlock>().nearestSlot.transform.position)/2;
             transform.GetChild(transform.childCount-2).GetComponent<Image>().color = new Color32(255, 0, 0, 100);
 
         }
 
         if(invenSlotisActiveCnt == transform.childCount-2)
         {
-            //Debug.Log("!");
             transform.GetChild(transform.childCount-2).transform.position 
-            = (transform.GetChild(0).GetComponent<itemSize>().nearestSlot.transform.position
-            + transform.GetChild(transform.childCount-3).GetComponent<itemSize>().nearestSlot.transform.position)/2;
+            = (transform.GetChild(0).GetComponent<itemBlock>().nearestSlot.transform.position
+            + transform.GetChild(transform.childCount-3).GetComponent<itemBlock>().nearestSlot.transform.position)/2;
             transform.GetChild(transform.childCount-2).GetComponent<Image>().color = new Color32(255, 255, 255, 100);
 
         }
