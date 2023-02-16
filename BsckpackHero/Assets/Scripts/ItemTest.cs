@@ -23,6 +23,8 @@ public class ItemTest : MonoBehaviour, IPointerDownHandler,
     public int invenSlotisActiveCnt = 0;
     public int invenSlotisEmptyCnt = 0;
 
+    Vector3 itemOriginPos;
+
 
 
 
@@ -46,9 +48,9 @@ public class ItemTest : MonoBehaviour, IPointerDownHandler,
     {
         if (Input.GetMouseButtonDown(1))
         {
-            if(isClicked == true)
+            if (isClicked == true)
             {
-              objRect.rotation = Quaternion.Euler(0, 0, objRect.rotation.eulerAngles.z + 90);
+                objRect.rotation = Quaternion.Euler(0, 0, objRect.rotation.eulerAngles.z + 90);
             }
             //objRect.rotation = Quaternion.Euler(0, 0, objRect.rotation.eulerAngles.z + 90);
         }
@@ -73,39 +75,43 @@ public class ItemTest : MonoBehaviour, IPointerDownHandler,
             }
         }
 
-        //인벤토리 슬롯 활성화 수에 따른 상태 변경
-        if (invenSlotisActiveCnt == 0)
+        if (isClicked == true)
         {
-            transform.GetChild(transform.childCount - 2).transform.position
-            = transform.GetChild(transform.childCount - 1).transform.position;
-            transform.GetChild(transform.childCount - 2).GetComponent<Image>().color = new Color32(255, 255, 255, 100);
-        }
 
-        if (invenSlotisActiveCnt > 0 && invenSlotisActiveCnt < transform.childCount - 2)
-        {
-            transform.GetChild(transform.childCount - 2).transform.position
-            = (transform.GetChild(0).GetComponent<itemBlock>().nearestSlot.transform.position
-            + transform.GetChild(transform.childCount - 3).GetComponent<itemBlock>().nearestSlot.transform.position) / 2;
-            transform.GetChild(transform.childCount - 2).GetComponent<Image>().color = new Color32(255, 0, 0, 100);
-        }
-
-        if (invenSlotisActiveCnt == transform.childCount - 2)
-        {
-            //비어있는 인벤토리 슬롯 수에 따른 상태 변경
-            if (invenSlotisEmptyCnt == transform.childCount - 2)
-            //비어있는 인벤토리 슬롯 수에 따른 상태 변경
+            //인벤토리 슬롯 활성화 수에 따른 상태 변경
+            if (invenSlotisActiveCnt == 0)
             {
                 transform.GetChild(transform.childCount - 2).transform.position
-                = (transform.GetChild(0).GetComponent<itemBlock>().nearestSlot.transform.position
-                + transform.GetChild(transform.childCount - 3).GetComponent<itemBlock>().nearestSlot.transform.position) / 2;
+                = transform.GetChild(transform.childCount - 1).transform.position;
                 transform.GetChild(transform.childCount - 2).GetComponent<Image>().color = new Color32(255, 255, 255, 100);
             }
-            else
+
+            if (invenSlotisActiveCnt > 0 && invenSlotisActiveCnt < transform.childCount - 2)
             {
                 transform.GetChild(transform.childCount - 2).transform.position
                 = (transform.GetChild(0).GetComponent<itemBlock>().nearestSlot.transform.position
                 + transform.GetChild(transform.childCount - 3).GetComponent<itemBlock>().nearestSlot.transform.position) / 2;
                 transform.GetChild(transform.childCount - 2).GetComponent<Image>().color = new Color32(255, 0, 0, 100);
+            }
+
+            if (invenSlotisActiveCnt == transform.childCount - 2)
+            {
+                //비어있는 인벤토리 슬롯 수에 따른 상태 변경
+                if (invenSlotisEmptyCnt == transform.childCount - 2)
+                //비어있는 인벤토리 슬롯 수에 따른 상태 변경
+                {
+                    transform.GetChild(transform.childCount - 2).transform.position
+                    = (transform.GetChild(0).GetComponent<itemBlock>().nearestSlot.transform.position
+                    + transform.GetChild(transform.childCount - 3).GetComponent<itemBlock>().nearestSlot.transform.position) / 2;
+                    transform.GetChild(transform.childCount - 2).GetComponent<Image>().color = new Color32(255, 255, 255, 100);
+                }
+                else
+                {
+                    transform.GetChild(transform.childCount - 2).transform.position
+                    = (transform.GetChild(0).GetComponent<itemBlock>().nearestSlot.transform.position
+                    + transform.GetChild(transform.childCount - 3).GetComponent<itemBlock>().nearestSlot.transform.position) / 2;
+                    transform.GetChild(transform.childCount - 2).GetComponent<Image>().color = new Color32(255, 0, 0, 100);
+                }
             }
         }
         //인벤토리 슬롯 활성화 수에 따른 상태 변경
@@ -123,10 +129,14 @@ public class ItemTest : MonoBehaviour, IPointerDownHandler,
             }
         }
 
-        //test
         transform.Find("Core").gameObject.tag = "SelectedCore";
         this.tag = "SelectedItem";
-        //
+
+        //아이템 클릭했을때의 위치 저장
+        itemOriginPos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x,
+                                Input.mousePosition.y, 1));
+        //아이템 클릭했을때의 위치 저장
+
         isClicked = true;
     }
 
@@ -135,7 +145,7 @@ public class ItemTest : MonoBehaviour, IPointerDownHandler,
         transform.Find("Core").gameObject.tag = "Core";
         this.tag = "Item";
 
-        
+
         if (invenSlotisActiveCnt == transform.childCount - 2 && invenSlotisEmptyCnt == transform.childCount - 2)
         {
             //아이템을 인벤토리에 넣기
@@ -149,13 +159,19 @@ public class ItemTest : MonoBehaviour, IPointerDownHandler,
             = transform.GetChild(transform.childCount - 1).transform.position;
             transform.GetChild(transform.childCount - 2).GetComponent<Image>().color = new Color32(255, 255, 255, 100);
 
-
-            //(1x1)일때 예외처리
-
             transform.position = (transform.GetChild(0).GetComponent<itemBlock>().nearestSlot.transform.position
                 + transform.GetChild(transform.childCount - 3).GetComponent<itemBlock>().nearestSlot.transform.position) / 2;
             this.tag = "GainedItem";
             //아이템을 인벤토리에 넣기
+        }
+        else if ((invenSlotisActiveCnt != transform.childCount - 2) || (invenSlotisEmptyCnt != transform.childCount - 2))
+        {
+            transform.GetChild(transform.childCount - 2).transform.position
+            = transform.GetChild(transform.childCount - 1).transform.position;
+            /* if()
+            {
+                transform.position = itemOriginPos;
+            } */
         }
 
         InventoryManager.Instance.addItemAvailable = false;
