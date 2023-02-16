@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class TestCreateItem : MonoBehaviour
 {
-    GameObject item;
+    Item item;
 
     GameObject itemPrefab;
 
@@ -13,16 +13,14 @@ public class TestCreateItem : MonoBehaviour
     int sizeX;
     int sizeY;
 
+    int ranNum;
+
     public int size2D;
 
     // Start is called before the first frame update
     void Start()
     {
-        item = Resources.Load<GameObject>("Prefabs/item");
-        itemPrefab = Resources.Load<GameObject>("Prefabs/ItemPrefabTest");
 
-        sizeX = item.GetComponent<ItemTest>().sizeX;
-        sizeY = item.GetComponent<ItemTest>().sizeY;
     }
 
     // Update is called once per frame
@@ -33,14 +31,22 @@ public class TestCreateItem : MonoBehaviour
 
     public void CreateItem()
     {
-        //아이템 이름 item.GetComponent<ItemTest>().name
-        //가로 사이즈 item.GetComponent<ItemTest>().sizeX
-        //세로 사이즈 item.GetComponent<ItemTest>().sizeY
+        ranNum = Random.Range(0, ItemManager.Instance.itemList.Length);
+        item = ItemManager.Instance.itemList[ranNum];
+
+        itemPrefab = Resources.Load<GameObject>("Prefabs/ItemPrefabTest");
+
+        sizeX = item.SizeX;
+        sizeY = item.SizeY;
 
         GameObject clone = Instantiate(itemPrefab, GameObject.Find("GameObjs").transform);//transform 조정
-        clone.name = item.GetComponent<ItemTest>().name;
+        clone.name = item.ItemName;
 
         clone.AddComponent<ItemTest>(); // 스크립트 삽입// 나중에 개별 스크립트 설정후 변경?
+        clone.GetComponent<ItemTest>().isCreated = true;
+        clone.GetComponent<ItemTest>().sizeX = sizeX;
+        clone.GetComponent<ItemTest>().sizeY = sizeY;
+
 
 
         switch (sizeX)
@@ -93,32 +99,34 @@ public class TestCreateItem : MonoBehaviour
             }
         }
 
+        //메인오브젝트 사이즈
+        clone.GetComponent<RectTransform>().sizeDelta = new Vector2(70 * sizeX, 70 * sizeY);
+
         //메인 이미지
-        clone.transform.GetChild(10).GetComponent<Image>().sprite = item.GetComponent<Image>().sprite;
+        clone.transform.GetChild(10).GetComponent<Image>().sprite = item.ItemImage;
         clone.transform.GetChild(10).GetComponent<RectTransform>().sizeDelta = new Vector2(70 * sizeX, 70 * sizeY);
         //인벤 체크용 이미지
-        clone.transform.GetChild(9).GetComponent<Image>().sprite = item.GetComponent<Image>().sprite;
+        clone.transform.GetChild(9).GetComponent<Image>().sprite = item.ItemImage;
         clone.transform.GetChild(9).GetComponent<RectTransform>().sizeDelta = new Vector2(70 * sizeX, 70 * sizeY);
 
-
+        //아이템 블록 위치 조정
 
         if (sizeX == 2)
         {
-            clone.transform.GetChild(9).GetComponent<RectTransform>().anchoredPosition = new Vector2(clone.transform.GetChild(9).GetComponent<RectTransform>().anchoredPosition.x + 35,
-            clone.transform.GetChild(9).GetComponent<RectTransform>().anchoredPosition.y);
-            clone.transform.GetChild(10).GetComponent<RectTransform>().anchoredPosition = new Vector2(clone.transform.GetChild(10).GetComponent<RectTransform>().anchoredPosition.x + 35,
-            clone.transform.GetChild(10).GetComponent<RectTransform>().anchoredPosition.y);
+            for (int i = 0; i < 9; i++)
+            {
+                clone.transform.GetChild(i).GetComponent<RectTransform>().anchoredPosition 
+                = new Vector2(clone.transform.GetChild(i).GetComponent<RectTransform>().anchoredPosition.x - 35, clone.transform.GetChild(i).GetComponent<RectTransform>().anchoredPosition.y);
+            }
         }
+
         if (sizeY == 2)
         {
-            clone.transform.GetChild(9).GetComponent<RectTransform>().anchoredPosition = new Vector2(clone.transform.GetChild(9).GetComponent<RectTransform>().anchoredPosition.x,
-            clone.transform.GetChild(9).GetComponent<RectTransform>().anchoredPosition.y + 35);
-            clone.transform.GetChild(10).GetComponent<RectTransform>().anchoredPosition = new Vector2(clone.transform.GetChild(10).GetComponent<RectTransform>().anchoredPosition.x,
-            clone.transform.GetChild(10).GetComponent<RectTransform>().anchoredPosition.y + 35);
+            for (int i = 0; i < 9; i++)
+            {
+                clone.transform.GetChild(i).GetComponent<RectTransform>().anchoredPosition
+                = new Vector2(clone.transform.GetChild(i).GetComponent<RectTransform>().anchoredPosition.x, clone.transform.GetChild(i).GetComponent<RectTransform>().anchoredPosition.y + 35);
+            }
         }
-
-
-
-
     }
 }

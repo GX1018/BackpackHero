@@ -8,12 +8,18 @@ public class InvenSlot : MonoBehaviour
     public bool isActive = false;
     public bool isTemporary = false;
 
+    // modifying
+    public bool isEmpty = true;
+    // modifying
+
     public int xInArray;
     public int yInArray;
 
     // Start is called before the first frame update
     void Start()
     {
+
+        isEmpty = true;
 
         if (this.name == "26" || this.name == "27" || this.name == "28" || this.name == "37" || this.name == "38" || this.name == "39"
         || this.name == "48" || this.name == "49" || this.name == "50")

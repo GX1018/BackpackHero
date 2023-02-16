@@ -195,6 +195,7 @@ MonoBehaviour:
   isReady: 0
   CheckStart: 0
   invenSlotisActive: 0
+  invenSlotisEmpty: 0
   nearestSlot: {fileID: 0}
 --- !u!1 &2865229817593630233
 GameObject:
@@ -315,6 +316,7 @@ MonoBehaviour:
   isReady: 0
   CheckStart: 0
   invenSlotisActive: 0
+  invenSlotisEmpty: 0
   nearestSlot: {fileID: 0}
 --- !u!1 &2865229817599644816
 GameObject:
@@ -522,6 +524,7 @@ MonoBehaviour:
   isReady: 0
   CheckStart: 0
   invenSlotisActive: 0
+  invenSlotisEmpty: 0
   nearestSlot: {fileID: 0}
 --- !u!1 &2865229817997285410
 GameObject:
@@ -642,6 +645,7 @@ MonoBehaviour:
   isReady: 0
   CheckStart: 0
   invenSlotisActive: 0
+  invenSlotisEmpty: 0
   nearestSlot: {fileID: 0}
 --- !u!1 &2865229818087964079
 GameObject:
@@ -762,6 +766,7 @@ MonoBehaviour:
   isReady: 0
   CheckStart: 0
   invenSlotisActive: 0
+  invenSlotisEmpty: 0
   nearestSlot: {fileID: 0}
 --- !u!1 &2865229818214612967
 GameObject:
@@ -882,6 +887,7 @@ MonoBehaviour:
   isReady: 0
   CheckStart: 0
   invenSlotisActive: 0
+  invenSlotisEmpty: 0
   nearestSlot: {fileID: 0}
 --- !u!1 &2865229818280683412
 GameObject:
@@ -1002,6 +1008,7 @@ MonoBehaviour:
   isReady: 0
   CheckStart: 0
   invenSlotisActive: 0
+  invenSlotisEmpty: 0
   nearestSlot: {fileID: 0}
 --- !u!1 &2865229818702410939
 GameObject:
@@ -1122,6 +1129,7 @@ MonoBehaviour:
   isReady: 0
   CheckStart: 0
   invenSlotisActive: 0
+  invenSlotisEmpty: 0
   nearestSlot: {fileID: 0}
 --- !u!1 &2865229818954554396
 GameObject:
@@ -1242,6 +1250,7 @@ MonoBehaviour:
   isReady: 0
   CheckStart: 0
   invenSlotisActive: 0
+  invenSlotisEmpty: 0
   nearestSlot: {fileID: 0}
 --- !u!1 &4908863049251657925
 GameObject:

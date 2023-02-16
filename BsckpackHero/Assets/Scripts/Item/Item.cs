@@ -16,6 +16,16 @@ public class Item : ScriptableObject
     private Sprite itemImage;
     public Sprite ItemImage{get{return itemImage;}}
 
+    [SerializeField]
+    private int sizeX;
+    public int SizeX{get{return sizeX;}}
+
+    [SerializeField]
+    private int sizeY;
+    public int SizeY{get{return sizeY;}}
+
+    
+
     
     
     

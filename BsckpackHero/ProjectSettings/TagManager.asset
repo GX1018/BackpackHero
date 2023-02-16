@@ -12,6 +12,7 @@ TagManager:
   - ItemImgMain
   - ItemImgSub
   - InvenSlot
+  - GainedItem
   layers:
   - Default
   - TransparentFX

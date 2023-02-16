@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class ItemManager : MonoBehaviour
 {
-    private static GameManager instance;
+    private static ItemManager instance;
 
-    public static GameManager Instance
+    public static ItemManager Instance
     {
         get
         {
@@ -18,7 +18,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void Awake() {
+    public Item[] itemList;
+
+    private void Awake()
+    {
         if(instance == null)
         {
             instance = this;
@@ -28,12 +31,10 @@ public class GameManager : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+
+        itemList = Resources.LoadAll<Item>("Items");
     }
 
-    public bool isItemCreate = false;
+    //public List<Item> itemArray;
 
-    public void CreateItem()
-    {
-        isItemCreate =true;
-    }
 }

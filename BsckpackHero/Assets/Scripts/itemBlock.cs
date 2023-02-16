@@ -14,6 +14,7 @@ public class itemBlock : MonoBehaviour
     //인벤 슬롯 체크
 
     public bool invenSlotisActive = false;
+    public bool invenSlotisEmpty = false;
     //인벤 슬롯 체크
 
     public GameObject nearestSlot;
@@ -24,6 +25,7 @@ public class itemBlock : MonoBehaviour
         isReady = false;
         CheckStart = false;
         invenSlotisActive = false;
+        invenSlotisEmpty = false;
         target = GameObject.FindGameObjectsWithTag("InvenSlot");
 
     }
@@ -43,21 +45,27 @@ public class itemBlock : MonoBehaviour
                     nearestSlot = target[i];
                 }
             }
+
+            //가까운 인벤토리 슬롯의 활성화 여부 체크
             if (nearestSlot.GetComponent<InvenSlot>().isActive == true)
             {
                 invenSlotisActive = true;
             }
             else { invenSlotisActive = false; }
+            //가까운 인벤토리 슬롯의 활성화 여부 체크
+
+            //가까운 인벤토리 슬롯이 비어있는지 여부 체크
+            if (nearestSlot.GetComponent<InvenSlot>().isEmpty == true)
+            {
+                invenSlotisEmpty = true;
+            }
+            else { invenSlotisEmpty = false; }
+            //가까운 인벤토리 슬롯이 비어있는지 여부 체크
+
+
 
             
         }
-
-        
-
-
-
-
-
 
     }
 }

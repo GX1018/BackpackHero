@@ -4,21 +4,25 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class ItemTest : MonoBehaviour, IPointerDownHandler, 
+public class ItemTest : MonoBehaviour, IPointerDownHandler,
     IPointerUpHandler, IDragHandler
 {
     public bool isClicked = false;
+    public bool isCreated = false;
 
-    public int sizeX = 2;//변경 1->2 테스트후 다시 1로 변경요망
-    public int sizeY = 3;
-    public int _Rotation = 0;
+    public bool imageAdjust = false;
+
+    public int sizeX = 0;
+    public int sizeY = 0;
 
     public int size2D;
 
     public int isReadyCount = 0;
-    
-    
+
+
     public int invenSlotisActiveCnt = 0;
+    public int invenSlotisEmptyCnt = 0;
+
 
 
 
@@ -28,68 +32,97 @@ public class ItemTest : MonoBehaviour, IPointerDownHandler,
     void Start()
     {
         isClicked = false;
+
         objRect = gameObject.GetComponent<RectTransform>();
         size2D = 6;
         //size2D = GameObject.Find("TestCreateItem").GetComponent<TestCreateItem>().size2D;
         isReadyCount = 0;
         invenSlotisActiveCnt = 0;
+        invenSlotisEmptyCnt = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(1))
         {
-            objRect.rotation = Quaternion.Euler(0, 0, objRect.rotation.eulerAngles.z+90);
-            _Rotation++;
+            if(isClicked == true)
+            {
+              objRect.rotation = Quaternion.Euler(0, 0, objRect.rotation.eulerAngles.z + 90);
+            }
+            //objRect.rotation = Quaternion.Euler(0, 0, objRect.rotation.eulerAngles.z + 90);
         }
 
         invenSlotisActiveCnt = 0;
 
-        for(int i = 0; i <transform.childCount-2; i++)
+        for (int i = 0; i < transform.childCount - 2; i++)
         {
-            if(transform.GetChild(i).GetComponent<itemBlock>().invenSlotisActive ==true)
+            if (transform.GetChild(i).GetComponent<itemBlock>().invenSlotisActive == true)
             {
-                invenSlotisActiveCnt ++;
+                invenSlotisActiveCnt++;
             }
         }
 
+        invenSlotisEmptyCnt = 0;
 
-        if(invenSlotisActiveCnt == 0)
+        for (int i = 0; i < transform.childCount - 2; i++)
         {
-            transform.GetChild(transform.childCount-2).transform.position 
-            = transform.GetChild(transform.childCount-1).transform.position;
-            transform.GetChild(transform.childCount-2).GetComponent<Image>().color = new Color32(255, 255, 255, 100);
-
+            if (transform.GetChild(i).GetComponent<itemBlock>().invenSlotisEmpty == true)
+            {
+                invenSlotisEmptyCnt++;
+            }
         }
 
-        if(invenSlotisActiveCnt > 0 && invenSlotisActiveCnt < transform.childCount-2)
+        //인벤토리 슬롯 활성화 수에 따른 상태 변경
+        if (invenSlotisActiveCnt == 0)
         {
-            transform.GetChild(transform.childCount-2).transform.position 
+            transform.GetChild(transform.childCount - 2).transform.position
+            = transform.GetChild(transform.childCount - 1).transform.position;
+            transform.GetChild(transform.childCount - 2).GetComponent<Image>().color = new Color32(255, 255, 255, 100);
+        }
+
+        if (invenSlotisActiveCnt > 0 && invenSlotisActiveCnt < transform.childCount - 2)
+        {
+            transform.GetChild(transform.childCount - 2).transform.position
             = (transform.GetChild(0).GetComponent<itemBlock>().nearestSlot.transform.position
-            + transform.GetChild(transform.childCount-3).GetComponent<itemBlock>().nearestSlot.transform.position)/2;
-            transform.GetChild(transform.childCount-2).GetComponent<Image>().color = new Color32(255, 0, 0, 100);
-
+            + transform.GetChild(transform.childCount - 3).GetComponent<itemBlock>().nearestSlot.transform.position) / 2;
+            transform.GetChild(transform.childCount - 2).GetComponent<Image>().color = new Color32(255, 0, 0, 100);
         }
 
-        if(invenSlotisActiveCnt == transform.childCount-2)
+        if (invenSlotisActiveCnt == transform.childCount - 2)
         {
-            transform.GetChild(transform.childCount-2).transform.position 
-            = (transform.GetChild(0).GetComponent<itemBlock>().nearestSlot.transform.position
-            + transform.GetChild(transform.childCount-3).GetComponent<itemBlock>().nearestSlot.transform.position)/2;
-            transform.GetChild(transform.childCount-2).GetComponent<Image>().color = new Color32(255, 255, 255, 100);
-
+            //비어있는 인벤토리 슬롯 수에 따른 상태 변경
+            if (invenSlotisEmptyCnt == transform.childCount - 2)
+            //비어있는 인벤토리 슬롯 수에 따른 상태 변경
+            {
+                transform.GetChild(transform.childCount - 2).transform.position
+                = (transform.GetChild(0).GetComponent<itemBlock>().nearestSlot.transform.position
+                + transform.GetChild(transform.childCount - 3).GetComponent<itemBlock>().nearestSlot.transform.position) / 2;
+                transform.GetChild(transform.childCount - 2).GetComponent<Image>().color = new Color32(255, 255, 255, 100);
+            }
+            else
+            {
+                transform.GetChild(transform.childCount - 2).transform.position
+                = (transform.GetChild(0).GetComponent<itemBlock>().nearestSlot.transform.position
+                + transform.GetChild(transform.childCount - 3).GetComponent<itemBlock>().nearestSlot.transform.position) / 2;
+                transform.GetChild(transform.childCount - 2).GetComponent<Image>().color = new Color32(255, 0, 0, 100);
+            }
         }
-
-        //Debug.Log(invenSlotisActiveCnt);
-
-
+        //인벤토리 슬롯 활성화 수에 따른 상태 변경
     }
 
 
     //test
     public void OnPointerDown(PointerEventData eventData)
     {
+        if (this.tag == "GainedItem")
+        {
+            for (int i = 0; i < transform.childCount - 2; i++)
+            {
+                transform.GetChild(i).GetComponent<itemBlock>().nearestSlot.GetComponent<InvenSlot>().isEmpty = true;
+            }
+        }
+
         //test
         transform.Find("Core").gameObject.tag = "SelectedCore";
         this.tag = "SelectedItem";
@@ -101,15 +134,30 @@ public class ItemTest : MonoBehaviour, IPointerDownHandler,
     {
         transform.Find("Core").gameObject.tag = "Core";
         this.tag = "Item";
+
         
-        //마우스 클릭을 풀었을때 이미지 조정  // 수정중 임시 비활성화
-        /* Vector3 targetPos = new Vector3(GameObject.Find("itemImg").transform.position.x,GameObject.Find("itemImg").transform.position.y,1);
-        GameObject.Find("item").transform.position = targetPos;
-        GameObject.Find("itemImg").transform.position = GameObject.Find("item").transform.position; */
-        //
+        if (invenSlotisActiveCnt == transform.childCount - 2 && invenSlotisEmptyCnt == transform.childCount - 2)
+        {
+            //아이템을 인벤토리에 넣기
+            for (int i = 0; i < transform.childCount - 2; i++)
+            {
+                transform.GetChild(i).GetComponent<itemBlock>().nearestSlot.GetComponent<InvenSlot>().isEmpty = false;
+            }
 
 
-        //GameObject.Find("item").transform.position = GameObject.Find("itemImg").transform.position;
+            transform.GetChild(transform.childCount - 2).transform.position
+            = transform.GetChild(transform.childCount - 1).transform.position;
+            transform.GetChild(transform.childCount - 2).GetComponent<Image>().color = new Color32(255, 255, 255, 100);
+
+
+            //(1x1)일때 예외처리
+
+            transform.position = (transform.GetChild(0).GetComponent<itemBlock>().nearestSlot.transform.position
+                + transform.GetChild(transform.childCount - 3).GetComponent<itemBlock>().nearestSlot.transform.position) / 2;
+            this.tag = "GainedItem";
+            //아이템을 인벤토리에 넣기
+        }
+
         InventoryManager.Instance.addItemAvailable = false;
 
         isClicked = false;
@@ -117,13 +165,13 @@ public class ItemTest : MonoBehaviour, IPointerDownHandler,
 
     public void OnDrag(PointerEventData eventData)
     {
-        if(isClicked == true)
+        if (isClicked == true)
         {
-            gameObject.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, 
-				Input.mousePosition.y, 1));
+            gameObject.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x,
+                Input.mousePosition.y, 1));
         }
     }
     //test
 
-    
+
 }
