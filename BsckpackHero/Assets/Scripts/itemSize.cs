@@ -48,7 +48,11 @@ public class itemSize : MonoBehaviour
                 invenSlotisActive = true;
             }
             else { invenSlotisActive = false; }
+
+            
         }
+
+        
 
 
 

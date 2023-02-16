@@ -36,6 +36,8 @@ public class InventorySlots : MonoBehaviour
     {
         if (InventoryManager.Instance.isLvup == true)
         {
+            InventoryExpand();
+            /* 
             InventoryManager.Instance.lvUpPoint = 3;
             for (int i = 12; i < 64; i++)
             {
@@ -73,7 +75,93 @@ public class InventorySlots : MonoBehaviour
             }
 
 
-            InventoryManager.Instance.isLvup = false;
+            InventoryManager.Instance.isLvup = false; */
         }
+
     }
+    private void InventoryExpand()
+    {
+        //이건 이미지 확장할때
+        /* int compareX = 5;
+        int minX = 0;
+        int maxX = 0;
+        int compareY = 3;
+        int minY = 0;
+        int maxY = 0;
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            if (transform.GetChild(i).GetComponent<InvenSlot>().isActive == true)
+            {
+                if (compareX > transform.GetChild(i).GetComponent<InvenSlot>().xInArray)
+                {
+                    compareX = transform.GetChild(i).GetComponent<InvenSlot>().xInArray;
+                    minX = compareX;
+                }
+                if (compareY > transform.GetChild(i).GetComponent<InvenSlot>().yInArray)
+                {
+                    compareY = transform.GetChild(i).GetComponent<InvenSlot>().yInArray;
+                    minY = compareY;
+                }
+            }
+        }
+
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            if (transform.GetChild(i).GetComponent<InvenSlot>().isActive == true)
+            {
+                if (compareX < transform.GetChild(i).GetComponent<InvenSlot>().xInArray)
+                {
+                    compareX = transform.GetChild(i).GetComponent<InvenSlot>().xInArray;
+                    maxX = compareX;
+                }
+                if (compareY < transform.GetChild(i).GetComponent<InvenSlot>().yInArray)
+                {
+                    compareY = transform.GetChild(i).GetComponent<InvenSlot>().yInArray;
+                    maxY = compareY;
+                }
+            }
+        }
+        Debug.Log(minX);
+        Debug.Log(minY);
+        Debug.Log(maxX);
+        Debug.Log(maxY); */
+        //이미지 확장할때
+
+
+
+
+        InventoryManager.Instance.lvUpPoint = 3;
+
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            if (transform.GetChild(i).GetComponent<InvenSlot>().isActive == true && transform.GetChild(i).GetComponent<InvenSlot>().xInArray > 1
+            && transform.GetChild(i).GetComponent<InvenSlot>().xInArray < 9 && transform.GetChild(i).GetComponent<InvenSlot>().yInArray > 1
+            && transform.GetChild(i).GetComponent<InvenSlot>().yInArray < 5)
+            {
+                if (InventoryManager.Instance.itemSlot2DArray[transform.GetChild(i).GetComponent<InvenSlot>().xInArray - 1, transform.GetChild(i).GetComponent<InvenSlot>().yInArray].GetComponent<InvenSlot>().isActive == false)
+                {
+                    InventoryManager.Instance.itemSlot2DArray[transform.GetChild(i).GetComponent<InvenSlot>().xInArray - 1, transform.GetChild(i).GetComponent<InvenSlot>().yInArray].GetComponent<InvenSlot>().isTemporary = true;
+                }
+
+                if (InventoryManager.Instance.itemSlot2DArray[transform.GetChild(i).GetComponent<InvenSlot>().xInArray + 1, transform.GetChild(i).GetComponent<InvenSlot>().yInArray].GetComponent<InvenSlot>().isActive == false)
+                {
+                    InventoryManager.Instance.itemSlot2DArray[transform.GetChild(i).GetComponent<InvenSlot>().xInArray + 1, transform.GetChild(i).GetComponent<InvenSlot>().yInArray].GetComponent<InvenSlot>().isTemporary = true;
+                }
+
+                if (InventoryManager.Instance.itemSlot2DArray[transform.GetChild(i).GetComponent<InvenSlot>().xInArray, transform.GetChild(i).GetComponent<InvenSlot>().yInArray - 1].GetComponent<InvenSlot>().isActive == false)
+                {
+                    InventoryManager.Instance.itemSlot2DArray[transform.GetChild(i).GetComponent<InvenSlot>().xInArray, transform.GetChild(i).GetComponent<InvenSlot>().yInArray - 1].GetComponent<InvenSlot>().isTemporary = true;
+                }
+
+                if (InventoryManager.Instance.itemSlot2DArray[transform.GetChild(i).GetComponent<InvenSlot>().xInArray, transform.GetChild(i).GetComponent<InvenSlot>().yInArray + 1].GetComponent<InvenSlot>().isActive == false)
+                {
+                    InventoryManager.Instance.itemSlot2DArray[transform.GetChild(i).GetComponent<InvenSlot>().xInArray, transform.GetChild(i).GetComponent<InvenSlot>().yInArray + 1].GetComponent<InvenSlot>().isTemporary = true;
+                }
+            }
+        }
+        InventoryManager.Instance.isLvup = false;
+    }
+
+
 }
+
