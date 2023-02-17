@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 48bffa162ccaf70439a1f9aa20618093
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Perfect DOS VGA 437
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: e1ab202f6bd2e444bbe8c237380b0eba, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

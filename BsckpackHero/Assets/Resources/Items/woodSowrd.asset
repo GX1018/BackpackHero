@@ -16,3 +16,4 @@ MonoBehaviour:
   itemImage: {fileID: 21300000, guid: 1b55dfa92021c9b4d918401466f43f74, type: 3}
   sizeX: 1
   sizeY: 3
+  cost: 1

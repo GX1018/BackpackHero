@@ -23,6 +23,12 @@ public class Item : ScriptableObject
     [SerializeField]
     private int sizeY;
     public int SizeY{get{return sizeY;}}
+    
+    [SerializeField]
+    private int cost;
+    public int Cost{get{return cost;}}
+
+    
 
     
 

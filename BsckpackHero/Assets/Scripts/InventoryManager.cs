@@ -50,4 +50,10 @@ public class InventoryManager : MonoBehaviour
 
     public GameObject[,] itemSlot2DArray = new GameObject[11,7]; 
 
+
+    public bool rootItemCheck = false;
+
+    public bool isBattleMode = false;
+
+
 }

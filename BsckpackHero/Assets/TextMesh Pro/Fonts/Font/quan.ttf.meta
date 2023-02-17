@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 0b6f0d482fe8eea449e020ce58da59c4
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - QuanPixel 8px
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 952f13a330c5764469075bf396060205, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

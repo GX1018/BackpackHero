@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 2f77f518746f5614fb0c16eec23c0deb
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Edit Undo BRK
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 608643460f2980948adbbfe3305976d5, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

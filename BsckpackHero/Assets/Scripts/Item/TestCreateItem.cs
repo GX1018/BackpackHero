@@ -17,6 +17,8 @@ public class TestCreateItem : MonoBehaviour
 
     public int size2D;
 
+    public int cost;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,6 +40,7 @@ public class TestCreateItem : MonoBehaviour
 
         sizeX = item.SizeX;
         sizeY = item.SizeY;
+        cost = item.Cost;
 
         GameObject clone = Instantiate(itemPrefab, GameObject.Find("GameObjs").transform);//transform 조정
         clone.name = item.ItemName;
@@ -46,6 +49,7 @@ public class TestCreateItem : MonoBehaviour
         clone.GetComponent<ItemTest>().isCreated = true;
         clone.GetComponent<ItemTest>().sizeX = sizeX;
         clone.GetComponent<ItemTest>().sizeY = sizeY;
+        clone.GetComponent<ItemTest>().cost = cost;
 
 
 
@@ -128,5 +132,8 @@ public class TestCreateItem : MonoBehaviour
                 = new Vector2(clone.transform.GetChild(i).GetComponent<RectTransform>().anchoredPosition.x, clone.transform.GetChild(i).GetComponent<RectTransform>().anchoredPosition.y + 35);
             }
         }
+
+
+        InventoryManager.Instance.rootItemCheck = true;
     }
 }

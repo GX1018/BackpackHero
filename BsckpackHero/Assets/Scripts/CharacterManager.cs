@@ -4,15 +4,32 @@ using UnityEngine;
 
 public class CharacterManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private static CharacterManager instance;
+
+    public static CharacterManager Instance
     {
-        
+        get
+        {
+            if(instance == null)
+            {
+                return null;
+            }
+            return instance;
+        }
+    }
+    
+    private void Awake() {
+        if(instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public int actionPoint = 3;
 }

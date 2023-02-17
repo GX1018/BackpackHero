@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 96d3c4831f7f5c4458effbf5aa481d00
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - indienova Bitmap Chinese
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: e5f7034f7c565fa4e9201ebe0aecd60d, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
