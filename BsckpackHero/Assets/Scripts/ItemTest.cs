@@ -51,14 +51,14 @@ public class ItemTest : MonoBehaviour, IPointerDownHandler,
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(transform.position);
-        if (Input.GetMouseButtonDown(1))
+
+        /* if (Input.GetMouseButtonDown(1))
         {
             if (isClicked == true)
             {
                 objRect.rotation = Quaternion.Euler(0, 0, objRect.rotation.eulerAngles.z + 90);
             }
-        }
+        } */
         ////////////조건체크///////////////
         #region conditionCheck
         invenSlotisActiveCnt = 0;
@@ -88,113 +88,118 @@ public class ItemTest : MonoBehaviour, IPointerDownHandler,
 
         ItemRootCheck();
 
-
-        Debug.Log(transform.position);
-
+        RemoveItem();
     }
 
 
     //아이템을 클릭했을때
     public void OnPointerDown(PointerEventData eventData)
     {
-        //{ 아이템의 태그 상태가 인벤토리에 들어있는 상태(tag : "GainedItem")면 인벤토리 슬롯의 isempty를 true로 변경
-        if (this.tag == "GainedItem")
+        //마우스 왼쪽 버튼 클릭
+        if (Input.GetMouseButtonDown(0))
         {
-            for (int i = 0; i < transform.childCount - 2; i++)
+            //{ 아이템의 태그 상태가 인벤토리에 들어있는 상태(tag : "GainedItem")면 인벤토리 슬롯의 isempty를 true로 변경
+            if (this.tag == "GainedItem")
             {
-                transform.GetChild(i).GetComponent<itemBlock>().nearestSlot.GetComponent<InvenSlot>().isEmpty = true;
+                for (int i = 0; i < transform.childCount - 2; i++)
+                {
+                    transform.GetChild(i).GetComponent<itemBlock>().nearestSlot.GetComponent<InvenSlot>().isEmpty = true;
+                }
             }
+            //} 아이템의 태그 상태가 인벤토리에 들어있는 상태(tag : "GainedItem")면 인벤토리 슬롯의 isempty를 true로 변경
+
+            this.tag = "SelectedItem";
+
+            //아이템 클릭했을때의 위치 저장
+            itemOriginPos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x,
+                                    Input.mousePosition.y, 1));
+            //아이템 클릭했을때의 위치 저장
+
+            if (InventoryManager.Instance.isBattleMode == true && CharacterManager.Instance.actionPoint > 0)
+            {
+                CharacterManager.Instance.actionPoint -= cost;
+            }
+
+            isClicked = true;
         }
-        //} 아이템의 태그 상태가 인벤토리에 들어있는 상태(tag : "GainedItem")면 인벤토리 슬롯의 isempty를 true로 변경
 
-
-        //transform.Find("Core").gameObject.tag = "SelectedCore";
-        this.tag = "SelectedItem";
-
-        //아이템 클릭했을때의 위치 저장
-        itemOriginPos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x,
-                                Input.mousePosition.y, 1));
-        //아이템 클릭했을때의 위치 저장
-        isClicked = true;
-
-        if(InventoryManager.Instance.isBattleMode ==true && CharacterManager.Instance.actionPoint > 0)
+        //마우스 오른쪽 버튼 클릭
+        if (Input.GetMouseButtonDown(1))
         {
-            CharacterManager.Instance.actionPoint-= cost;
+            objRect.rotation = Quaternion.Euler(0, 0, objRect.rotation.eulerAngles.z + 90);
         }
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        //transform.Find("Core").gameObject.tag = "Core";
-        this.tag = "Item";
-
-
-        if (invenSlotisActiveCnt == transform.childCount - 2 && invenSlotisEmptyCnt == transform.childCount - 2)
+        if (Input.GetMouseButtonUp(0))
         {
-            //아이템을 인벤토리에 넣기
-            for (int i = 0; i < transform.childCount - 2; i++)
+            this.tag = "Item";
+
+            if (invenSlotisActiveCnt == transform.childCount - 2 && invenSlotisEmptyCnt == transform.childCount - 2)
             {
-                transform.GetChild(i).GetComponent<itemBlock>().nearestSlot.GetComponent<InvenSlot>().isEmpty = false;
+                //아이템을 인벤토리에 넣기
+                for (int i = 0; i < transform.childCount - 2; i++)
+                {
+                    transform.GetChild(i).GetComponent<itemBlock>().nearestSlot.GetComponent<InvenSlot>().isEmpty = false;
+                }
+
+
+                transform.GetChild(transform.childCount - 2).transform.position
+                = transform.GetChild(transform.childCount - 1).transform.position;
+                transform.GetChild(transform.childCount - 2).GetComponent<Image>().color = new Color32(255, 255, 255, 100);
+
+                transform.position = (transform.GetChild(0).GetComponent<itemBlock>().nearestSlot.transform.position
+                    + transform.GetChild(transform.childCount - 3).GetComponent<itemBlock>().nearestSlot.transform.position) / 2;
+                this.tag = "GainedItem";
+                //아이템을 인벤토리에 넣기
+
+                //아이템 갖는걸 확정할때의(조건 추가요망)
+
+                property = "player";
+            }
+            else if ((invenSlotisActiveCnt != transform.childCount - 2) || (invenSlotisEmptyCnt != transform.childCount - 2))
+            {
+                transform.GetChild(transform.childCount - 2).transform.position
+                = transform.GetChild(transform.childCount - 1).transform.position;
+                /* if()
+                {
+                    transform.position = itemOriginPos;
+                } */
+
+                //test
+                //test
             }
 
+            InventoryManager.Instance.addItemAvailable = false;
 
-            transform.GetChild(transform.childCount - 2).transform.position
-            = transform.GetChild(transform.childCount - 1).transform.position;
-            transform.GetChild(transform.childCount - 2).GetComponent<Image>().color = new Color32(255, 255, 255, 100);
+            isClicked = false;
 
-            transform.position = (transform.GetChild(0).GetComponent<itemBlock>().nearestSlot.transform.position
-                + transform.GetChild(transform.childCount - 3).GetComponent<itemBlock>().nearestSlot.transform.position) / 2;
-            this.tag = "GainedItem";
-            //아이템을 인벤토리에 넣기
+            //////////////
 
-            //아이템 갖는걸 확정할때의(조건 추가요망)
-
-            property = "player";
-        }
-        else if ((invenSlotisActiveCnt != transform.childCount - 2) || (invenSlotisEmptyCnt != transform.childCount - 2))
-        {
-            transform.GetChild(transform.childCount - 2).transform.position
-            = transform.GetChild(transform.childCount - 1).transform.position;
-            /* if()
+            //클릭을 풀었을때 소유권 상태
+            if (property == "none")
             {
-                transform.position = itemOriginPos;
-            } */
+                float ranPosX = Random.Range(-7.5f, 7.5f);
+                float ranPosY = Random.Range(-1f, -4.5f);
+                transform.position = new Vector3(ranPosX, ranPosY, 1);
+            }
 
-            //test
-            //test
-        }
+            if (property == "neutrality")
+            {
+                float ranPosX = Random.Range(-7.5f, 7.5f);
+                float ranPosY = Random.Range(1f, 4.5f);
+                transform.position = new Vector3(ranPosX, ranPosY, 1);
+            }
 
-        InventoryManager.Instance.addItemAvailable = false;
+            if (property == "player")
+            {
 
-        isClicked = false;
+            }
 
-
-
-
-
-        //////////////
-        
-        //클릭을 풀었을때 소유권 상태
-        if (property == "none")
-        {
-            float ranPosX = Random.Range(-7.5f, 7.5f);
-            float ranPosY = Random.Range(-1f, -4.5f);
-            transform.position = new Vector3(ranPosX, ranPosY, 1);
-        }
-
-        if (property == "neutrality")
-        {
-            float ranPosX = Random.Range(-7.5f, 7.5f);
-            float ranPosY = Random.Range(1f, 4.5f);
-            transform.position = new Vector3(ranPosX, ranPosY, 1);
-        }
-
-        if (property == "player")
-        {
+            /////////////
 
         }
-
-        /////////////
 
 
 
@@ -298,6 +303,18 @@ public class ItemTest : MonoBehaviour, IPointerDownHandler,
             if (property != "player")
             {
                 //Destroy(this.gameObject);
+            }
+        }
+    }
+
+    public void RemoveItem()
+    {
+        if (InventoryManager.Instance.removeItem == true)
+        {
+            if (property != "player")
+            {
+                Destroy(this.gameObject);
+                InventoryManager.Instance.removeItem = false;
             }
         }
     }

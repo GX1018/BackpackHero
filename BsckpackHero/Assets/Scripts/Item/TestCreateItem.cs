@@ -42,7 +42,7 @@ public class TestCreateItem : MonoBehaviour
         sizeY = item.SizeY;
         cost = item.Cost;
 
-        GameObject clone = Instantiate(itemPrefab, GameObject.Find("GameObjs").transform);//transform 조정
+        GameObject clone = Instantiate(itemPrefab, GameObject.Find("GameObjs").transform);//transform 조정 //test중
         clone.name = item.ItemName;
 
         clone.AddComponent<ItemTest>(); // 스크립트 삽입// 나중에 개별 스크립트 설정후 변경?

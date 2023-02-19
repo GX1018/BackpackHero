@@ -18,6 +18,9 @@ public class RootItemBtn : MonoBehaviour
 
     public void RootItem()
     {
+        InventoryManager.Instance.removeItem = true;
         InventoryManager.Instance.rootItemCheck = false;
+        
+
     }
 }

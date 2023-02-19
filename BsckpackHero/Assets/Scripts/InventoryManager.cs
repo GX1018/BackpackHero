@@ -4,23 +4,24 @@ using UnityEngine;
 
 public class InventoryManager : MonoBehaviour
 {
-    
+
     private static InventoryManager instance;
 
     public static InventoryManager Instance
     {
         get
         {
-            if(instance == null)
+            if (instance == null)
             {
                 return null;
             }
             return instance;
         }
     }
-    
-    private void Awake() {
-        if(instance == null)
+
+    private void Awake()
+    {
+        if (instance == null)
         {
             instance = this;
             DontDestroyOnLoad(this.gameObject);
@@ -45,15 +46,15 @@ public class InventoryManager : MonoBehaviour
     //
 
     //inventoryslot
-    public bool addItemAvailable =false;
+    public bool addItemAvailable = false;
     //
 
-    public GameObject[,] itemSlot2DArray = new GameObject[11,7]; 
+    public GameObject[,] itemSlot2DArray = new GameObject[11, 7];
 
 
     public bool rootItemCheck = false;
 
     public bool isBattleMode = false;
-
+    public bool removeItem = false;
 
 }

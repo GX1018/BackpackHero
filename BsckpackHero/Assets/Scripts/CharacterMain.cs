@@ -23,13 +23,13 @@ public class CharacterMain : MonoBehaviour
         
         if(changeBtn.GetComponent<changeBtn>().isClickInventoryBtn == true)
         {
-            this.gameObject.GetComponent<Animator>().SetBool("isInventory", true);
-            this.gameObject.GetComponent<Animator>().SetBool("isMap", false);
+            transform.GetChild(0).GetComponent<Animator>().SetBool("isInventory", true);
+            transform.GetChild(0).GetComponent<Animator>().SetBool("isMap", false);
         }
         else if(changeBtn.GetComponent<changeBtn>().isClickMapBtn == true)
         {
-            this.gameObject.GetComponent<Animator>().SetBool("isInventory", false);
-            this.gameObject.GetComponent<Animator>().SetBool("isMap", true);
+            transform.GetChild(0).GetComponent<Animator>().SetBool("isInventory", false);
+            transform.GetChild(0).GetComponent<Animator>().SetBool("isMap", true);
         }
         
 
