@@ -17,4 +17,8 @@ public class MapManager : GSingleton<MapManager>
     }
 
     public GameObject nearestMapBox;
+    public int playerPos;
+    public int targetPos;
+
+    public bool moveCharacter = false;
 }

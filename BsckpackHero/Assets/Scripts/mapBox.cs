@@ -67,12 +67,19 @@ public class mapBox : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         if (test == 1)
         {
 
+            if (canMove == true)
+            {
+                MapManager.Instance.targetPos = thisPos;
+                MapManager.Instance.moveCharacter = true;
+            }
+
+            test = 0;
             //transform.parent.GetChild(transform.parent.childCount - 1).position = Vector3.MoveTowards(new Vector3(transform.parent.GetChild(transform.parent.childCount - 1).position.x,transform.parent.GetChild(transform.parent.childCount - 1).position.y,100), new Vector3(targetPos.x,targetPos.y,100), 1f * Time.deltaTime);
-            for (int i = 0; i < thisPos; i++)
+            /* for (int i = 0; i < thisPos; i++)
             {
                 transform.parent.GetChild(transform.parent.childCount - 1).position = Vector3.MoveTowards(new Vector3(transform.parent.GetChild(transform.parent.childCount - 1).position.x, transform.parent.GetChild(transform.parent.childCount - 1).position.y, 100),
             new Vector3(transform.parent.GetChild(i).position.x, transform.parent.GetChild(i).position.y, 100), 1f * Time.deltaTime);
-            }
+            } */
 
         }
 
@@ -88,14 +95,14 @@ public class mapBox : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         if (isCharacterIn == false)
         {
             //{ 캐릭터가 있는 pos 찾기
-            for (int i = 0; i < transform.parent.childCount; i++)
+            /* for (int i = 0; i < transform.parent.childCount; i++)
             {
                 if (transform.parent.GetChild(i).GetComponent<mapBox>().isCharacterIn == true)
                 {
                     playerPos = i;
                     break;
                 }
-            }
+            } */
             //{ 캐릭터가 있는 pos 찾기
 
             /* //현재 위치보다 캐릭터의 위치가 앞에 있을때
@@ -121,7 +128,15 @@ public class mapBox : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
         }
 
-        targetPos = this.transform.position;
+        for (int i = 0; i < transform.parent.childCount; i++)
+        {
+            if (transform.parent.GetChild(i).gameObject == this.gameObject)
+            {
+                MapManager.Instance.targetPos = i;
+            }
+        }
+
+        //targetPos = this.transform.position;
 
 
 
