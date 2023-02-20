@@ -29,7 +29,13 @@ public class CharacterManager : MonoBehaviour
             Destroy(this.gameObject);
         }
 
+        maxHp =40;
+        currentHp = maxHp;
     }
 
     public int actionPoint = 3;
+    public int def = 0;
+    public int currentHp;
+    public int maxHp;
+    
 }

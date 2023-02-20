@@ -29,6 +29,8 @@ public class ItemTest : MonoBehaviour, IPointerDownHandler,
     public string property = "none";        //none, neutrality, player 3가지 // int 형식으로 바꿔야할지
 
     public int cost;
+    public int atk;
+    public int def;
 
 
 
@@ -87,8 +89,6 @@ public class ItemTest : MonoBehaviour, IPointerDownHandler,
         ImageCheck();
 
         ItemRootCheck();
-
-        RemoveItem();
     }
 
 
@@ -115,10 +115,16 @@ public class ItemTest : MonoBehaviour, IPointerDownHandler,
                                     Input.mousePosition.y, 1));
             //아이템 클릭했을때의 위치 저장
 
-            if (InventoryManager.Instance.isBattleMode == true && CharacterManager.Instance.actionPoint > 0)
+            //배틀모드일때의 행동
+            if (InventoryManager.Instance.isBattleMode == true && CharacterManager.Instance.actionPoint > 0 && CharacterManager.Instance.actionPoint >= cost)
             {
+                if(def>0)
+                {
+                    CharacterManager.Instance.def += def;
+                }
                 CharacterManager.Instance.actionPoint -= cost;
             }
+            //배틀모드일때의 행동
 
             isClicked = true;
         }
@@ -182,14 +188,14 @@ public class ItemTest : MonoBehaviour, IPointerDownHandler,
             {
                 float ranPosX = Random.Range(-7.5f, 7.5f);
                 float ranPosY = Random.Range(-1f, -4.5f);
-                transform.position = new Vector3(ranPosX, ranPosY, 1);
+                transform.position = new Vector3(ranPosX, ranPosY, 100);
             }
 
             if (property == "neutrality")
             {
                 float ranPosX = Random.Range(-7.5f, 7.5f);
                 float ranPosY = Random.Range(1f, 4.5f);
-                transform.position = new Vector3(ranPosX, ranPosY, 1);
+                transform.position = new Vector3(ranPosX, ranPosY, 100);
             }
 
             if (property == "player")
@@ -210,7 +216,7 @@ public class ItemTest : MonoBehaviour, IPointerDownHandler,
         if (isClicked == true)
         {
             gameObject.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x,
-                Input.mousePosition.y, 1));
+                Input.mousePosition.y, 100));
         }
     }
     //test
@@ -311,11 +317,19 @@ public class ItemTest : MonoBehaviour, IPointerDownHandler,
     {
         if (InventoryManager.Instance.removeItem == true)
         {
-            if (property != "player")
+            for (int i = 0; i < transform.parent.childCount; i++)
+            {
+                if (transform.parent.GetChild(i).GetComponent<ItemTest>().property != "player")
+                {
+                    Destroy(this.gameObject);
+                }
+            }
+            //InventoryManager.Instance.removeItem = false;
+            /* if (property != "player")
             {
                 Destroy(this.gameObject);
                 InventoryManager.Instance.removeItem = false;
-            }
+            }*/
         }
     }
 }

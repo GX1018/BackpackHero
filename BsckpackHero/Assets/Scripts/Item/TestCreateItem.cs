@@ -18,6 +18,8 @@ public class TestCreateItem : MonoBehaviour
     public int size2D;
 
     public int cost;
+    public int atk;
+    public int def;
 
     // Start is called before the first frame update
     void Start()
@@ -41,8 +43,10 @@ public class TestCreateItem : MonoBehaviour
         sizeX = item.SizeX;
         sizeY = item.SizeY;
         cost = item.Cost;
+        atk = item.Atk;
+        def = item.Def;
 
-        GameObject clone = Instantiate(itemPrefab, GameObject.Find("GameObjs").transform);//transform 조정 //test중
+        GameObject clone = Instantiate(itemPrefab, GameObject.Find("Items").transform);//transform 조정 //test중
         clone.name = item.ItemName;
 
         clone.AddComponent<ItemTest>(); // 스크립트 삽입// 나중에 개별 스크립트 설정후 변경?
@@ -50,6 +54,7 @@ public class TestCreateItem : MonoBehaviour
         clone.GetComponent<ItemTest>().sizeX = sizeX;
         clone.GetComponent<ItemTest>().sizeY = sizeY;
         clone.GetComponent<ItemTest>().cost = cost;
+        clone.GetComponent<ItemTest>().def = def;
 
 
 

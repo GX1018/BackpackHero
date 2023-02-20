@@ -19,7 +19,7 @@ public class CharacterMain : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.GetChild(2).GetComponent<TMP_Text>().text = CharacterManager.Instance.actionPoint.ToString();
+        transform.GetChild(1).transform.GetChild(1).GetComponent<TMP_Text>().text = CharacterManager.Instance.actionPoint.ToString();
         
         if(changeBtn.GetComponent<changeBtn>().isClickInventoryBtn == true)
         {

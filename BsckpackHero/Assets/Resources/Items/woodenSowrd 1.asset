@@ -10,10 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 818cf47979da734409d78399456ca2e2, type: 3}
-  m_Name: woodSowrd
+  m_Name: woodenSowrd 1
   m_EditorClassIdentifier: 
-  itemName: woodSword
+  itemName: woodenSword
   itemImage: {fileID: 21300000, guid: 1b55dfa92021c9b4d918401466f43f74, type: 3}
   sizeX: 1
   sizeY: 3
   cost: 1
+  atk: 7
+  def: 0

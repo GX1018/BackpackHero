@@ -28,6 +28,14 @@ public class Item : ScriptableObject
     private int cost;
     public int Cost{get{return cost;}}
 
+    [SerializeField]
+    private int atk;
+    public int Atk{get{return atk;}}
+
+    [SerializeField]
+    private int def;
+    public int Def{get{return def;}}
+
     
 
     

@@ -20,7 +20,7 @@ public class changeBtn : MonoBehaviour
     void Start()
     {
         invenAndMap = GameObject.Find("Inventory&Map");
-        
+
         /* targetPosition1 = GameObject.Find("UiMoveTarget1").transform.position;
         targetPosition2 = GameObject.Find("UiMoveTarget2").transform.position; */
     }

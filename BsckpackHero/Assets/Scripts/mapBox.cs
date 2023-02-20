@@ -1,71 +1,177 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class mapBox : MonoBehaviour
+using UnityEngine.EventSystems;
+public class mapBox : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
+    public bool isCharacterIn = false;
     public bool isFilled = false;
+    public bool canMove = false;
     public int currentPos = 0;
-    public int thisPos = 0;
+    public int thisPos;
     string[] split_name;
+
+    public int playerPos = 0;
+
+    Vector2 targetPos;
+
+    int test = 0;
+
+
     // Start is called before the first frame update
     void Start()
     {
-        if(gameObject.name == "Tutorial1")
+
+        for (int i = 0; i < transform.parent.childCount; i++)
         {
-            isFilled = true;
+            if (transform.parent.GetChild(i).gameObject == this.gameObject)
+            {
+                thisPos = i;
+            }
+        }
+
+
+        if (thisPos == 0)
+        {
+            isCharacterIn = true;
         }
         else
         {
-            isFilled = false;
+            isCharacterIn = false;
         }
 
-        split_name = this.name.Split('_');
-        thisPos = int.Parse(split_name[1]);
+
+        GameObject.Find("MapCharacter").transform.position = transform.parent.GetChild(0).position;
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log(isFilled);
-    }
-
-    private void OnCollisionStay2D(Collision2D other) {
-        if(other.gameObject.tag == "player")
+        if (MapManager.Instance.nearestMapBox == this.gameObject)
         {
-            isFilled = true;
-            Debug.Log(isFilled);
+            isCharacterIn = true;
         }
-    }
-
-    private void OnMouseDown() {
-        
-        if(isFilled == true)
+        else
         {
-            /*Do Nothing*/
+            isCharacterIn = false;
         }
-        else if(isFilled == false)
+
+
+
+        checkMove();
+
+
+
+
+
+        if (test == 1)
         {
-            //현재 플레이어 위치 확인
-            for(int i = 1; i<13; i++)
+
+            //transform.parent.GetChild(transform.parent.childCount - 1).position = Vector3.MoveTowards(new Vector3(transform.parent.GetChild(transform.parent.childCount - 1).position.x,transform.parent.GetChild(transform.parent.childCount - 1).position.y,100), new Vector3(targetPos.x,targetPos.y,100), 1f * Time.deltaTime);
+            for (int i = 0; i < thisPos; i++)
             {
-                if(GameObject.Find($"Tutorial{i}").GetComponent<mapBox>().isFilled ==true)
+                transform.parent.GetChild(transform.parent.childCount - 1).position = Vector3.MoveTowards(new Vector3(transform.parent.GetChild(transform.parent.childCount - 1).position.x, transform.parent.GetChild(transform.parent.childCount - 1).position.y, 100),
+            new Vector3(transform.parent.GetChild(i).position.x, transform.parent.GetChild(i).position.y, 100), 1f * Time.deltaTime);
+            }
+
+        }
+
+
+
+
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        //클릭했을때 현재 위치에 캐릭터가 있는지 여부 체크
+        //없을때
+        if (isCharacterIn == false)
+        {
+            //{ 캐릭터가 있는 pos 찾기
+            for (int i = 0; i < transform.parent.childCount; i++)
+            {
+                if (transform.parent.GetChild(i).GetComponent<mapBox>().isCharacterIn == true)
                 {
-                    currentPos = i;
+                    playerPos = i;
                     break;
                 }
             }
-            //현재 플레이어 위치 확인
+            //{ 캐릭터가 있는 pos 찾기
 
-            for(int i = currentPos; i< thisPos; i++)
+            /* //현재 위치보다 캐릭터의 위치가 앞에 있을때
+            if(playerPos < thisPos)
             {
-                if(GameObject.Find($"Tutorial{i}").GetComponent<mapBox>().isFilled ==true)
+                for(int i = playerPos + 1; i <= thisPos; i++)
                 {
-                    break;
+                    if(transform.parent.GetChild(i).GetComponent<mapBox>().isFilled == false)
+                    {
+                        canMove = true;
+                    }
                 }
             }
+            //현재 위치보다 캐릭터의 위치가 앞에 있을때
 
-            //미완
+            //현재 위치보다 캐릭터의 위치가 뒤에 있을때
+            else if(playerPos > thisPos)
+            {
+
+            }
+            //현재 위치보다 캐릭터의 위치가 뒤에 있을때 */
+
+
         }
+
+        targetPos = this.transform.position;
+
+
+
+        test = 1;
+
+    }
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+
+    }
+
+
+
+    public void checkMove()
+    {
+        //현재 위치보다 캐릭터의 위치가 앞에 있을때
+        if (playerPos < thisPos)
+        {
+            for (int i = playerPos + 1; i <= thisPos; i++)
+            {
+                if (transform.parent.GetChild(i).GetComponent<mapBox>().isFilled == true)
+                {
+                    canMove = false;
+                    break;
+                }
+                if (transform.parent.GetChild(i).GetComponent<mapBox>().isFilled == false)
+                {
+                    canMove = true;
+                }
+            }
+        }
+        //현재 위치보다 캐릭터의 위치가 앞에 있을때
+
+        //현재 위치보다 캐릭터의 위치가 뒤에 있을때
+        else if (playerPos > thisPos)
+        {
+            for (int i = playerPos - 1; i >= thisPos; i--)
+            {
+                if (transform.parent.GetChild(i).GetComponent<mapBox>().isFilled == true)
+                {
+                    canMove = false;
+                    break;
+                }
+                if (transform.parent.GetChild(i).GetComponent<mapBox>().isFilled == false)
+                {
+                    canMove = true;
+                }
+            }
+        }
+        //현재 위치보다 캐릭터의 위치가 뒤에 있을때
     }
 }
