@@ -33,6 +33,13 @@ public class InventoryManager : MonoBehaviour
 
     }
 
+    private void Update() {
+        if(rootItemCheck == true)
+        {
+            ItemRootConfirm();
+        }
+    }
+
 
     // inventoryImg에서 인벤 이미지 확장할때 사용
     public int expandRight = 0;
@@ -58,6 +65,13 @@ public class InventoryManager : MonoBehaviour
     public bool isBattleMode = false;
     public bool removeItem = false;
 
+
+    public void ItemRootConfirm()
+    {
+        Debug.Log("!!");
+        //버튼 액티브//
+        rootItemCheck = false;
+    }
 
     
 

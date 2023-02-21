@@ -39,6 +39,15 @@ public class changeBtn : MonoBehaviour
         {
             invenAndMap.transform.position = Vector3.MoveTowards(invenAndMap.transform.position, new Vector3(8.89f, 2.22f, 100), 100f*Time.deltaTime);
         }
+
+        if( MapManager.Instance.findChest == true && isClickMapBtn == true)
+        {
+            isClickInventoryBtn = true;
+            this.gameObject.GetComponent<Image>().sprite = imageMap;
+            isClickMapBtn=false;
+        }
+        
+
     }
 
     public void changeBtnClick(){

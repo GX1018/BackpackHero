@@ -23,9 +23,26 @@ public class MapCharacter : MonoBehaviour
 
         if (MapManager.Instance.moveCharacter == true)
         {
+            //test용
+            //transform.position = transform.parent.GetChild(targetPos).position;
+
+            //test!!
+            CharacterManager.Instance.isWalk = true;
+            transform.position = Vector3.MoveTowards(transform.position, transform.parent.GetChild(targetPos).position, 1f * Time.deltaTime);
 
 
-            Debug.Log(playerPos);
+            if (transform.position == transform.parent.GetChild(targetPos).position)
+            {
+                CharacterManager.Instance.isWalk = false;
+
+                MapManager.Instance.moveCharacter = false;
+            }
+            //
+            //test용
+
+
+            //기본값 저장
+            /* Debug.Log(playerPos);
             Debug.Log(targetPos);
 
             for (int i = playerPos; i < targetPos; i++)
@@ -33,15 +50,15 @@ public class MapCharacter : MonoBehaviour
                 transform.position = Vector3.MoveTowards(new Vector3(transform.position.x, transform.position.y, 100),
                 new Vector3(transform.parent.GetChild(i + 1).position.x, transform.parent.GetChild(i + 1).position.y, 100), 1f * Time.deltaTime);
 
-                
+
 
                 if (transform.position == transform.parent.GetChild(targetPos).position)
                 {
                     playerPos = targetPos;
                     MapManager.Instance.moveCharacter = false;
                 }
-
-            }
+            } */
+            //기본값 저장
 
         }
 

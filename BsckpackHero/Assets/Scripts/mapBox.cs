@@ -34,6 +34,7 @@ public class mapBox : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         if (thisPos == 0)
         {
             isCharacterIn = true;
+            canMove = true;
         }
         else
         {
@@ -47,6 +48,52 @@ public class mapBox : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     // Update is called once per frame
     void Update()
     {
+        //박스 안에 다른 오브젝트가 있는지 체크(배틀/이벤트/다음층)
+        if (transform.childCount > 0)
+        {
+            isFilled = true;
+        }
+        else
+        {
+            isFilled = false;
+        }
+        //박스 안에 다른 오브젝트가 있는지 체크(배틀/이벤트/다음층)
+
+        //다른 오브젝트가 있는 박스에 캐릭터가 들어왔을때,
+        if (isFilled == true && isCharacterIn == true)
+        {
+            if (transform.GetChild(0).name == "Chest")
+            {
+                MapManager.Instance.findChest = true;
+                if (MapManager.Instance.openChest == true)
+                {
+
+                    MapManager.Instance.findChest = false;
+
+                    MapManager.Instance.openChest = false;
+
+                    Destroy(transform.GetChild(0).gameObject);
+                }
+            }
+            else if (transform.GetChild(0).name == "MapEnemy")
+            {
+                if (InventoryManager.Instance.isBattleMode == false)
+                {
+                    InventoryManager.Instance.isBattleMode = true;
+                }
+                transform.GetChild(0).gameObject.GetComponent<MapEnemy>().BattleStart();
+            }
+            else if (transform.GetChild(0).name == "NextFloor")
+            {
+
+            }
+        }
+        //다른 오브젝트가 있는 박스에 캐릭터가 들어왔을때
+
+
+
+
+
         if (MapManager.Instance.nearestMapBox == this.gameObject)
         {
             isCharacterIn = true;
@@ -57,8 +104,9 @@ public class mapBox : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         }
 
 
-
         checkMove();
+
+
 
 
 
@@ -74,9 +122,9 @@ public class mapBox : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             }
 
             test = 0;
-            //transform.parent.GetChild(transform.parent.childCount - 1).position = Vector3.MoveTowards(new Vector3(transform.parent.GetChild(transform.parent.childCount - 1).position.x,transform.parent.GetChild(transform.parent.childCount - 1).position.y,100), new Vector3(targetPos.x,targetPos.y,100), 1f * Time.deltaTime);
             /* for (int i = 0; i < thisPos; i++)
             {
+            //transform.parent.GetChild(transform.parent.childCount - 1).position = Vector3.MoveTowards(new Vector3(transform.parent.GetChild(transform.parent.childCount - 1).position.x,transform.parent.GetChild(transform.parent.childCount - 1).position.y,100), new Vector3(targetPos.x,targetPos.y,100), 1f * Time.deltaTime);
                 transform.parent.GetChild(transform.parent.childCount - 1).position = Vector3.MoveTowards(new Vector3(transform.parent.GetChild(transform.parent.childCount - 1).position.x, transform.parent.GetChild(transform.parent.childCount - 1).position.y, 100),
             new Vector3(transform.parent.GetChild(i).position.x, transform.parent.GetChild(i).position.y, 100), 1f * Time.deltaTime);
             } */
@@ -90,43 +138,6 @@ public class mapBox : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        //클릭했을때 현재 위치에 캐릭터가 있는지 여부 체크
-        //없을때
-        if (isCharacterIn == false)
-        {
-            //{ 캐릭터가 있는 pos 찾기
-            /* for (int i = 0; i < transform.parent.childCount; i++)
-            {
-                if (transform.parent.GetChild(i).GetComponent<mapBox>().isCharacterIn == true)
-                {
-                    playerPos = i;
-                    break;
-                }
-            } */
-            //{ 캐릭터가 있는 pos 찾기
-
-            /* //현재 위치보다 캐릭터의 위치가 앞에 있을때
-            if(playerPos < thisPos)
-            {
-                for(int i = playerPos + 1; i <= thisPos; i++)
-                {
-                    if(transform.parent.GetChild(i).GetComponent<mapBox>().isFilled == false)
-                    {
-                        canMove = true;
-                    }
-                }
-            }
-            //현재 위치보다 캐릭터의 위치가 앞에 있을때
-
-            //현재 위치보다 캐릭터의 위치가 뒤에 있을때
-            else if(playerPos > thisPos)
-            {
-
-            }
-            //현재 위치보다 캐릭터의 위치가 뒤에 있을때 */
-
-
-        }
 
         for (int i = 0; i < transform.parent.childCount; i++)
         {
@@ -136,12 +147,8 @@ public class mapBox : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             }
         }
 
-        //targetPos = this.transform.position;
-
-
 
         test = 1;
-
     }
 
     public void OnPointerUp(PointerEventData eventData)
@@ -153,40 +160,18 @@ public class mapBox : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     public void checkMove()
     {
-        //현재 위치보다 캐릭터의 위치가 앞에 있을때
-        if (playerPos < thisPos)
+        for (int i = 0; i < thisPos; i++)
         {
-            for (int i = playerPos + 1; i <= thisPos; i++)
+            if (transform.parent.GetChild(i).GetComponent<mapBox>().isFilled == true)
             {
-                if (transform.parent.GetChild(i).GetComponent<mapBox>().isFilled == true)
-                {
-                    canMove = false;
-                    break;
-                }
-                if (transform.parent.GetChild(i).GetComponent<mapBox>().isFilled == false)
-                {
-                    canMove = true;
-                }
+                canMove = false;
+                break;
             }
-        }
-        //현재 위치보다 캐릭터의 위치가 앞에 있을때
+            else if (transform.parent.GetChild(i).GetComponent<mapBox>().isFilled == false)
+            {
+                canMove = true;
+            }
 
-        //현재 위치보다 캐릭터의 위치가 뒤에 있을때
-        else if (playerPos > thisPos)
-        {
-            for (int i = playerPos - 1; i >= thisPos; i--)
-            {
-                if (transform.parent.GetChild(i).GetComponent<mapBox>().isFilled == true)
-                {
-                    canMove = false;
-                    break;
-                }
-                if (transform.parent.GetChild(i).GetComponent<mapBox>().isFilled == false)
-                {
-                    canMove = true;
-                }
-            }
         }
-        //현재 위치보다 캐릭터의 위치가 뒤에 있을때
     }
 }

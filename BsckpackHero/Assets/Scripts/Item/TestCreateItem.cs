@@ -30,12 +30,19 @@ public class TestCreateItem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        //삭제예정
     }
 
-    public void CreateItem()
+    public void CreateItem(int num)
     {
-        ranNum = Random.Range(0, ItemManager.Instance.itemList.Length);
+        if (MapManager.Instance.floor == 0)
+        {
+            ranNum = num;
+        }
+        else
+        {
+            ranNum = Random.Range(0, ItemManager.Instance.itemList.Length);
+        }
         item = ItemManager.Instance.itemList[ranNum];
 
         itemPrefab = Resources.Load<GameObject>("Prefabs/ItemPrefabTest");
@@ -124,7 +131,7 @@ public class TestCreateItem : MonoBehaviour
         {
             for (int i = 0; i < 9; i++)
             {
-                clone.transform.GetChild(i).GetComponent<RectTransform>().anchoredPosition 
+                clone.transform.GetChild(i).GetComponent<RectTransform>().anchoredPosition
                 = new Vector2(clone.transform.GetChild(i).GetComponent<RectTransform>().anchoredPosition.x - 35, clone.transform.GetChild(i).GetComponent<RectTransform>().anchoredPosition.y);
             }
         }
