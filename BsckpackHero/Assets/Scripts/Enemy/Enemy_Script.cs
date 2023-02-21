@@ -30,25 +30,22 @@ public class Enemy_Script : MonoBehaviour, IPointerDownHandler
     {
         if (isTarget == true)
         {
-            transform.GetChild(2).gameObject.SetActive(true);
+            transform.GetChild(1).gameObject.SetActive(true);
         }
         else if (isTarget == false)
         {
-            transform.GetChild(2).gameObject.SetActive(false);
+            transform.GetChild(1).gameObject.SetActive(false);
         }
 
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        if (isTarget == false)
+        for (int i = 0; i < transform.parent.childCount; i++)
         {
-            for (int i = 0; i < transform.parent.childCount; i++)
-            {
-                transform.parent.GetChild(i).gameObject.GetComponent<Enemy_Script>().isTarget = false;
-            }
-            isTarget = true;
+            transform.parent.GetChild(i).gameObject.GetComponent<Enemy_Script>().isTarget = false;
         }
+        isTarget = true;
     }
 
 }
