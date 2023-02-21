@@ -6,14 +6,14 @@ public class MapEnemy : MonoBehaviour
 {
     public int enemyNum;
     public string[] enemyName;
-    public List<GameObject> enemyList;
+
     // Start is called before the first frame update
     void Start()
     {
-        for (int i = 0; i < enemyName.Length; i++)
+        /* for (int i = 0; i < enemyName.Length; i++)
         {
             MapManager.Instance.CreateEnemy(enemyName[i], enemyList);
-        }
+        } */
     }
 
     // Update is called once per frame
@@ -24,9 +24,24 @@ public class MapEnemy : MonoBehaviour
 
     public void BattleStart()
     {
-        for(int i = 0; i < enemyName.Length; i++)
+        if (MapManager.Instance.createEnd == false)
         {
-            enemyList[i].SetActive(true);
+            for (int i = 0; i < enemyName.Length; i++)
+            {
+                MapManager.Instance.CreateEnemy(enemyName[i], BattleManager.Instance.enemyInBattle);
+            }
+
+            MapManager.Instance.createEnd = true;
+            //배틀 종료될때 createEnd false로 변경
+        }
+
+
+        for (int i = 0; i < enemyName.Length; i++)
+        {
+            if (BattleManager.Instance.enemyInBattle.Count > 0)
+            {
+                BattleManager.Instance.enemyInBattle[i].SetActive(true);
+            }
         }
     }
 }

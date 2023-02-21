@@ -92,6 +92,7 @@ public class ItemManager : MonoBehaviour
         clone.GetComponent<ItemTest>().sizeY = sizeY;
         clone.GetComponent<ItemTest>().cost = cost;
         clone.GetComponent<ItemTest>().def = def;
+        clone.GetComponent<ItemTest>().atk = atk;
 
 
 

@@ -32,6 +32,8 @@ public class ItemTest : MonoBehaviour, IPointerDownHandler,
     public int atk;
     public int def;
 
+    public List<GameObject> enemyInBattle;
+
 
 
     private RectTransform objRect = default;
@@ -48,6 +50,8 @@ public class ItemTest : MonoBehaviour, IPointerDownHandler,
         invenSlotisEmptyCnt = 0;
 
         property = "none";
+
+        
     }
 
     // Update is called once per frame
@@ -89,6 +93,22 @@ public class ItemTest : MonoBehaviour, IPointerDownHandler,
         ImageCheck();
 
         ItemRootCheck();
+
+        //배틀모드이고 행동력이 0일때 아이템의 코스트가 0보다 크면
+        if (CharacterManager.Instance.isBattleMode == true && cost > 0)
+        {
+            //색상 변경
+            if (CharacterManager.Instance.actionPoint == 0)
+            {
+                transform.GetChild(transform.childCount - 1).GetComponent<Image>().color = new Color32(0, 0, 0, 100);
+            }
+            else if (CharacterManager.Instance.actionPoint > 0)
+            {
+                transform.GetChild(transform.childCount - 1).GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+
+            }
+
+        }
     }
 
 
@@ -116,14 +136,41 @@ public class ItemTest : MonoBehaviour, IPointerDownHandler,
             //아이템 클릭했을때의 위치 저장
 
             //배틀모드일때의 행동
-            if (InventoryManager.Instance.isBattleMode == true && CharacterManager.Instance.actionPoint > 0 && CharacterManager.Instance.actionPoint >= cost)
+            if (CharacterManager.Instance.isBattleMode == true && CharacterManager.Instance.actionPoint > 0 && CharacterManager.Instance.actionPoint >= cost)
             {
-                if(def>0)
+                enemyInBattle = BattleManager.Instance.enemyInBattle;
+                //아이템의 방어력이 존재하면
+                if (def > 0)
                 {
                     CharacterManager.Instance.def += def;
                 }
+                if (atk > 0)
+                {
+                    Debug.Log(CharacterManager.Instance.animator);
+                    //
+                    //움직임 넣어주기
+                    //
+                    CharacterManager.Instance.animator.SetTrigger("Hit");
+                    for (int i = 0; i < enemyInBattle.Count; i++)
+                    {
+                        if (enemyInBattle[i].GetComponent<Enemy_Script>().isTarget == true)
+                        {
+                            enemyInBattle[i].GetComponent<Enemy_Script>().getDmg += atk;
+                        }
+                    }
+                }
+
+
+
+
+
+
+
+                //최종 : 행동력 감소
                 CharacterManager.Instance.actionPoint -= cost;
             }
+
+
             //배틀모드일때의 행동
 
             isClicked = true;

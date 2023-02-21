@@ -21,13 +21,13 @@ public class Mode : MonoBehaviour
 
         if (InventoryManager.Instance.rootItemCheck == false)
         {
-            if (InventoryManager.Instance.isBattleMode == false)
+            if (CharacterManager.Instance.isBattleMode == false)
             {
                 GetComponent<TMP_Text>().text = "Debug Mode :\nDefault";
             }
             else 
             {
-                GetComponent<TMP_Text>().text = "Debug Mode :\nBattle";
+                GetComponent<TMP_Text>().text = $"Debug Mode :\nBattle \n turn : {BattleManager.Instance.turnCount}";
             }
         }
     }

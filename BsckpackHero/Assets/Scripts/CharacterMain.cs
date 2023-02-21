@@ -6,6 +6,7 @@ using TMPro;
 public class CharacterMain : MonoBehaviour
 {
     GameObject changeBtn;
+
     
     
     // Start is called before the first frame update
@@ -13,6 +14,7 @@ public class CharacterMain : MonoBehaviour
     {
         changeBtn =GameObject.Find("changeBtn");
 
+        CharacterManager.Instance.animator = transform.GetChild(0).gameObject.GetComponent<Animator>();
         
     }
 
@@ -46,6 +48,20 @@ public class CharacterMain : MonoBehaviour
             transform.GetChild(0).GetComponent<Animator>().SetBool("isWalk", false);
             transform.GetChild(0).GetComponent<Animator>().SetBool("isMap", true);
         }
+        //걸을때
+
+        
+        if(CharacterManager.Instance.isBattleMode == true)
+        {
+            transform.GetChild(0).GetComponent<Animator>().SetBool("isBattleMode", true);
+            transform.GetChild(0).GetComponent<Animator>().SetBool("isMap", false);
+        }
+        else if(CharacterManager.Instance.isBattleMode == false)
+        {
+            transform.GetChild(0).GetComponent<Animator>().SetBool("isBattleMode", false);
+            transform.GetChild(0).GetComponent<Animator>().SetBool("isMap", true);
+        }
+
         //애니메이션 관리
 
         //맵에서 이동중 메인 캐릭터 이동//

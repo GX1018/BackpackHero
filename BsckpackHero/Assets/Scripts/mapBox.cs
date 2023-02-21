@@ -77,11 +77,17 @@ public class mapBox : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             }
             else if (transform.GetChild(0).name == "MapEnemy")
             {
-                if (InventoryManager.Instance.isBattleMode == false)
+                if (CharacterManager.Instance.isBattleMode == false)
                 {
-                    InventoryManager.Instance.isBattleMode = true;
+                    CharacterManager.Instance.isBattleMode = true;
                 }
                 transform.GetChild(0).gameObject.GetComponent<MapEnemy>().BattleStart();
+
+                if(BattleManager.Instance.enemyInBattle.Count==0)
+                {
+                    CharacterManager.Instance.isBattleMode = false;
+                    Destroy(transform.GetChild(0).gameObject);
+                }
             }
             else if (transform.GetChild(0).name == "NextFloor")
             {

@@ -40,6 +40,7 @@ public class MapManager : GSingleton<MapManager>
     public int maxAtk;
     public int addDef;
     public int xp;
+    public bool createEnd = false;
 
     //적 생성 관련 변수
 
@@ -47,7 +48,7 @@ public class MapManager : GSingleton<MapManager>
     {
         enemy = Resources.Load<Enemy>($"Enemies/{enemyName}");
 
-        enemyPrefab = Resources.Load<GameObject>("Prefabs/enemyMain");
+        enemyPrefab = Resources.Load<GameObject>("Prefabs/EnemyMain");
 
         maxHp = enemy.EnemyHp;
         minAtk = enemy.EnemyMinAtk;

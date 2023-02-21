@@ -18,13 +18,13 @@ public class BattleModBtn : MonoBehaviour
 
     public void BattleMode()
     {
-        if (InventoryManager.Instance.isBattleMode == false)
+        if (CharacterManager.Instance.isBattleMode == false)
         {
-            InventoryManager.Instance.isBattleMode = true;
+            CharacterManager.Instance.isBattleMode = true;
         }
         else
         {
-            InventoryManager.Instance.isBattleMode = false;
+            CharacterManager.Instance.isBattleMode = false;
         }
     }
 }

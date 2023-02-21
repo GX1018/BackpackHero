@@ -38,10 +38,29 @@ public class CharacterManager : MonoBehaviour
 
     }
 
+    private void Update()
+    {
+        if (getDmg > 0)
+        {
+            def -= getDmg;
+            getDmg = 0;
+            if (def < 0)
+            {
+                currentHp += def;
+                def = 0;
+            }
+        }
+
+        
+
+    }
+
     public int actionPoint = 3;
     public int def = 0;
     public int currentHp;
     public int maxHp;
+
+    public int getDmg;
 
     public int currentExperience;
     public int requiredExperience;      //5
@@ -51,6 +70,15 @@ public class CharacterManager : MonoBehaviour
     public int level;
 
     public bool isWalk;
+
+    
+
+    public bool isBattleMode = false;
+
+    
+    //애니메이터관리
+    public Animator animator;
+
 
     public void lvUp()
     {
