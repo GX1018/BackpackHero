@@ -60,6 +60,21 @@ public class ItemManager : MonoBehaviour
     public int cost;
     public int atk;
     public int def;
+
+    //소모템용
+    public int heal;
+    public int consumableCount;
+    public bool consumable;
+
+
+
+    //이미지 변환용
+    public bool isImageChange;
+    public Sprite itemImage2;
+    public int chageTiming;
+
+
+
     //} item 생성 관련 변수
 
     //{ 아이템 생성 함수
@@ -83,6 +98,15 @@ public class ItemManager : MonoBehaviour
         atk = item.Atk;
         def = item.Def;
 
+        //
+        heal = item.Heal;
+        consumableCount = item.ConsumableCount;
+        consumable = item.Consumable;
+
+        //
+        isImageChange = item.IsImageChange;
+        
+
         GameObject clone = Instantiate(itemPrefab, GameObject.Find("Items").transform);//transform 조정 //test중
         clone.name = item.ItemName;
 
@@ -93,6 +117,16 @@ public class ItemManager : MonoBehaviour
         clone.GetComponent<ItemTest>().cost = cost;
         clone.GetComponent<ItemTest>().def = def;
         clone.GetComponent<ItemTest>().atk = atk;
+
+        clone.GetComponent<ItemTest>().heal = heal;
+        clone.GetComponent<ItemTest>().consumableCount = consumableCount;
+        clone.GetComponent<ItemTest>().consumable = consumable;
+
+        clone.GetComponent<ItemTest>().isImageChange = item.IsImageChange;
+        clone.GetComponent<ItemTest>().itemImage2 = item.ItemImage2;
+        clone.GetComponent<ItemTest>().chageTiming = item.ChageTiming;
+
+
 
 
 
@@ -150,10 +184,10 @@ public class ItemManager : MonoBehaviour
         clone.GetComponent<RectTransform>().sizeDelta = new Vector2(70 * sizeX, 70 * sizeY);
 
         //메인 이미지
-        clone.transform.GetChild(10).GetComponent<Image>().sprite = item.ItemImage;
+        clone.transform.GetChild(10).GetComponent<Image>().sprite = item.ItemImage1;
         clone.transform.GetChild(10).GetComponent<RectTransform>().sizeDelta = new Vector2(70 * sizeX, 70 * sizeY);
         //인벤 체크용 이미지
-        clone.transform.GetChild(9).GetComponent<Image>().sprite = item.ItemImage;
+        clone.transform.GetChild(9).GetComponent<Image>().sprite = item.ItemImage1;
         clone.transform.GetChild(9).GetComponent<RectTransform>().sizeDelta = new Vector2(70 * sizeX, 70 * sizeY);
 
         //아이템 블록 위치 조정

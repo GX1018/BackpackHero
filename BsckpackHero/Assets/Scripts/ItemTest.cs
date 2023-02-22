@@ -34,9 +34,25 @@ public class ItemTest : MonoBehaviour, IPointerDownHandler,
 
     public List<GameObject> enemyInBattle;
 
-    public int testInt = 0;
+    //클릭시 애니메이션 관련
+    public int attackWaypoint = 0;
+    public int defenseWaypoint = 0;
+    public int useItemWaypoint = 0;
+    public int speed = 10;
 
-    public int speed = 20;
+    public float time = 0;
+    //클릭시 애니메이션 관련
+
+
+    //소모템용
+    public int heal;
+    public int consumableCount;
+    public bool consumable;
+
+    //이미지 변환용
+    public bool isImageChange;
+    public Sprite itemImage2;
+    public int chageTiming;
 
 
 
@@ -61,7 +77,6 @@ public class ItemTest : MonoBehaviour, IPointerDownHandler,
     // Update is called once per frame
     void Update()
     {
-
         /* if (Input.GetMouseButtonDown(1))
         {
             if (isClicked == true)
@@ -116,30 +131,62 @@ public class ItemTest : MonoBehaviour, IPointerDownHandler,
 
 
 
-        //test 공격할때 움직임
+        //{ 공격할때 움직임
+
+        //시작위치
         Vector3 pos1 = new Vector3(-2.67f, -2.31f, 100);
+        //공격시 앞으로 이동할 위치
         Vector3 pos2 = new Vector3(-1.5f, -2.31f, 100);
 
-        /* Vector3 pos1 = new Vector3(-2.67f, -2.31f, 98.61f);
-        Vector3 pos2 = new Vector3(-0.44f, -2.31f, 98.61f); */
-
-        if (testInt == 1)
+        if (attackWaypoint == 1)
         {
             GameObject.Find("CharacterImg").transform.position = Vector3.MoveTowards(GameObject.Find("CharacterImg").transform.position, pos2, speed * Time.deltaTime);
             if (GameObject.Find("CharacterImg").transform.position == pos2)
             {
-                testInt = 2;
+                attackWaypoint = 2;
             }
         }
-        if (testInt == 2)
+        if (attackWaypoint == 2)
         {
             GameObject.Find("CharacterImg").transform.position = Vector3.MoveTowards(GameObject.Find("CharacterImg").transform.position, pos1, speed * Time.deltaTime);
             if (GameObject.Find("CharacterImg").transform.position == pos1)
             {
-                testInt = 0;
+                CharacterManager.Instance.animator.SetTrigger("HitEnd");
+
+                attackWaypoint = 0;
             }
         }
-        //test 공격할때 움직임
+        //} 공격할때 움직임
+
+
+        //방어할때 움직임
+        if (defenseWaypoint == 1)
+        {
+            time += Time.deltaTime;
+            if (time >= 0.5f)
+            {
+                CharacterManager.Instance.animator.SetTrigger("DefenseEnd");
+                time = 0;
+                defenseWaypoint = 0;
+            }
+        }
+        //방어할때 움직임
+
+        //아이템 사용시 움직임  
+        
+        //[itemTest.cs] 캐릭터 애니메이션 관련
+        //사용아이템 횟수 0일때  destroy로 설정하여 파괴시 SetTrigger("UseItemEnd") 실행 x 아이템 애니메이션 컨트롤을 다른곳에서 해야할것
+        //charactermanager에서 컨트롤 하도록 변경 예정
+        if (useItemWaypoint == 1)
+        {
+            time += Time.deltaTime;
+            if (time >= 0.5f)
+            {
+                CharacterManager.Instance.animator.SetTrigger("UseItemEnd");
+                useItemWaypoint = 0;
+                time = 0;
+            }
+        }
 
     }
 
@@ -150,39 +197,45 @@ public class ItemTest : MonoBehaviour, IPointerDownHandler,
         //마우스 왼쪽 버튼 클릭
         if (Input.GetMouseButtonDown(0))
         {
-            //{ 아이템의 태그 상태가 인벤토리에 들어있는 상태(tag : "GainedItem")면 인벤토리 슬롯의 isempty를 true로 변경
-            if (this.tag == "GainedItem")
+            if (!CharacterManager.Instance.isBattleMode)
             {
-                for (int i = 0; i < transform.childCount - 2; i++)
+                //{ 아이템의 태그 상태가 인벤토리에 들어있는 상태(tag : "GainedItem")면 인벤토리 슬롯의 isempty를 true로 변경
+                if (this.tag == "GainedItem")
                 {
-                    transform.GetChild(i).GetComponent<itemBlock>().nearestSlot.GetComponent<InvenSlot>().isEmpty = true;
+                    for (int i = 0; i < transform.childCount - 2; i++)
+                    {
+                        transform.GetChild(i).GetComponent<itemBlock>().nearestSlot.GetComponent<InvenSlot>().isEmpty = true;
+                    }
                 }
+                //} 아이템의 태그 상태가 인벤토리에 들어있는 상태(tag : "GainedItem")면 인벤토리 슬롯의 isempty를 true로 변경
+
+                this.tag = "SelectedItem";
+
+                //아이템 클릭했을때의 위치 저장
+                itemOriginPos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x,
+                                        Input.mousePosition.y, 1));
+                //아이템 클릭했을때의 위치 저장
+
+                isClicked = true;
             }
-            //} 아이템의 태그 상태가 인벤토리에 들어있는 상태(tag : "GainedItem")면 인벤토리 슬롯의 isempty를 true로 변경
-
-            this.tag = "SelectedItem";
-
-            //아이템 클릭했을때의 위치 저장
-            itemOriginPos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x,
-                                    Input.mousePosition.y, 1));
-            //아이템 클릭했을때의 위치 저장
 
             //배틀모드일때의 행동
-            if (CharacterManager.Instance.isBattleMode == true && CharacterManager.Instance.actionPoint > 0 && CharacterManager.Instance.actionPoint >= cost)
+            if (CharacterManager.Instance.isBattleMode == true && CharacterManager.Instance.actionPoint >= cost)
             {
                 enemyInBattle = BattleManager.Instance.enemyInBattle;
-                //아이템의 방어력이 존재하면
+                //아이템의 방어력이 존재하면(type armor로 변경?)
                 if (def > 0)
                 {
+                    CharacterManager.Instance.animator.SetTrigger("Defense");
+                    defenseWaypoint = 1;
+
                     CharacterManager.Instance.def += def;
                 }
                 if (atk > 0)
                 {
-                    
-                    //test
+
                     CharacterManager.Instance.animator.SetTrigger("Hit");
-                    testInt = 1;
-                    //
+                    attackWaypoint = 1;
 
                     for (int i = 0; i < enemyInBattle.Count; i++)
                     {
@@ -192,12 +245,36 @@ public class ItemTest : MonoBehaviour, IPointerDownHandler,
                         }
                     }
                 }
+                if (heal > 0)
+                {
+                    useItemWaypoint = 1;
+                    CharacterManager.Instance.animator.SetTrigger("UseItem");
+                    CharacterManager.Instance.currentHp += heal;
+                    if (CharacterManager.Instance.currentHp > CharacterManager.Instance.maxHp)
+                    {
+                        CharacterManager.Instance.currentHp = CharacterManager.Instance.maxHp;
+                    }
+
+                }
 
 
+                if (consumable)
+                {
+                    consumableCount--;
+                    if (consumableCount == 0)
+                    {
+                        Destroy(this.gameObject);
+                    }
+                }
 
-
-
-
+                if (isImageChange)
+                {
+                    if (consumableCount == chageTiming)
+                    {
+                        transform.GetChild(transform.childCount - 1).GetComponent<Image>().sprite = itemImage2;
+                        transform.GetChild(transform.childCount - 2).GetComponent<Image>().sprite = itemImage2;
+                    }
+                }
 
                 //최종 : 행동력 감소
                 CharacterManager.Instance.actionPoint -= cost;
@@ -206,13 +283,15 @@ public class ItemTest : MonoBehaviour, IPointerDownHandler,
 
             //배틀모드일때의 행동
 
-            isClicked = true;
         }
 
         //마우스 오른쪽 버튼 클릭
         if (Input.GetMouseButtonDown(1))
         {
-            objRect.rotation = Quaternion.Euler(0, 0, objRect.rotation.eulerAngles.z + 90);
+            if (!CharacterManager.Instance.isBattleMode)
+            {
+                objRect.rotation = Quaternion.Euler(0, 0, objRect.rotation.eulerAngles.z + 90);
+            }
         }
     }
 

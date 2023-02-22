@@ -119,10 +119,10 @@ public class TestCreateItem : MonoBehaviour
         clone.GetComponent<RectTransform>().sizeDelta = new Vector2(70 * sizeX, 70 * sizeY);
 
         //메인 이미지
-        clone.transform.GetChild(10).GetComponent<Image>().sprite = item.ItemImage;
+        clone.transform.GetChild(10).GetComponent<Image>().sprite = item.ItemImage1;
         clone.transform.GetChild(10).GetComponent<RectTransform>().sizeDelta = new Vector2(70 * sizeX, 70 * sizeY);
         //인벤 체크용 이미지
-        clone.transform.GetChild(9).GetComponent<Image>().sprite = item.ItemImage;
+        clone.transform.GetChild(9).GetComponent<Image>().sprite = item.ItemImage1;
         clone.transform.GetChild(9).GetComponent<RectTransform>().sizeDelta = new Vector2(70 * sizeX, 70 * sizeY);
 
         //아이템 블록 위치 조정

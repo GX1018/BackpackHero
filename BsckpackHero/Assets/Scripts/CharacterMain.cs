@@ -15,7 +15,6 @@ public class CharacterMain : MonoBehaviour
     {
         changeBtn = GameObject.Find("changeBtn");
 
-        CharacterManager.Instance.animator = transform.GetChild(0).gameObject.GetComponent<Animator>();
 
         defaultPos = transform.position;
     }

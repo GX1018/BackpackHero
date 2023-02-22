@@ -34,7 +34,7 @@ public class MapManager : GSingleton<MapManager>
     public int floor = 0;
 
 
-    //적 생성 관련 변수
+    //적 생성 관련 변수//enemymanager?
     Enemy enemy;
     GameObject enemyPrefab;
 

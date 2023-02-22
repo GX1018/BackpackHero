@@ -13,6 +13,7 @@ public class CharacterImg : MonoBehaviour
     {
         rect = gameObject.GetComponent<RectTransform>();
         defaultPos = rect.anchoredPosition;
+        animator = GetComponent<Animator>();
         CharacterManager.Instance.animator = animator;
         
     }
