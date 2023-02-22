@@ -34,6 +34,10 @@ public class ItemTest : MonoBehaviour, IPointerDownHandler,
 
     public List<GameObject> enemyInBattle;
 
+    public int testInt = 0;
+
+    public int speed = 20;
+
 
 
     private RectTransform objRect = default;
@@ -51,7 +55,7 @@ public class ItemTest : MonoBehaviour, IPointerDownHandler,
 
         property = "none";
 
-        
+
     }
 
     // Update is called once per frame
@@ -109,6 +113,34 @@ public class ItemTest : MonoBehaviour, IPointerDownHandler,
             }
 
         }
+
+
+
+        //test 공격할때 움직임
+        Vector3 pos1 = new Vector3(-2.67f, -2.31f, 100);
+        Vector3 pos2 = new Vector3(-1.5f, -2.31f, 100);
+
+        /* Vector3 pos1 = new Vector3(-2.67f, -2.31f, 98.61f);
+        Vector3 pos2 = new Vector3(-0.44f, -2.31f, 98.61f); */
+
+        if (testInt == 1)
+        {
+            GameObject.Find("CharacterImg").transform.position = Vector3.MoveTowards(GameObject.Find("CharacterImg").transform.position, pos2, speed * Time.deltaTime);
+            if (GameObject.Find("CharacterImg").transform.position == pos2)
+            {
+                testInt = 2;
+            }
+        }
+        if (testInt == 2)
+        {
+            GameObject.Find("CharacterImg").transform.position = Vector3.MoveTowards(GameObject.Find("CharacterImg").transform.position, pos1, speed * Time.deltaTime);
+            if (GameObject.Find("CharacterImg").transform.position == pos1)
+            {
+                testInt = 0;
+            }
+        }
+        //test 공격할때 움직임
+
     }
 
 
@@ -146,11 +178,12 @@ public class ItemTest : MonoBehaviour, IPointerDownHandler,
                 }
                 if (atk > 0)
                 {
-                    Debug.Log(CharacterManager.Instance.animator);
-                    //
-                    //움직임 넣어주기
-                    //
+                    
+                    //test
                     CharacterManager.Instance.animator.SetTrigger("Hit");
+                    testInt = 1;
+                    //
+
                     for (int i = 0; i < enemyInBattle.Count; i++)
                     {
                         if (enemyInBattle[i].GetComponent<Enemy_Script>().isTarget == true)

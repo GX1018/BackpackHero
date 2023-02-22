@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CharacterManager : MonoBehaviour
 {
@@ -88,6 +89,20 @@ public class CharacterManager : MonoBehaviour
             level++;
         }
         requiredExperience = requiredExperienceArray[level - 1];
+    }
+
+    public void GetDmgCheck()
+    {
+        if (getDmg > 0)
+        {
+            def -= getDmg;
+            getDmg = 0;
+            if (def < 0)
+            {
+                currentHp += def;
+                def = 0;
+            }
+        }
     }
 
 }

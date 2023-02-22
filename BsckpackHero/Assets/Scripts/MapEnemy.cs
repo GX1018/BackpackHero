@@ -28,7 +28,7 @@ public class MapEnemy : MonoBehaviour
         {
             for (int i = 0; i < enemyName.Length; i++)
             {
-                MapManager.Instance.CreateEnemy(enemyName[i], BattleManager.Instance.enemyInBattle);
+                MapManager.Instance.CreateEnemy(enemyName[i], BattleManager.Instance.enemyInBattle, i);
             }
 
             MapManager.Instance.createEnd = true;
@@ -36,12 +36,10 @@ public class MapEnemy : MonoBehaviour
         }
 
 
-        for (int i = 0; i < enemyName.Length; i++)
+        for (int i = 0; i < BattleManager.Instance.enemyInBattle.Count; i++)
         {
-            if (BattleManager.Instance.enemyInBattle.Count > 0)
-            {
+            
                 BattleManager.Instance.enemyInBattle[i].SetActive(true);
-            }
         }
     }
 }

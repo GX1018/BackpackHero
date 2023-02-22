@@ -21,7 +21,7 @@ public class Enemy_Script : MonoBehaviour, IPointerDownHandler
 
     public int getDmg;
 
-    
+
     //공격, 방어 이외의 행동 있는 경우 사용
     public int actionTypeNum;
     public int actionType;
@@ -56,21 +56,21 @@ public class Enemy_Script : MonoBehaviour, IPointerDownHandler
         {
             def -= getDmg;
             getDmg = 0;
-            if(def <0)
+            if (def < 0)
             {
-                hp+=def;
+                hp += def;
                 def = 0;
             }
 
 
         }
 
-        if(hp <= 0)
+        if (hp <= 0)
         {
-            CharacterManager.Instance.currentExperience +=xp;
-            for(int i = 0; i < BattleManager.Instance.enemyInBattle.Count; i++)
+            CharacterManager.Instance.currentExperience += xp;
+            for (int i = 0; i < BattleManager.Instance.enemyInBattle.Count; i++)
             {
-                if(BattleManager.Instance.enemyInBattle[i] == this.gameObject)
+                if (BattleManager.Instance.enemyInBattle[i] == this.gameObject)
                 {
                     BattleManager.Instance.enemyInBattle.Remove(BattleManager.Instance.enemyInBattle[i]);
                 }
@@ -78,7 +78,7 @@ public class Enemy_Script : MonoBehaviour, IPointerDownHandler
             Destroy(this.gameObject);
         }
 
-        
+
 
         ActionPreview();
     }
@@ -94,13 +94,13 @@ public class Enemy_Script : MonoBehaviour, IPointerDownHandler
 
     public void ActionPreview()
     {
-         if(BattleManager.Instance.turnCount %2 ==1)
+        if (BattleManager.Instance.turnCount % 2 == 1)
         {
-            
+
             transform.GetChild(3).GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/Enemy/attack");
             transform.GetChild(3).GetChild(1).GetComponent<TMP_Text>().text = atk.ToString();
         }
-        else if(BattleManager.Instance.turnCount %2 ==0)
+        else if (BattleManager.Instance.turnCount % 2 == 0)
         {
             transform.GetChild(3).GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/Enemy/defense");
             transform.GetChild(3).GetChild(1).GetComponent<TMP_Text>().text = addDef.ToString();
@@ -110,19 +110,15 @@ public class Enemy_Script : MonoBehaviour, IPointerDownHandler
     public void Action()
     {
         //enemy turn에 실행될 함수
+        
 
-        if(BattleManager.Instance.turnCount %2 ==1)
+        if (BattleManager.Instance.turnCount % 2 == 1)
         {
-            Debug.Log("!");
-            //atk = Random.Range(minAtk, maxAtk);
-            CharacterManager.Instance.getDmg +=atk;
-
+            CharacterManager.Instance.getDmg += atk;
         }
-        else if(BattleManager.Instance.turnCount %2 ==0)
+        else if (BattleManager.Instance.turnCount % 2 == 0)
         {
-            Debug.Log("!!");
             def += addDef;
-            
         }
     }
 

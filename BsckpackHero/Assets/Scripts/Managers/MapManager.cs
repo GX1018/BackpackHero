@@ -26,6 +26,11 @@ public class MapManager : GSingleton<MapManager>
     public bool findChest = false;
     public bool openChest = false;
 
+    
+    
+    //맵에서 계단에 도작했을때
+    public bool findDoor = false;
+
     public int floor = 0;
 
 
@@ -44,7 +49,7 @@ public class MapManager : GSingleton<MapManager>
 
     //적 생성 관련 변수
 
-    public void CreateEnemy(string enemyName, List<GameObject> enemyList)
+    public void CreateEnemy(string enemyName, List<GameObject> enemyList, int xPos)
     {
         enemy = Resources.Load<Enemy>($"Enemies/{enemyName}");
 
@@ -67,6 +72,8 @@ public class MapManager : GSingleton<MapManager>
         clone.GetComponent<Enemy_Script>().xp = xp;
 
         clone.transform.GetChild(0).GetComponent<Image>().sprite = enemy.EnemyImage;
+
+        clone.transform.position = new Vector3(clone.transform.position.x - 1.78f*xPos, clone.transform.position.y, 100);
 
         enemyList.Add(clone);
 

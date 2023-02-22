@@ -33,6 +33,7 @@ public class Chest : MonoBehaviour, IPointerDownHandler
         MapManager.Instance.findChest =false;
         
         //함수 종료 전에 확인 버튼 생성해주기
+        GameObject.Find("Button").transform.GetChild(1).gameObject.SetActive(true);
         Destroy(this.gameObject);
     }
 }

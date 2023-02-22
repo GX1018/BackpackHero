@@ -91,7 +91,7 @@ public class mapBox : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             }
             else if (transform.GetChild(0).name == "NextFloor")
             {
-
+                MapManager.Instance.findDoor = true;
             }
         }
         //다른 오브젝트가 있는 박스에 캐릭터가 들어왔을때
@@ -155,10 +155,13 @@ public class mapBox : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
 
         test = 1;
+
+        InventoryManager.Instance.removeItem = true;
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
+        InventoryManager.Instance.removeItem = false;
 
     }
 
