@@ -5,16 +5,44 @@ using UnityEngine.UI;
 
 public class MapManager : GSingleton<MapManager>
 {
+    //다음층 이동 관련 변수
+    public GameObject screenTrans;
+    public bool nextFloor = false;
+
+    public bool isTutorial = true;
+    GameObject tutorialMap;
+    GameObject stageMap;
+
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        tutorialMap = GameObject.Find("TutorialMap");
+        stageMap = GameObject.Find("StageMap");
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (nextFloor == true)
+        {
+            if (isTutorial == true)
+            {
+                tutorialMap.SetActive(false);
+                findDoor = false;
+                isTutorial = false;
+            }
+            else
+            {
+                //지우고
+                for (int i = 0; i < stageMap.transform.childCount; i++)
+                {
+                    Destroy(stageMap.transform.GetChild(i).gameObject);
+                }
+
+                //만들어줌(함수 생성 후 삽입예정)
+            }
+        }
     }
 
     public GameObject nearestMapBox;
@@ -26,8 +54,8 @@ public class MapManager : GSingleton<MapManager>
     public bool findChest = false;
     public bool openChest = false;
 
-    
-    
+
+
     //맵에서 계단에 도작했을때
     public bool findDoor = false;
 
@@ -61,7 +89,7 @@ public class MapManager : GSingleton<MapManager>
         maxHp = enemy.EnemyHp;
         minAtk = enemy.EnemyMinAtk;
         maxAtk = enemy.EnemyMaxAtk;
-        addDef= enemy.EnemyDef;
+        addDef = enemy.EnemyDef;
         xp = enemy.EnemyXp;
 
         GameObject clone = Instantiate(enemyPrefab, GameObject.Find("Enemy").transform);//transform 조정 //test중
@@ -78,7 +106,7 @@ public class MapManager : GSingleton<MapManager>
 
         clone.transform.GetChild(0).GetComponent<Animator>().runtimeAnimatorController = enemy.EnemyAnimCtl;
 
-        clone.transform.position = new Vector3(clone.transform.position.x - 1.78f*xPos, clone.transform.position.y, 100);
+        clone.transform.position = new Vector3(clone.transform.position.x - 1.78f * xPos, clone.transform.position.y, 100);
 
         enemyList.Add(clone);
 

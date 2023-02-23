@@ -77,13 +77,6 @@ public class ItemTest : MonoBehaviour, IPointerDownHandler,
     // Update is called once per frame
     void Update()
     {
-        /* if (Input.GetMouseButtonDown(1))
-        {
-            if (isClicked == true)
-            {
-                objRect.rotation = Quaternion.Euler(0, 0, objRect.rotation.eulerAngles.z + 90);
-            }
-        } */
         ////////////조건체크///////////////
         #region conditionCheck
         invenSlotisActiveCnt = 0;
@@ -135,13 +128,9 @@ public class ItemTest : MonoBehaviour, IPointerDownHandler,
 
         //시작위치
         Vector3 pos1 = CharacterManager.Instance.imgDefaultPos;
-         //new Vector3(-2.67f, -2.31f, 100);    //legacy
-
 
         //공격시 앞으로 이동할 위치
-        
-        Vector3 pos2 = new Vector3(pos1.x+1.17f, -2.31f, 100);
-        //new Vector3(-1.5f, -2.31f, 100);      //legacy
+        Vector3 pos2 = new Vector3(pos1.x + 1.17f, pos1.y, pos1.z);
 
         if (attackWaypoint == 1)
         {
@@ -178,11 +167,11 @@ public class ItemTest : MonoBehaviour, IPointerDownHandler,
         //방어할때 움직임
 
         //아이템 사용시 움직임  
-        
+
         //[itemTest.cs] 캐릭터 애니메이션 관련
         //사용아이템 횟수 0일때  destroy로 설정하여 파괴시 SetTrigger("UseItemEnd") 실행 x 아이템 애니메이션 컨트롤을 다른곳에서 해야할것
         //charactermanager에서 컨트롤 하도록 변경 예정
-        if (useItemWaypoint == 1)
+        /* if (useItemWaypoint == 1)
         {
             time += Time.deltaTime;
             if (time >= 0.5f)
@@ -191,7 +180,7 @@ public class ItemTest : MonoBehaviour, IPointerDownHandler,
                 useItemWaypoint = 0;
                 time = 0;
             }
-        }
+        } */
 
     }
 
@@ -252,7 +241,7 @@ public class ItemTest : MonoBehaviour, IPointerDownHandler,
                 }
                 if (heal > 0)
                 {
-                    useItemWaypoint = 1;
+                    ItemManager.Instance.useItemWaypoint = 1;
                     CharacterManager.Instance.animator.SetTrigger("UseItem");
                     CharacterManager.Instance.currentHp += heal;
                     if (CharacterManager.Instance.currentHp > CharacterManager.Instance.maxHp)

@@ -7,7 +7,12 @@
                 OnPointerDown(),OnPointerUp() 함수 내부에 좌/우 클릭 입력시 체크할 수 있는 조건을 부여해서 //if(Input.GetMouseButtonDown(0)), if(Input.GetMouseButtonDown(1))
                 클릭별 행동을 구분하였음.
 
-- 2023.02.23. : [itemTest.cs] 캐릭터 애니메이션 관련
+- 2023.02.23. : 1) [itemTest.cs] 캐릭터 애니메이션 관련
                 사용아이템 횟수 0일때  destroy로 설정하여 파괴시 SetTrigger("UseItemEnd") 실행 x 아이템 애니메이션 컨트롤을 다른곳에서 해야할것
                 charactermanager에서 컨트롤 하도록 변경 예정
-                2)[inventoryManager.cs] 레벨업 했을때만 인벤토리 포지션 변경하도록 수정 예정
+                2) [inventoryManager.cs] 레벨업 했을때만 인벤토리 포지션 변경하도록 수정 예정
+
+- 2023.02.24. : 화면 전환 효과를 부여할 때, 화면 전환 오브젝트가 속해있는 uiobj가 gameobj보다 하이라키 상단에 위치해 gameobj의 오브젝트들이 화면 전환시 노출되는 문제 발생
+                해결 방안 : 화면 전환 효과가 실행될 때, uiobj의 canvas컴포넌트의 sortingOrder를 gameobj보다 나중으로 설정하고 화면 전환이 종료되면 sortingOrder를 
+                원래 값으로 돌려주었음.
+

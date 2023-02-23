@@ -19,8 +19,6 @@ public class ItemManager : MonoBehaviour
         }
     }
 
-    public Item[] itemList;
-
     private void Awake()
     {
         if (instance == null)
@@ -43,7 +41,30 @@ public class ItemManager : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        //{ 소모 아이템 사용시 애니메이션 처리
+        if (useItemWaypoint == 1)
+        {
+            time += Time.deltaTime;
+            if (time >= 0.5f)
+            {
+                CharacterManager.Instance.animator.SetTrigger("UseItemEnd");
+                useItemWaypoint = 0;
+                time = 0;
+            }
+        }
+        //} 소모 아이템 사용시 애니메이션 처리
+    }
+
+
+    //{ 소모 아이템 사용시 애니메이션 처리를 위한 변수
+    public int useItemWaypoint;
+    private float time = 0;
+    //} 소모 아이템 사용시 애니메이션 처리를 위한 변수
+
     //{ item 생성 관련 변수
+    public Item[] itemList;
     Item item;
 
     GameObject itemPrefab;
@@ -105,7 +126,7 @@ public class ItemManager : MonoBehaviour
 
         //
         isImageChange = item.IsImageChange;
-        
+
 
         GameObject clone = Instantiate(itemPrefab, GameObject.Find("Items").transform);//transform 조정 //test중
         clone.name = item.ItemName;
@@ -214,5 +235,8 @@ public class ItemManager : MonoBehaviour
         InventoryManager.Instance.rootItemCheck = true;
     }
     //} 아이템 생성 함수
+
+
+
 
 }

@@ -88,6 +88,7 @@ public class mapBox : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
                 if(BattleManager.Instance.enemyInBattle.Count==0)
                 {
                     GameObject.Find("OnOffUi").transform.GetChild(0).gameObject.SetActive(true);
+                    CharacterManager.Instance.actionPoint = 3;
                     CharacterManager.Instance.isBattleMode = false;
                     Destroy(transform.GetChild(0).gameObject);
                 }
@@ -97,6 +98,11 @@ public class mapBox : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
                 MapManager.Instance.findDoor = true;
             }
         }
+        else if (isFilled == false && isCharacterIn == true)
+        {
+                MapManager.Instance.findDoor = false;
+        }
+
         //다른 오브젝트가 있는 박스에 캐릭터가 들어왔을때
 
 

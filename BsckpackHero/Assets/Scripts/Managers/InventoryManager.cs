@@ -36,28 +36,25 @@ public class InventoryManager : MonoBehaviour
 
 
         //
-        inventoryDefaultPos = new Vector3(inventory.transform.position.x-17.78f, inventory.transform.position.y, inventory.transform.position.z);
-        inventoryTargetPos = new Vector3(inventoryDefaultPos.x ,inventoryDefaultPos.y -0.69f, inventoryDefaultPos.z);
+        inventoryDefaultPos = new Vector3(inventory.transform.position.x - 17.78f, inventory.transform.position.y, inventory.transform.position.z);
+        inventoryTargetPos = new Vector3(inventoryDefaultPos.x, inventoryDefaultPos.y - 0.69f, inventoryDefaultPos.z);
 
         Debug.Log(inventory.transform.position);
         Debug.Log(inventoryDefaultPos);
         Debug.Log(inventoryTargetPos);
-        
+
     }
 
-    private void Update() {
-        if(rootItemCheck == true)
+    private void Update()
+    {
+        if (rootItemCheck == true)
         {
             ItemRootConfirm();
         }
-
-        
-        
-
         //레벨업했을때만 이동
         InventoryMove();
         //레벨업했을때만 이동
-        
+
     }
 
 
@@ -88,7 +85,7 @@ public class InventoryManager : MonoBehaviour
 
     public void ItemRootConfirm()
     {
-        
+
         rootItemCheck = false;
     }
 
@@ -107,20 +104,23 @@ public class InventoryManager : MonoBehaviour
 
     public void InventoryMove()
     {
-        if(moveCheckInt == 1)
+        if (moveCheckInt == 1)
         {
-            inventory.transform.position = Vector3.MoveTowards(inventory.transform.position, inventoryTargetPos, 1*Time.deltaTime);
+            inventory.transform.position = Vector3.MoveTowards(inventory.transform.position, inventoryTargetPos, 1 * Time.deltaTime);
         }
 
-        if(moveCheckInt == 2)
+        if (moveCheckInt == 2)
         {
-            inventory.transform.position = Vector3.MoveTowards(inventory.transform.position, inventoryDefaultPos, 1*Time.deltaTime);
-            if(inventory.transform.position == inventoryDefaultPos)
+            inventory.transform.position = Vector3.MoveTowards(inventory.transform.position, inventoryDefaultPos, 1 * Time.deltaTime);
+            if (inventory.transform.position == inventoryDefaultPos)
             {
                 moveCheckInt = 0;
             }
         }
     }
-    
+
+
+    public List<GameObject> itemInInventory;
+
 
 }

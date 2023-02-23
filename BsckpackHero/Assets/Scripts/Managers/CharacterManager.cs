@@ -52,8 +52,6 @@ public class CharacterManager : MonoBehaviour
             }
         }
 
-        
-
     }
 
     public int actionPoint = 3;
@@ -81,6 +79,9 @@ public class CharacterManager : MonoBehaviour
     public Animator animator;
 
     public Vector3 imgDefaultPos;
+
+    //캐릭터 이동 관련 변수
+    public GameObject characterMain;
 
 
     public void lvUp()

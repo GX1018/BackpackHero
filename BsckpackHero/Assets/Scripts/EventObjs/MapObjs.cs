@@ -17,5 +17,11 @@ public class MapObjs : MonoBehaviour
         {
             transform.Find("Chest").gameObject.SetActive(true);
         }
+
+        if(MapManager.Instance.findDoor == true)
+        {
+            transform.Find("Door_NextFloor").gameObject.SetActive(true);
+
+        }
     }
 }

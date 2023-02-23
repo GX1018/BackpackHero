@@ -22,6 +22,7 @@ public class LvUpDoneBtn : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        InventoryManager.Instance.moveCheckInt = 2;
         InventoryManager.Instance.isLvup = false;
 
     }

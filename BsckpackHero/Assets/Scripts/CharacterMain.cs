@@ -17,7 +17,9 @@ public class CharacterMain : MonoBehaviour
 
 
         defaultPos = transform.position;
-        
+
+        CharacterManager.Instance.characterMain = this.gameObject;
+
     }
 
     // Update is called once per frame
@@ -76,8 +78,9 @@ public class CharacterMain : MonoBehaviour
 
 
 
+
         //레벨업
-        if (!CharacterManager.Instance.isBattleMode&&CharacterManager.Instance.currentExperience >= CharacterManager.Instance.requiredExperience)
+        if (!CharacterManager.Instance.isBattleMode && CharacterManager.Instance.currentExperience >= CharacterManager.Instance.requiredExperience)
         {
             //레벨업 버튼활성화
             ButtonManager.Instance.LevelUpBtn.SetActive(true);
@@ -90,5 +93,14 @@ public class CharacterMain : MonoBehaviour
         {
             transform.position = Vector3.MoveTowards(transform.position, defaultPos, 10f * Time.deltaTime);
         }
+
+        if (MapManager.Instance.nextFloor == true)
+        {
+            gameObject.SetActive(false);
+        }
+    }
+
+    private void OnDisable() {
+        transform.position = defaultPos;
     }
 }
