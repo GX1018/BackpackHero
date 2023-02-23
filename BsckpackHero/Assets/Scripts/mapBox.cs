@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 public class mapBox : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
+    public bool isActive = false;
+    
     public bool isCharacterIn = false;
     public bool isFilled = false;
     public bool canMove = false;
@@ -85,6 +87,7 @@ public class mapBox : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
                 if(BattleManager.Instance.enemyInBattle.Count==0)
                 {
+                    GameObject.Find("OnOffUi").transform.GetChild(0).gameObject.SetActive(true);
                     CharacterManager.Instance.isBattleMode = false;
                     Destroy(transform.GetChild(0).gameObject);
                 }

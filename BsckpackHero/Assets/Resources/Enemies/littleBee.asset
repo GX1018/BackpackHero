@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 43ee533adb8b6244dad2209356cb20e9, type: 3}
-  m_Name: smallRatWolf
+  m_Name: littleBee
   m_EditorClassIdentifier: 
-  enemyName: smallRatWolf
-  enemyImage: {fileID: 1539395951, guid: bf71fe3b294bcbf4284ab499b0d15279, type: 3}
-  enemyHp: 32
+  enemyName: littleBee
+  enemyImage: {fileID: -2053052198, guid: 4752529e7f876574f905d06d674ab067, type: 3}
+  enemyAnimCtl: {fileID: 9100000, guid: 6160b01c73e6be54ba45013b0518813f, type: 2}
+  enemyHp: 16
   enemyMinAtk: 7
-  enemyMaxAtk: 9
+  enemyMaxAtk: 13
   enemyDef: 14
-  enemyXp: 6
+  enemyXp: 4

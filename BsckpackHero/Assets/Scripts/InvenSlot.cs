@@ -27,19 +27,19 @@ public class InvenSlot : MonoBehaviour
             isActive = true;
         }
 
-        
+
         for (int y = 0; y < InventoryManager.Instance.itemSlot2DArray.GetLength(1); y++)  //7
         {
             for (int x = 0; x < InventoryManager.Instance.itemSlot2DArray.GetLength(0); x++)  //11
             {
-                if(InventoryManager.Instance.itemSlot2DArray[x, y] == this.gameObject)
+                if (InventoryManager.Instance.itemSlot2DArray[x, y] == this.gameObject)
                 {
                     xInArray = x;
                     yInArray = y;
                 }
             }
         }
-        
+
     }
 
     // Update is called once per frame
@@ -48,9 +48,11 @@ public class InvenSlot : MonoBehaviour
         if (isActive == true)
         {
             gameObject.GetComponent<Image>().enabled = true;
+            gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/Inventory/backpackBox");
+            gameObject.GetComponent<Image>().color = new Color(1, 1, 1, 1);
         }
 
-        else if (isTemporary == true && InventoryManager.Instance.lvUpPoint > 0)
+        else if (isTemporary == true && InventoryManager.Instance.lvUpPoint > 0 && isActive == false)
         {
             gameObject.GetComponent<Image>().enabled = true;
             gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/Inventory/blankBorder");
@@ -67,18 +69,30 @@ public class InvenSlot : MonoBehaviour
             gameObject.GetComponent<Image>().enabled = false;
         }
 
-        
+        if (InventoryManager.Instance.isLvup == true && InventoryManager.Instance.lvUpPoint == 0)
+        {
+            ButtonManager.Instance.LvUpDoneBtn.SetActive(true);
+        }
+
+        if(InventoryManager.Instance.isLvup == false && isActive == true)
+        {
+            isTemporary = false;
+        }
     }
 
     private void OnMouseDown()
     {
-        if (isTemporary == true)
+        if (isTemporary == true && isActive == false)
         {
             isActive = true;
-            gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/Inventory/backpackBox");
-            gameObject.GetComponent<Image>().color = new Color(1, 1, 1, 1);
             InventoryManager.Instance.lvUpPoint--;
-            isTemporary = false;
+        }
+
+        else if (isTemporary == true && isActive == true)
+        {
+            isActive = false;
+            InventoryManager.Instance.lvUpPoint++;
+
         }
     }
 

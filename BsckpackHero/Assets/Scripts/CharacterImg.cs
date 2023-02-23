@@ -15,7 +15,7 @@ public class CharacterImg : MonoBehaviour
         defaultPos = rect.anchoredPosition;
         animator = GetComponent<Animator>();
         CharacterManager.Instance.animator = animator;
-        
+        CharacterManager.Instance.imgDefaultPos = transform.position;
     }
 
     // Update is called once per frame

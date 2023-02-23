@@ -38,7 +38,7 @@ public class ItemTest : MonoBehaviour, IPointerDownHandler,
     public int attackWaypoint = 0;
     public int defenseWaypoint = 0;
     public int useItemWaypoint = 0;
-    public int speed = 10;
+    public int speed = 15;
 
     public float time = 0;
     //클릭시 애니메이션 관련
@@ -134,9 +134,14 @@ public class ItemTest : MonoBehaviour, IPointerDownHandler,
         //{ 공격할때 움직임
 
         //시작위치
-        Vector3 pos1 = new Vector3(-2.67f, -2.31f, 100);
+        Vector3 pos1 = CharacterManager.Instance.imgDefaultPos;
+         //new Vector3(-2.67f, -2.31f, 100);    //legacy
+
+
         //공격시 앞으로 이동할 위치
-        Vector3 pos2 = new Vector3(-1.5f, -2.31f, 100);
+        
+        Vector3 pos2 = new Vector3(pos1.x+1.17f, -2.31f, 100);
+        //new Vector3(-1.5f, -2.31f, 100);      //legacy
 
         if (attackWaypoint == 1)
         {

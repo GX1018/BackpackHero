@@ -10,3 +10,4 @@
 - 2023.02.23. : [itemTest.cs] 캐릭터 애니메이션 관련
                 사용아이템 횟수 0일때  destroy로 설정하여 파괴시 SetTrigger("UseItemEnd") 실행 x 아이템 애니메이션 컨트롤을 다른곳에서 해야할것
                 charactermanager에서 컨트롤 하도록 변경 예정
+                2)[inventoryManager.cs] 레벨업 했을때만 인벤토리 포지션 변경하도록 수정 예정

@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: smallRatWolf
   m_EditorClassIdentifier: 
   enemyName: smallRatWolf
-  enemyImage: {fileID: 0}
+  enemyImage: {fileID: 1539395951, guid: bf71fe3b294bcbf4284ab499b0d15279, type: 3}
+  enemyAnimCtl: {fileID: 9100000, guid: 20af0c765d4cc8c4ab7edce8ee2a7e7e, type: 2}
   enemyHp: 32
   enemyMinAtk: 7
   enemyMaxAtk: 9

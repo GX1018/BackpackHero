@@ -18,6 +18,15 @@ public class InventoryImg : MonoBehaviour
     int maxY;
     //
 
+    //
+    Vector2 originSize;
+    Vector2 childOriginSize;
+    Vector2 originPos;
+
+    //
+
+    
+
 
     void Start()
     {
@@ -25,12 +34,17 @@ public class InventoryImg : MonoBehaviour
 
         rectTransform = gameObject.GetComponent<RectTransform>();
         childRectTransform = transform.GetChild(0).gameObject.GetComponent<RectTransform>();
-
+        //
+        originSize = rectTransform.sizeDelta;
+        childOriginSize = childRectTransform.sizeDelta;
+        originPos = rectTransform.anchoredPosition;
     }
     void Update()
     {
         FindMinMax();
         InvenImgExpand();
+
+        
     }
 
     public void FindMinMax()
@@ -80,6 +94,8 @@ public class InventoryImg : MonoBehaviour
 
     public void InvenImgExpand()
     {
+        
+
         if (InventoryManager.Instance.expandLeft == 0)
         {
             if (minX == 3)
@@ -97,6 +113,19 @@ public class InventoryImg : MonoBehaviour
 
         if (InventoryManager.Instance.expandLeft == 1)
         {
+            if (minX == 4)
+            {
+                rectTransform.sizeDelta
+                = new Vector2(rectTransform.sizeDelta.x - 165 * 0.7f, rectTransform.sizeDelta.y);
+
+                childRectTransform.sizeDelta
+                = new Vector2(childRectTransform.sizeDelta.x - 100 * 0.7f, childRectTransform.sizeDelta.y);
+
+                rectTransform.anchoredPosition
+                = new Vector3(rectTransform.anchoredPosition.x + 50 * 0.7f, rectTransform.anchoredPosition.y);
+                InventoryManager.Instance.expandLeft--;
+            }
+            
             if (minX == 2)
             {
                 rectTransform.sizeDelta
@@ -105,13 +134,26 @@ public class InventoryImg : MonoBehaviour
                 childRectTransform.sizeDelta
                 = new Vector2(childRectTransform.sizeDelta.x + 100 * 0.7f, childRectTransform.sizeDelta.y);
 
-                rectTransform.anchoredPosition 
+                rectTransform.anchoredPosition
                 = new Vector3(rectTransform.anchoredPosition.x - 50 * 0.7f, rectTransform.anchoredPosition.y);
                 InventoryManager.Instance.expandLeft++;
             }
         }
         if (InventoryManager.Instance.expandLeft == 2)
         {
+            if (minX == 3)
+            {
+                rectTransform.sizeDelta
+                = new Vector2(rectTransform.sizeDelta.x - 165 * 0.7f, rectTransform.sizeDelta.y);
+
+                childRectTransform.sizeDelta
+                = new Vector2(childRectTransform.sizeDelta.x - 100 * 0.7f, childRectTransform.sizeDelta.y);
+
+                rectTransform.anchoredPosition
+                = new Vector3(rectTransform.anchoredPosition.x + 50 * 0.7f, rectTransform.anchoredPosition.y);
+                InventoryManager.Instance.expandLeft--;
+            }
+            
             if (minX == 1)
             {
                 rectTransform.sizeDelta
@@ -144,6 +186,19 @@ public class InventoryImg : MonoBehaviour
 
         if (InventoryManager.Instance.expandRight == 1)
         {
+            if (maxX == 6)
+            {
+                rectTransform.sizeDelta
+                = new Vector2(rectTransform.sizeDelta.x - 165 * 0.7f, rectTransform.sizeDelta.y);
+
+                childRectTransform.sizeDelta
+                = new Vector2(childRectTransform.sizeDelta.x - 100 * 0.7f, childRectTransform.sizeDelta.y);
+
+                rectTransform.anchoredPosition
+                = new Vector3(rectTransform.anchoredPosition.x - 50 * 0.7f, rectTransform.anchoredPosition.y);
+                InventoryManager.Instance.expandRight--;
+            }
+            
             if (maxX == 8)
             {
                 rectTransform.sizeDelta
@@ -159,6 +214,19 @@ public class InventoryImg : MonoBehaviour
         }
         if (InventoryManager.Instance.expandRight == 2)
         {
+            if (maxX == 7)
+            {
+                rectTransform.sizeDelta
+                = new Vector2(rectTransform.sizeDelta.x - 165 * 0.7f, rectTransform.sizeDelta.y);
+
+                childRectTransform.sizeDelta
+                = new Vector2(childRectTransform.sizeDelta.x - 100 * 0.7f, childRectTransform.sizeDelta.y);
+
+                rectTransform.anchoredPosition
+                = new Vector3(rectTransform.anchoredPosition.x - 50 * 0.7f, rectTransform.anchoredPosition.y);
+                InventoryManager.Instance.expandRight--;
+            }
+            
             if (maxX == 9)
             {
                 rectTransform.sizeDelta
@@ -174,6 +242,7 @@ public class InventoryImg : MonoBehaviour
             }
         }
 
+        //
         if (InventoryManager.Instance.expandUp == 0)
         {
             if (minY == 1)
@@ -188,6 +257,22 @@ public class InventoryImg : MonoBehaviour
                 InventoryManager.Instance.expandUp++;
             }
         }
+
+        if (InventoryManager.Instance.expandUp == 1)
+        {
+            if (minY == 2)
+            {
+                rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x, rectTransform.sizeDelta.y - 165 * 0.5f);
+
+                childRectTransform.sizeDelta
+                = new Vector2(childRectTransform.sizeDelta.x, childRectTransform.sizeDelta.y - 130 * 0.5f);
+
+                rectTransform.anchoredPosition
+                = new Vector3(rectTransform.anchoredPosition.x, rectTransform.anchoredPosition.y - 50 * 0.5f);
+                InventoryManager.Instance.expandUp--;
+            }
+        }
+        //
 
         if (InventoryManager.Instance.expandDown == 0)
         {
@@ -204,5 +289,23 @@ public class InventoryImg : MonoBehaviour
             }
         }
 
+        if (InventoryManager.Instance.expandDown == 1)
+        {
+            if (maxY == 4)
+            {
+                rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x, rectTransform.sizeDelta.y - 165 * 0.5f);
+
+                childRectTransform.sizeDelta
+                = new Vector2(childRectTransform.sizeDelta.x, childRectTransform.sizeDelta.y - 130 * 0.5f);
+
+                rectTransform.anchoredPosition
+                = new Vector3(rectTransform.anchoredPosition.x, rectTransform.anchoredPosition.y + 50 * 0.5f);
+                InventoryManager.Instance.expandDown--;
+            }
+        }
+
     }
+
+    
+
 }

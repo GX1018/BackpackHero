@@ -17,6 +17,7 @@ public class CharacterMain : MonoBehaviour
 
 
         defaultPos = transform.position;
+        
     }
 
     // Update is called once per frame
@@ -73,7 +74,16 @@ public class CharacterMain : MonoBehaviour
         }
         //맵에서 이동중 메인 캐릭터 이동//
 
-        CharacterManager.Instance.lvUp();
+
+
+        //레벨업
+        if (!CharacterManager.Instance.isBattleMode&&CharacterManager.Instance.currentExperience >= CharacterManager.Instance.requiredExperience)
+        {
+            //레벨업 버튼활성화
+            ButtonManager.Instance.LevelUpBtn.SetActive(true);
+        }
+
+        //CharacterManager.Instance.lvUp();
 
 
         if (MapManager.Instance.findChest == true)

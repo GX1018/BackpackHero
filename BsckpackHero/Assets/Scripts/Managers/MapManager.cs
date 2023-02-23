@@ -49,6 +49,9 @@ public class MapManager : GSingleton<MapManager>
 
     //적 생성 관련 변수
 
+
+    public GameObject[,] mapBox2DArray = new GameObject[11, 6];
+
     public void CreateEnemy(string enemyName, List<GameObject> enemyList, int xPos)
     {
         enemy = Resources.Load<Enemy>($"Enemies/{enemyName}");
@@ -72,6 +75,8 @@ public class MapManager : GSingleton<MapManager>
         clone.GetComponent<Enemy_Script>().xp = xp;
 
         clone.transform.GetChild(0).GetComponent<Image>().sprite = enemy.EnemyImage;
+
+        clone.transform.GetChild(0).GetComponent<Animator>().runtimeAnimatorController = enemy.EnemyAnimCtl;
 
         clone.transform.position = new Vector3(clone.transform.position.x - 1.78f*xPos, clone.transform.position.y, 100);
 

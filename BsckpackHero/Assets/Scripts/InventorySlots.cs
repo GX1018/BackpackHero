@@ -7,6 +7,8 @@ public class InventorySlots : MonoBehaviour
     public GameObject slotPrefab;
     GameObject[,] itemSlot2DArray;
 
+    public bool isExpand =false;
+
 
     // Start is called before the first frame update
     void Start()
@@ -32,15 +34,19 @@ public class InventorySlots : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (InventoryManager.Instance.isLvup == true)
+        if (InventoryManager.Instance.isLvup == true && !isExpand)
         {
+            //레벨업 텍스트, 버튼,
+            GameObject.Find("OnOffUi").transform.GetChild(1).gameObject.SetActive(true);
+            //인벤토리 하이라키를 마지막으로 변경
+            GameObject.Find("Inventory&Map").transform.SetSiblingIndex(3);
             InventoryExpand();
         }
 
     }
     private void InventoryExpand()
     {
-        InventoryManager.Instance.lvUpPoint = 3;
+        InventoryManager.Instance.lvUpPoint = 4;
 
         for (int i = 0; i < transform.childCount; i++)
         {
@@ -69,7 +75,8 @@ public class InventorySlots : MonoBehaviour
                 }
             }
         }
-        InventoryManager.Instance.isLvup = false;
+        isExpand = true;
+        //InventoryManager.Instance.isLvup = false;
     }
 
 

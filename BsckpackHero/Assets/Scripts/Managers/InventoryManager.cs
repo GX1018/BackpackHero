@@ -31,6 +31,18 @@ public class InventoryManager : MonoBehaviour
             Destroy(this.gameObject);
         }
 
+        inventory = GameObject.Find("Inventory");
+        inventoryDefaultIndex = inventory.transform.GetSiblingIndex();
+
+
+        //
+        inventoryDefaultPos = new Vector3(inventory.transform.position.x-17.78f, inventory.transform.position.y, inventory.transform.position.z);
+        inventoryTargetPos = new Vector3(inventoryDefaultPos.x ,inventoryDefaultPos.y -0.69f, inventoryDefaultPos.z);
+
+        Debug.Log(inventory.transform.position);
+        Debug.Log(inventoryDefaultPos);
+        Debug.Log(inventoryTargetPos);
+        
     }
 
     private void Update() {
@@ -38,6 +50,14 @@ public class InventoryManager : MonoBehaviour
         {
             ItemRootConfirm();
         }
+
+        
+        
+
+        //레벨업했을때만 이동
+        InventoryMove();
+        //레벨업했을때만 이동
+        
     }
 
 
@@ -48,7 +68,7 @@ public class InventoryManager : MonoBehaviour
     public int expandDown = 0;
     //
 
-    //inventoryslots의 레벨업 관련 변수(나중에 캐릭터 생성시 이동 예정)
+    //inventoryslots의 레벨업 관련 변수
     public bool isLvup = false;
     public int lvUpPoint = 0;
     //
@@ -68,11 +88,39 @@ public class InventoryManager : MonoBehaviour
 
     public void ItemRootConfirm()
     {
-        Debug.Log("!!");
-        //버튼 액티브//
+        
         rootItemCheck = false;
     }
 
+    public GameObject inventory;
+
+    public Vector3 inventoryDefaultPos;
+    public Vector3 inventoryTargetPos;
+
+    public int inventoryDefaultIndex;
+
+    public int moveCheckInt = 0;
+
+
+    //레벨업 시 인벤 위치 이동 관련
+
+
+    public void InventoryMove()
+    {
+        if(moveCheckInt == 1)
+        {
+            inventory.transform.position = Vector3.MoveTowards(inventory.transform.position, inventoryTargetPos, 1*Time.deltaTime);
+        }
+
+        if(moveCheckInt == 2)
+        {
+            inventory.transform.position = Vector3.MoveTowards(inventory.transform.position, inventoryDefaultPos, 1*Time.deltaTime);
+            if(inventory.transform.position == inventoryDefaultPos)
+            {
+                moveCheckInt = 0;
+            }
+        }
+    }
     
 
 }

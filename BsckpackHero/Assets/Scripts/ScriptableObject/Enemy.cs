@@ -15,6 +15,13 @@ public class Enemy : ScriptableObject
     private Sprite enemyImage;
     public Sprite EnemyImage{get{return enemyImage;}}
 
+//
+    [SerializeField]
+    private RuntimeAnimatorController enemyAnimCtl;
+    public RuntimeAnimatorController EnemyAnimCtl{get{return enemyAnimCtl;}}
+//
+
+
     [SerializeField]
     private int enemyHp;
     public int EnemyHp{get{return enemyHp;}}

@@ -80,6 +80,8 @@ public class CharacterManager : MonoBehaviour
     //애니메이터관리
     public Animator animator;
 
+    public Vector3 imgDefaultPos;
+
 
     public void lvUp()
     {
@@ -89,6 +91,7 @@ public class CharacterManager : MonoBehaviour
             level++;
         }
         requiredExperience = requiredExperienceArray[level - 1];
+        InventoryManager.Instance.isLvup =true;
     }
 
     public void GetDmgCheck()
