@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class changeBtn : MonoBehaviour
 {
+    
     GameObject invenAndMap;
     /* Vector3 targetPosition1;
     Vector3 targetPosition2; */
@@ -20,7 +21,7 @@ public class changeBtn : MonoBehaviour
     void Start()
     {
         invenAndMap = GameObject.Find("Inventory&Map");
-
+        ButtonManager.Instance.changeBtn = this.gameObject;
         /* targetPosition1 = GameObject.Find("UiMoveTarget1").transform.position;
         targetPosition2 = GameObject.Find("UiMoveTarget2").transform.position; */
     }
@@ -46,10 +47,6 @@ public class changeBtn : MonoBehaviour
             this.gameObject.GetComponent<Image>().sprite = imageMap;
             isClickMapBtn=false;
         }
-        
-
-        
-
     }
 
     public void changeBtnClick(){

@@ -4,24 +4,39 @@ using UnityEngine;
 
 public class MapObjs : MonoBehaviour
 {
+    GameObject chest;
+    GameObject door;
+    GameObject merchant;
+
+
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        chest = transform.Find("Chest").gameObject;
+        door = transform.Find("Door_NextFloor").gameObject;
+        merchant = transform.Find("Merchant").gameObject;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(MapManager.Instance.findChest == true)
+        if (MapManager.Instance.findChest == true)
         {
-            transform.Find("Chest").gameObject.SetActive(true);
+            chest.SetActive(true);
         }
 
-        if(MapManager.Instance.findDoor == true)
+        if (MapManager.Instance.findDoor == true)
         {
-            transform.Find("Door_NextFloor").gameObject.SetActive(true);
+            door.SetActive(true);
 
         }
+
+        if (MapManager.Instance.inStore == true)
+        {
+            merchant.SetActive(true);
+
+        }
+
     }
 }

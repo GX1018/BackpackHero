@@ -295,8 +295,6 @@ public class ItemTest : MonoBehaviour, IPointerDownHandler,
         {
             this.tag = "Item";
 
-            if (!MapManager.Instance.inStore)
-            {
                 if (invenSlotisActiveCnt == transform.childCount - 2 && invenSlotisEmptyCnt == transform.childCount - 2)
                 {
                     //아이템을 인벤토리에 넣기
@@ -313,40 +311,20 @@ public class ItemTest : MonoBehaviour, IPointerDownHandler,
                     transform.position = (transform.GetChild(0).GetComponent<itemBlock>().nearestSlot.transform.position
                         + transform.GetChild(transform.childCount - 3).GetComponent<itemBlock>().nearestSlot.transform.position) / 2;
                     this.tag = "GainedItem";
+                    //아이템을 인벤토리에 넣기
+
+                    //아이템 갖는걸 확정할때의(조건 추가요망)
 
                     itemProperty = "player";
                 }
-            }
-            else if(MapManager.Instance.inStore)
-            {
-                if (invenSlotisActiveCnt == transform.childCount - 2 && invenSlotisEmptyCnt == transform.childCount - 2)//인벤에 코인 있는지 확인하고 아이템 값보다 많은지
+                else if ((invenSlotisActiveCnt != transform.childCount - 2) || (invenSlotisEmptyCnt != transform.childCount - 2))
                 {
-                    //아이템을 인벤토리에 넣기
-                    for (int i = 0; i < transform.childCount - 2; i++)
-                    {
-                        transform.GetChild(i).GetComponent<itemBlock>().nearestSlot.GetComponent<InvenSlot>().isEmpty = false;
-                    }
-
-
                     transform.GetChild(transform.childCount - 2).transform.position
                     = transform.GetChild(transform.childCount - 1).transform.position;
-                    transform.GetChild(transform.childCount - 2).GetComponent<Image>().color = new Color32(255, 255, 255, 100);
-
-                    transform.position = (transform.GetChild(0).GetComponent<itemBlock>().nearestSlot.transform.position
-                        + transform.GetChild(transform.childCount - 3).GetComponent<itemBlock>().nearestSlot.transform.position) / 2;
-                    this.tag = "GainedItem";
-
-                    itemProperty = "player";
                 }
-            }
+            
 
-
-            if ((invenSlotisActiveCnt != transform.childCount - 2) || (invenSlotisEmptyCnt != transform.childCount - 2))
-            {
-                transform.GetChild(transform.childCount - 2).transform.position
-                = transform.GetChild(transform.childCount - 1).transform.position;
-            }
-            //InventoryManager.Instance.addItemAvailable = false;
+                InventoryManager.Instance.addItemAvailable = false;
 
             isClicked = false;
 

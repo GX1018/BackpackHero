@@ -127,7 +127,7 @@ public class Enemy_Script : MonoBehaviour, IPointerDownHandler
         {
             time += Time.deltaTime;
             transform.GetChild(0).localScale = new Vector3(1, 1 + 1f * time, 1);
-            Debug.Log(transform.GetChild(0).localScale.y);
+            
             if (transform.GetChild(0).localScale.y>=1.3)
             {
                 time = 0;

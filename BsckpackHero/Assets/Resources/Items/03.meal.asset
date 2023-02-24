@@ -10,11 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 818cf47979da734409d78399456ca2e2, type: 3}
-  m_Name: roughBuckler
+  m_Name: 03.meal
   m_EditorClassIdentifier: 
-  itemName: roughBuckler
-  itemImage: {fileID: 21300000, guid: 7238d26206dcf234a879b7df0b26ab84, type: 3}
+  itemName: meal
+  itemImage1: {fileID: 21300000, guid: 6122d26568c527948aa8048f350da586, type: 3}
   sizeX: 2
-  sizeY: 2
-  cost: 2
-  def: 7
+  sizeY: 1
+  cost: 0
+  atk: 0
+  def: 0
+  heal: 20
+  consumable: 1
+  consumableCount: 2
+  isImageChange: 1
+  itemImage2: {fileID: 21300000, guid: fc550490066cd30418cb43a9cd307112, type: 3}
+  chageTiming: 1

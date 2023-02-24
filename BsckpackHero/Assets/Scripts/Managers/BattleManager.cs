@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class BattleManager : GSingleton<BattleManager>
 {
-
-
     // Start is called before the first frame update
     void Start()
     {

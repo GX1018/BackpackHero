@@ -83,7 +83,7 @@ public class CharacterMain : MonoBehaviour
         if (!CharacterManager.Instance.isBattleMode && CharacterManager.Instance.currentExperience >= CharacterManager.Instance.requiredExperience)
         {
             //레벨업 버튼활성화
-            ButtonManager.Instance.LevelUpBtn.SetActive(true);
+            ButtonManager.Instance.levelUpBtn.SetActive(true);
         }
 
         //CharacterManager.Instance.lvUp();

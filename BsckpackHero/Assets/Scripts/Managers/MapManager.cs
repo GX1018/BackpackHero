@@ -7,12 +7,14 @@ public class MapManager : GSingleton<MapManager>
 {
     //다음층 이동 관련 변수
     public GameObject screenTrans;
-    public bool nextFloor = false;
 
     public bool isTutorial = true;
     GameObject tutorialMap;
     GameObject stageMap;
-
+    
+    //맵에서 이벤트 체크용
+    public bool nextFloor = false;
+    public bool inStore = false;
 
     // Start is called before the first frame update
     void Start()

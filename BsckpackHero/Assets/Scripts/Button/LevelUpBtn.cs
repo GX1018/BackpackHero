@@ -8,7 +8,7 @@ public class LevelUpBtn : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     // Start is called before the first frame update
     void Start()
     {
-        ButtonManager.Instance.LevelUpBtn = this.gameObject;
+        ButtonManager.Instance.levelUpBtn = this.gameObject;
         gameObject.SetActive(false);
     }
 

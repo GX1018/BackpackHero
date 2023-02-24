@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 818cf47979da734409d78399456ca2e2, type: 3}
-  m_Name: smallKey
+  m_Name: bronzeBreastplate
   m_EditorClassIdentifier: 
-  itemName: smallKey
-  itemImage1: {fileID: 21300000, guid: 51bceb082247b1146885f5fb3a56ad8c, type: 3}
-  sizeX: 1
-  sizeY: 1
-  cost: 1
+  itemName: bronzeBreastplate
+  itemImage1: {fileID: 21300000, guid: f697e6b3d6cac2e41996adf4de260832, type: 3}
+  sizeX: 2
+  sizeY: 2
+  cost: 0
   atk: 0
-  def: 0
+  def: 2
   heal: 0
-  consumable: 1
-  consumableCount: 1
+  consumable: 0
+  consumableCount: 0
   isImageChange: 0
   itemImage2: {fileID: 0}
   chageTiming: 0

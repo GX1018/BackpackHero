@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class ButtonManager : GSingleton<ButtonManager>
 {
-    public GameObject LevelUpBtn;
-    public GameObject LvUpDoneBtn;
+    public GameObject levelUpBtn;
+    public GameObject lvUpDoneBtn;
+    public GameObject changeBtn;
+
 
     // Start is called before the first frame update
     void Start()

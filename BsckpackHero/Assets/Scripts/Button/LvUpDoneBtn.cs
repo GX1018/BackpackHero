@@ -8,7 +8,7 @@ public class LvUpDoneBtn : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     // Start is called before the first frame update
     void Start()
     {
-        ButtonManager.Instance.LvUpDoneBtn = this.gameObject;
+        ButtonManager.Instance.lvUpDoneBtn = this.gameObject;
         gameObject.SetActive(false);
     }
 

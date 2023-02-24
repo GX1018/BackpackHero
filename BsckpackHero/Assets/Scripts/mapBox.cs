@@ -5,9 +5,10 @@ using UnityEngine.EventSystems;
 public class mapBox : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     public bool isActive = false;
-    
+
     public bool isCharacterIn = false;
     public bool isFilled = false;
+    public bool isPassable = false;
     public bool canMove = false;
     public int currentPos = 0;
     public int thisPos;
@@ -45,13 +46,25 @@ public class mapBox : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
 
         GameObject.Find("MapCharacter").transform.position = transform.parent.GetChild(0).position;
+
+        if (transform.childCount > 0)
+        {
+            if (transform.GetChild(0).name == "Store")
+            {
+                isPassable = true;
+            }
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
         //박스 안에 다른 오브젝트가 있는지 체크(배틀/이벤트/다음층)
-        if (transform.childCount > 0)
+        if (isPassable == true)
+        {
+            isFilled = false;
+        }
+        else if (transform.childCount > 0)
         {
             isFilled = true;
         }
@@ -62,7 +75,7 @@ public class mapBox : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         //박스 안에 다른 오브젝트가 있는지 체크(배틀/이벤트/다음층)
 
         //다른 오브젝트가 있는 박스에 캐릭터가 들어왔을때,
-        if (isFilled == true && isCharacterIn == true)
+        if ((isFilled == true || isPassable == true) && isCharacterIn == true)
         {
             if (transform.GetChild(0).name == "Chest")
             {
@@ -85,7 +98,7 @@ public class mapBox : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
                 }
                 transform.GetChild(0).gameObject.GetComponent<MapEnemy>().BattleStart();
 
-                if(BattleManager.Instance.enemyInBattle.Count==0)
+                if (BattleManager.Instance.enemyInBattle.Count == 0)
                 {
                     GameObject.Find("OnOffUi").transform.GetChild(0).gameObject.SetActive(true);
                     CharacterManager.Instance.actionPoint = 3;
@@ -97,13 +110,36 @@ public class mapBox : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             {
                 MapManager.Instance.findDoor = true;
             }
+            else if (transform.GetChild(0).name == "Store")
+            {
+                MapManager.Instance.inStore = true;
+            }
+
         }
-        else if (isFilled == false && isCharacterIn == true)
+        //다른 오브젝트가 있는 박스에 캐릭터가 들어왔을때
+
+
+        if (isCharacterIn == true)
         {
+            if (transform.childCount > 0)
+            {
+                if (transform.GetChild(0).name != "NextFloor")
+                {
+                    MapManager.Instance.findDoor = false;
+                }
+                if (transform.GetChild(0).name != "Store")
+                {
+                    MapManager.Instance.inStore = false;
+                }
+            }
+            else if (transform.childCount == 0)
+            {
                 MapManager.Instance.findDoor = false;
+                MapManager.Instance.inStore = false;
+
+            }
         }
 
-        //다른 오브젝트가 있는 박스에 캐릭터가 들어왔을때
 
 
 

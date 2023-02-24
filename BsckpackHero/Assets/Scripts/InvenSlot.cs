@@ -71,7 +71,7 @@ public class InvenSlot : MonoBehaviour
 
         if (InventoryManager.Instance.isLvup == true && InventoryManager.Instance.lvUpPoint == 0)
         {
-            ButtonManager.Instance.LvUpDoneBtn.SetActive(true);
+            ButtonManager.Instance.lvUpDoneBtn.SetActive(true);
         }
 
         if(InventoryManager.Instance.isLvup == false && isActive == true)

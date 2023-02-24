@@ -7,7 +7,7 @@ public class Inventory_Items : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        ItemManager.Instance.inventoryItems = this.gameObject;
     }
 
     // Update is called once per frame
@@ -23,7 +23,7 @@ public class Inventory_Items : MonoBehaviour
         {
             for (int i = 0; i < transform.childCount; i++)
             {
-                if (transform.GetChild(i).GetComponent<ItemTest>().property != "player")
+                if (transform.GetChild(i).GetComponent<ItemTest>().itemProperty != "player")
                 {
                     Destroy(transform.GetChild(i).gameObject);
                 }
