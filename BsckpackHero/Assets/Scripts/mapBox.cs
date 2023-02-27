@@ -77,7 +77,7 @@ public class mapBox : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         //다른 오브젝트가 있는 박스에 캐릭터가 들어왔을때,
         if ((isFilled == true || isPassable == true) && isCharacterIn == true)
         {
-            if (transform.GetChild(0).name == "Chest")
+            if (transform.GetChild(0).name == "MapChest")
             {
                 MapManager.Instance.findChest = true;
                 if (MapManager.Instance.openChest == true)
@@ -200,6 +200,7 @@ public class mapBox : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
 
         test = 1;
+        Debug.Log("?");
 
         InventoryManager.Instance.removeItem = true;
     }

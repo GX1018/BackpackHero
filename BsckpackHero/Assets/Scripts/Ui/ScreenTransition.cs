@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using TMPro;
 
 public class ScreenTransition : MonoBehaviour
 {
@@ -13,6 +13,18 @@ public class ScreenTransition : MonoBehaviour
 
 
     float time;
+
+    //text move var
+    Vector3 text1DefaultPoint;
+    Vector3 text2DefaultPoint;
+
+    Vector3 text1StartPoint;
+    Vector3 text2StartPoint;
+
+
+
+    //text move var
+
 
     // Start is called before the first frame update
     void Start()
@@ -27,7 +39,19 @@ public class ScreenTransition : MonoBehaviour
         lowerScreenColor = lowerScreen.color;
 
         time = 0;
-        this.gameObject.SetActive(false);
+
+        //temp
+        //this.gameObject.SetActive(false);
+
+        text1DefaultPoint = transform.GetChild(2).position;
+        text2DefaultPoint = transform.GetChild(3).position;
+
+        text1StartPoint = new Vector3(text1DefaultPoint.x - 6, text1DefaultPoint.y, text1DefaultPoint.z);
+        text2StartPoint = new Vector3(text2DefaultPoint.x + 14, text2DefaultPoint.y, text2DefaultPoint.z);
+
+        transform.GetChild(2).position = text1StartPoint;
+        transform.GetChild(3).position = text2StartPoint;
+
     }
 
     // Update is called once per frame
@@ -37,6 +61,11 @@ public class ScreenTransition : MonoBehaviour
         {
             ScreenTrans();
         }
+
+        /* transform.GetChild(2).position = Vector3.MoveTowards(transform.GetChild(2).position, text1DefaultPoint, 5f*Time.deltaTime);
+        transform.GetChild(3).position = Vector3.MoveTowards(transform.GetChild(3).position, text2DefaultPoint, 10f*Time.deltaTime); */
+
+
     }
 
     public void ScreenTrans()
@@ -63,5 +92,8 @@ public class ScreenTransition : MonoBehaviour
             CharacterManager.Instance.characterMain.SetActive(true);
 
         }
+
+        transform.GetChild(2).position = Vector3.MoveTowards(transform.GetChild(2).position, text1DefaultPoint, 5f * Time.deltaTime);
+        transform.GetChild(3).position = Vector3.MoveTowards(transform.GetChild(3).position, text2DefaultPoint, 10f * Time.deltaTime);
     }
 }

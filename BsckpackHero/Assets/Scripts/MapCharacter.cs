@@ -7,6 +7,10 @@ public class MapCharacter : MonoBehaviour
     GameObject nearestMapBox;
 
     int playerPos;
+
+    int nextPos;
+
+    int moveDistance;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,7 +23,13 @@ public class MapCharacter : MonoBehaviour
     {
         FindNearestMapBox();
 
+
         int targetPos = MapManager.Instance.targetPos;
+
+        //0227+
+        //moveDistance = targetPos - playerPos;
+        //int waypoint = 0;
+        //0227+
 
         if (MapManager.Instance.moveCharacter == true)
         {
@@ -28,7 +38,31 @@ public class MapCharacter : MonoBehaviour
 
             //test!!
             CharacterManager.Instance.isWalk = true;
-            transform.position = Vector3.MoveTowards(transform.position, transform.parent.GetChild(targetPos).position, 1f * Time.deltaTime);
+            //transform.position = Vector3.MoveTowards(transform.position, transform.parent.GetChild(targetPos).position, 1f * Time.deltaTime);
+
+            if (playerPos <= targetPos)
+            {
+                for (int i = playerPos; i < targetPos; i++)
+                {
+                    transform.position = Vector3.MoveTowards(transform.position, transform.parent.GetChild(playerPos + 1).position, 1f * Time.deltaTime);
+                    if (transform.position == transform.parent.GetChild(playerPos + 1).position)
+                    {
+                        playerPos++;
+                    }
+                }
+            }
+
+            else if(playerPos > targetPos)
+            {
+                for (int i = playerPos; i > targetPos; i--)
+                {
+                    transform.position = Vector3.MoveTowards(transform.position, transform.parent.GetChild(playerPos - 1).position, 1f * Time.deltaTime);
+                    if (transform.position == transform.parent.GetChild(playerPos - 1).position)
+                    {
+                        playerPos--;
+                    }
+                }
+            }
 
 
             if (transform.position == transform.parent.GetChild(targetPos).position)
@@ -40,25 +74,6 @@ public class MapCharacter : MonoBehaviour
             //
             //test용
 
-
-            //기본값 저장
-            /* Debug.Log(playerPos);
-            Debug.Log(targetPos);
-
-            for (int i = playerPos; i < targetPos; i++)
-            {
-                transform.position = Vector3.MoveTowards(new Vector3(transform.position.x, transform.position.y, 100),
-                new Vector3(transform.parent.GetChild(i + 1).position.x, transform.parent.GetChild(i + 1).position.y, 100), 1f * Time.deltaTime);
-
-
-
-                if (transform.position == transform.parent.GetChild(targetPos).position)
-                {
-                    playerPos = targetPos;
-                    MapManager.Instance.moveCharacter = false;
-                }
-            } */
-            //기본값 저장
 
         }
 
