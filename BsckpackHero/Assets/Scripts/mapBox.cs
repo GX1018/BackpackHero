@@ -19,19 +19,14 @@ public class mapBox : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     Vector2 targetPos;
 
     int test = 0;
-
-
     //
     public bool mainSteet;
     public bool subSteet;
+    //
 
-    //갈림길 indext
-    public bool isCrossroads;
-    int crossroads;
+    public int thisCrossroad;
+    public int thisSub_1;
 
-    //갈림길에서 subSteet로 가는 첫번째 index
-    int firstSubRoad;
-    int lastSubRoad;
 
 
 
@@ -39,19 +34,11 @@ public class mapBox : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     void Start()
     {
 
-        /* for (int i = 0; i < transform.parent.childCount; i++)
-        {
-            if (transform.parent.GetChild(i).gameObject == this.gameObject)
-            {
-                thisPos = i;
-            }
-        } */
-        //박스의 index 지정
         thisPos = MapManager.Instance.mapBoxArray.IndexOf(this.gameObject);
 
         //시작시 캐릭터 위치를 box0의 위치로 설정
         GameObject.Find("MapCharacter").transform.position = transform.parent.GetChild(0).position;
-        
+
         if (thisPos == 0)
         {
             isCharacterIn = true;
@@ -72,19 +59,22 @@ public class mapBox : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             }
         }
 
-        //stage1_1
-        // for (int i = 0; i < transform.parent.childCount; i++)
-        // {
-        //     if (i <= 14)
-        //     {
-        //         transform.parent.GetChild(i).GetComponent<mapBox>().mainSteet = true;
-        //     }
-        //     else if (i > 14)
-        //     {
-        //         transform.parent.GetChild(i).GetComponent<mapBox>().subSteet = true;
-        //     }
-        // }
-        //stage1_1
+        if (subSteet)
+        {
+            split_name = this.name.Split("_");
+            for (int i = 0; i < MapManager.Instance.mapBoxArray.Count; i++)
+            {
+                if (MapManager.Instance.mapBoxArray[i].name == split_name[0])
+                {
+                    thisCrossroad = i;
+                }
+                if (MapManager.Instance.mapBoxArray[i].name == split_name[0] + "_1")
+                {
+                    thisSub_1 = i;
+                }
+            }
+        }
+
     }
 
     // Update is called once per frame
@@ -181,6 +171,8 @@ public class mapBox : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             isCharacterIn = false;
         }
 
+
+        //캐릭터가 현재 박스까지 이동할 수 있는지 여부 체크
         checkMove();
 
 
@@ -188,7 +180,7 @@ public class mapBox : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
 
 
-
+        //이동 관련
         if (test == 1)
         {
             if (canMove == true)
@@ -224,66 +216,9 @@ public class mapBox : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     public void checkMove()
     {
-        //갈림길을 찾고
-
-        if (transform.parent.Find(this.name + "_1") != null)
-        {
-            isCrossroads = true;
-        }
-
-        if (isCrossroads && isCharacterIn)
-        {
-            crossroads = thisPos;
-            !!현재 작업중!!
-            
-
-            for (int i = 0; i < MapManager.Instance.mapBoxArray.Count; i++)
-            {
-                if (MapManager.Instance.mapBoxArray[i] == this.transform)
-                {
-                    crossroads = i;
-                }
-                if (transform.parent.GetChild(i).name == this.transform.name + "_1")
-                {
-                    firstSubRoad = i;
-                }
-                if (transform.parent.GetChild(i).name == this.transform.name + "_End")
-                {
-                    lastSubRoad = i;
-                }
-            }
-            MapManager.Instance.crossroads = crossroads;
-            MapManager.Instance.firstSubRoad = firstSubRoad;
-            MapManager.Instance.lastSubRoad = lastSubRoad;
-        }
-
-
-        /* string[] findCrossraods = this.name.Split('_');
-
-        for (int i = 0; i < transform.parent.childCount; i++)
-        {
-            if (transform.parent.GetChild(i).name == findCrossraods[0])
-            {
-                crossroads = i;
-            }
-            if (transform.parent.GetChild(i).name == findCrossraods[0] + "_1")
-            {
-                firstSubRoad = i;
-            }
-            if (transform.parent.GetChild(i).name == findCrossraods[0] + "_End")
-            {
-                lastSubRoad = i;
-            }
-        }
-        MapManager.Instance.crossroads = crossroads;
-        MapManager.Instance.firstSubRoad = firstSubRoad;
-        MapManager.Instance.lastSubRoad = lastSubRoad; */
-        //
-
-
         if (subSteet)
         {
-            for (int i = 0; i < crossroads; i++)
+            for (int i = 0; i < thisCrossroad; i++)
             {
                 if (transform.parent.GetChild(i).GetComponent<mapBox>().isFilled == true)
                 {
@@ -330,7 +265,6 @@ public class mapBox : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
                 {
                     canMove = true;
                 }
-
             }
         }
     }
