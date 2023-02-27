@@ -51,9 +51,9 @@ public class MapManager : GSingleton<MapManager>
     public int playerPos;
     public int targetPos;
     //갈림길 이동 관련 변수
-    public int crossroads;
-    public int firstSubRoad;
-    public int lastSubRoad;
+    public int thisCrossroad;
+    public int thisSub_1;
+    public int thisSubEnd;
     //
     public bool moveCharacter = false;
 

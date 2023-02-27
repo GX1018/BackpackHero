@@ -1734,8 +1734,8 @@ MonoBehaviour:
   nearestMapBox: {fileID: 0}
   playerPos: 0
   targetPos: 0
-  crossroads: 0
-  firstSubRoad: 0
+  thisCrossroad: 0
+  thisSub_1: 0
   lastSubRoad: 0
   moveCharacter: 0
   findChest: 0
@@ -2580,107 +2580,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33dd988086d9b1f4d8e56fe60743a705, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &787147839
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 787147840}
-  - component: {fileID: 787147843}
-  - component: {fileID: 787147842}
-  - component: {fileID: 787147844}
-  m_Layer: 5
-  m_Name: box3_2
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &787147840
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 787147839}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 3448145260358745680}
-  m_RootOrder: 16
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -200, y: 100}
-  m_SizeDelta: {x: 50, y: 50}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &787147842
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 787147839}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 1764257, guid: e69e6506f7474c045a7351f7ca33144f, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &787147843
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 787147839}
-  m_CullTransparentMesh: 1
---- !u!114 &787147844
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 787147839}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d121de33780aaf4e9ec9a44231e385a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isActive: 0
-  isCharacterIn: 0
-  isFilled: 0
-  isPassable: 0
-  canMove: 0
-  currentPos: 0
-  thisPos: 0
-  playerPos: 0
-  mainSteet: 0
-  subSteet: 0
-  thisCrossroad: 0
-  thisSub_1: 0
 --- !u!1 &799563196
 GameObject:
   m_ObjectHideFlags: 0
@@ -7169,7 +7068,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3448145260358745680}
-  m_RootOrder: 21
+  m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -7223,7 +7122,6 @@ RectTransform:
   - {fileID: 6599380163633932110}
   - {fileID: 6599380163646309267}
   - {fileID: 6599380164688675086}
-  - {fileID: 787147840}
   - {fileID: 6599380163654088821}
   - {fileID: 6599380163265831973}
   - {fileID: 6599380162958946820}
@@ -7752,6 +7650,7 @@ MonoBehaviour:
   subSteet: 0
   thisCrossroad: 0
   thisSub_1: 0
+  thisSubEnd: 0
 --- !u!222 &6599380162929655269
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7853,6 +7752,7 @@ MonoBehaviour:
   subSteet: 0
   thisCrossroad: 0
   thisSub_1: 0
+  thisSubEnd: 0
 --- !u!224 &6599380162958946820
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7867,7 +7767,7 @@ RectTransform:
   m_Children:
   - {fileID: 672626104053233094}
   m_Father: {fileID: 3448145260358745680}
-  m_RootOrder: 19
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -7974,6 +7874,7 @@ MonoBehaviour:
   subSteet: 0
   thisCrossroad: 0
   thisSub_1: 0
+  thisSubEnd: 0
 --- !u!222 &6599380163015182716
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8056,6 +7957,7 @@ MonoBehaviour:
   subSteet: 0
   thisCrossroad: 0
   thisSub_1: 0
+  thisSubEnd: 0
 --- !u!222 &6599380163219156133
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8157,6 +8059,7 @@ MonoBehaviour:
   subSteet: 0
   thisCrossroad: 0
   thisSub_1: 0
+  thisSubEnd: 0
 --- !u!114 &6599380163265831972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8200,7 +8103,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3448145260358745680}
-  m_RootOrder: 18
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -8258,6 +8161,7 @@ MonoBehaviour:
   subSteet: 0
   thisCrossroad: 0
   thisSub_1: 0
+  thisSubEnd: 0
 --- !u!222 &6599380163292151829
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8379,6 +8283,7 @@ MonoBehaviour:
   subSteet: 0
   thisCrossroad: 0
   thisSub_1: 0
+  thisSubEnd: 0
 --- !u!222 &6599380163327815485
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8450,7 +8355,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3448145260358745680}
-  m_RootOrder: 20
+  m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -8519,6 +8424,7 @@ MonoBehaviour:
   subSteet: 0
   thisCrossroad: 0
   thisSub_1: 0
+  thisSubEnd: 0
 --- !u!1 &6599380163400522095
 GameObject:
   m_ObjectHideFlags: 0
@@ -8620,6 +8526,7 @@ MonoBehaviour:
   subSteet: 0
   thisCrossroad: 0
   thisSub_1: 0
+  thisSubEnd: 0
 --- !u!1 &6599380163428417630
 GameObject:
   m_ObjectHideFlags: 0
@@ -8740,6 +8647,7 @@ MonoBehaviour:
   subSteet: 0
   thisCrossroad: 0
   thisSub_1: 0
+  thisSubEnd: 0
 --- !u!1 &6599380163633932097
 GameObject:
   m_ObjectHideFlags: 0
@@ -8783,6 +8691,7 @@ MonoBehaviour:
   subSteet: 0
   thisCrossroad: 0
   thisSub_1: 0
+  thisSubEnd: 0
 --- !u!222 &6599380163633932108
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8925,6 +8834,7 @@ MonoBehaviour:
   subSteet: 0
   thisCrossroad: 0
   thisSub_1: 0
+  thisSubEnd: 0
 --- !u!1 &6599380163646309276
 GameObject:
   m_ObjectHideFlags: 0
@@ -8968,6 +8878,7 @@ MonoBehaviour:
   subSteet: 0
   thisCrossroad: 0
   thisSub_1: 0
+  thisSubEnd: 0
 --- !u!114 &6599380163654088820
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8988,7 +8899,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 186618927, guid: e69e6506f7474c045a7351f7ca33144f, type: 3}
+  m_Sprite: {fileID: -1497475117, guid: 5b52aa903e74d6e4099888831a7af5de, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -9012,11 +8923,11 @@ RectTransform:
   m_Children:
   - {fileID: 4090367049907358153}
   m_Father: {fileID: 3448145260358745680}
-  m_RootOrder: 17
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -149.99998, y: 100}
+  m_AnchoredPosition: {x: -200, y: 100}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6599380163654088823
@@ -9070,6 +8981,7 @@ MonoBehaviour:
   subSteet: 0
   thisCrossroad: 0
   thisSub_1: 0
+  thisSubEnd: 0
 --- !u!114 &6599380163808101284
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9249,6 +9161,7 @@ MonoBehaviour:
   subSteet: 0
   thisCrossroad: 0
   thisSub_1: 0
+  thisSubEnd: 0
 --- !u!1 &6599380164190358917
 GameObject:
   m_ObjectHideFlags: 0
@@ -9350,6 +9263,7 @@ MonoBehaviour:
   subSteet: 0
   thisCrossroad: 0
   thisSub_1: 0
+  thisSubEnd: 0
 --- !u!114 &6599380164257195776
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9432,6 +9346,7 @@ MonoBehaviour:
   subSteet: 0
   thisCrossroad: 0
   thisSub_1: 0
+  thisSubEnd: 0
 --- !u!1 &6599380164257195790
 GameObject:
   m_ObjectHideFlags: 0
@@ -9533,6 +9448,7 @@ MonoBehaviour:
   subSteet: 0
   thisCrossroad: 0
   thisSub_1: 0
+  thisSubEnd: 0
 --- !u!1 &6599380164272745263
 GameObject:
   m_ObjectHideFlags: 0
@@ -9634,6 +9550,7 @@ MonoBehaviour:
   subSteet: 0
   thisCrossroad: 0
   thisSub_1: 0
+  thisSubEnd: 0
 --- !u!1 &6599380164568858813
 GameObject:
   m_ObjectHideFlags: 0
@@ -9696,6 +9613,7 @@ MonoBehaviour:
   subSteet: 0
   thisCrossroad: 0
   thisSub_1: 0
+  thisSubEnd: 0
 --- !u!222 &6599380164688675084
 CanvasRenderer:
   m_ObjectHideFlags: 0

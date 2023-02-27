@@ -26,6 +26,7 @@ public class mapBox : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     public int thisCrossroad;
     public int thisSub_1;
+    public int thisSubEnd = default;
 
 
 
@@ -72,6 +73,14 @@ public class mapBox : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
                 {
                     thisSub_1 = i;
                 }
+                if (MapManager.Instance.mapBoxArray[i].name == split_name[0] + "_End")
+                {
+                    thisSubEnd = i;
+                }
+            }
+            if(thisSubEnd == default)
+            {
+                thisSubEnd = thisSub_1;
             }
         }
 
@@ -200,6 +209,12 @@ public class mapBox : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     public void OnPointerDown(PointerEventData eventData)
     {
         MapManager.Instance.targetPos = thisPos;
+        if(subSteet)
+        {
+            MapManager.Instance.thisCrossroad =thisCrossroad;
+            MapManager.Instance.thisSub_1 =thisSub_1;
+            MapManager.Instance.thisSubEnd = thisSubEnd;
+        }
 
         test = 1;
 
@@ -220,17 +235,17 @@ public class mapBox : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         {
             for (int i = 0; i < thisCrossroad; i++)
             {
-                if (transform.parent.GetChild(i).GetComponent<mapBox>().isFilled == true)
+                if (MapManager.Instance.mapBoxArray[i].GetComponent<mapBox>().isFilled == true)
                 {
                     canMove = false;
                     break;
                 }
-                else if (transform.parent.GetChild(i).GetComponent<mapBox>().isFilled == false)
+                else if (MapManager.Instance.mapBoxArray[i].GetComponent<mapBox>().isFilled == false)
                 {
-                    for (int j = MapManager.Instance.firstSubRoad; j <= thisPos; j++)
+                    for (int j = thisSub_1; j <= thisPos; j++)
                     {
 
-                        if (transform.parent.GetChild(j).GetComponent<mapBox>().isFilled == true)
+                        if (MapManager.Instance.mapBoxArray[j].GetComponent<mapBox>().isFilled == true)
                         {
                             if (j == thisPos)
                             {
@@ -243,7 +258,7 @@ public class mapBox : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
                             }
                         }
-                        else if (transform.parent.GetChild(j).GetComponent<mapBox>().isFilled == false)
+                        else if (MapManager.Instance.mapBoxArray[j].GetComponent<mapBox>().isFilled == false)
                         {
                             canMove = true;
                         }

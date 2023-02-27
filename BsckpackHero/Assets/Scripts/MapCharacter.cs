@@ -32,7 +32,7 @@ public class MapCharacter : MonoBehaviour
         {
             CharacterManager.Instance.isWalk = true;
             //타겟 - 메인
-            if (transform.parent.GetChild(targetPos).GetComponent<mapBox>().mainSteet)
+            if (MapManager.Instance.mapBoxArray[targetPos].GetComponent<mapBox>().mainSteet)
             {
                 if (playerPos <= targetPos)
                 {
@@ -62,14 +62,15 @@ public class MapCharacter : MonoBehaviour
                 }
                 
             }
+
             //타겟 - 서브
-            else if (transform.parent.GetChild(targetPos).GetComponent<mapBox>().subSteet)
+            else if (MapManager.Instance.mapBoxArray[targetPos].GetComponent<mapBox>().subSteet)
             {
 
                 //갈림길 도착까지
-                if (playerPos <= MapManager.Instance.crossroads)
+                if (playerPos <= MapManager.Instance.thisCrossroad)
                 {
-                    for (int i = playerPos; i < MapManager.Instance.crossroads; i++)
+                    for (int i = playerPos; i < MapManager.Instance.thisCrossroad; i++)
                     {
                         transform.position = Vector3.MoveTowards(transform.position, transform.parent.GetChild(playerPos + 1).position, 1f * Time.deltaTime);
                         if (transform.position == transform.parent.GetChild(playerPos + 1).position)
@@ -77,27 +78,27 @@ public class MapCharacter : MonoBehaviour
                             playerPos++;
                         }
                     }
-                    if (transform.position == transform.parent.GetChild(MapManager.Instance.crossroads).position)
+                    if (transform.position == transform.parent.GetChild(MapManager.Instance.thisCrossroad).position)
                     {
                         inCrossroads = true;
                     }
                     if (inCrossroads == true)
                     {
-                        transform.position = Vector3.MoveTowards(transform.position, transform.parent.GetChild(MapManager.Instance.firstSubRoad).position, 1f * Time.deltaTime);
-                        if (transform.position == transform.parent.GetChild(MapManager.Instance.firstSubRoad).position)
+                        transform.position = Vector3.MoveTowards(transform.position, transform.parent.GetChild(MapManager.Instance.thisSub_1).position, 1f * Time.deltaTime);
+                        if (transform.position == transform.parent.GetChild(MapManager.Instance.thisSub_1).position)
                         {
-                            playerPos = MapManager.Instance.firstSubRoad;
+                            playerPos = MapManager.Instance.thisSub_1;
                             //inCrossroads = false;
                             Debug.Log(playerPos);
                         }
                     }
                 }
                 //갈림길 이후
-                if (playerPos >= MapManager.Instance.firstSubRoad && playerPos <= MapManager.Instance.lastSubRoad)
+                if (playerPos >= MapManager.Instance.thisSub_1 && playerPos <= MapManager.Instance.thisSubEnd)
                 {
                     if (targetPos > playerPos)
                     {
-                        for (int i = playerPos; i < MapManager.Instance.lastSubRoad; i++)
+                        for (int i = playerPos; i < targetPos; i++)
                         {
                             transform.position = Vector3.MoveTowards(transform.position, transform.parent.GetChild(playerPos + 1).position, 1f * Time.deltaTime);
                             if (transform.position == transform.parent.GetChild(playerPos + 1).position)
@@ -108,7 +109,7 @@ public class MapCharacter : MonoBehaviour
                     }
                     else if (targetPos < playerPos)
                     {
-                        for (int i = playerPos; i > MapManager.Instance.firstSubRoad; i--)
+                        for (int i = playerPos; i > MapManager.Instance.thisSub_1; i--)
                         {
                             transform.position = Vector3.MoveTowards(transform.position, transform.parent.GetChild(playerPos - 1).position, 1f * Time.deltaTime);
                             if (transform.position == transform.parent.GetChild(playerPos - 1).position)
