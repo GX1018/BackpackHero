@@ -11,6 +11,8 @@ public class MapCharacter : MonoBehaviour
     int nextPos;
 
     int moveDistance;
+
+    public bool inCrossroads = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,43 +28,97 @@ public class MapCharacter : MonoBehaviour
 
         int targetPos = MapManager.Instance.targetPos;
 
-        //0227+
-        //moveDistance = targetPos - playerPos;
-        //int waypoint = 0;
-        //0227+
-
         if (MapManager.Instance.moveCharacter == true)
         {
-            //test용
-            //transform.position = transform.parent.GetChild(targetPos).position;
-
-            //test!!
             CharacterManager.Instance.isWalk = true;
-            //transform.position = Vector3.MoveTowards(transform.position, transform.parent.GetChild(targetPos).position, 1f * Time.deltaTime);
-
-            if (playerPos <= targetPos)
+            //타겟 - 메인
+            if (transform.parent.GetChild(targetPos).GetComponent<mapBox>().mainSteet)
             {
-                for (int i = playerPos; i < targetPos; i++)
+                if (playerPos <= targetPos)
                 {
-                    transform.position = Vector3.MoveTowards(transform.position, transform.parent.GetChild(playerPos + 1).position, 1f * Time.deltaTime);
-                    if (transform.position == transform.parent.GetChild(playerPos + 1).position)
+                    for (int i = playerPos; i < targetPos; i++)
                     {
-                        playerPos++;
+                        transform.position = Vector3.MoveTowards(transform.position, transform.parent.GetChild(playerPos + 1).position, 1f * Time.deltaTime);
+                        if (transform.position == transform.parent.GetChild(playerPos + 1).position)
+                        {
+                            playerPos++;
+                        }
                     }
+                }
+
+                else if (playerPos > targetPos)
+                {
+                    for (int i = playerPos; i > targetPos; i--)
+                    {
+                        transform.position = Vector3.MoveTowards(transform.position, transform.parent.GetChild(playerPos - 1).position, 1f * Time.deltaTime);
+                        if (transform.position == transform.parent.GetChild(playerPos - 1).position)
+                        {
+                            playerPos--;
+                        }
+                    }
+
+                }
+            }
+            //타겟 - 서브
+            else if (transform.parent.GetChild(targetPos).GetComponent<mapBox>().subSteet)
+            {
+
+                //갈림길 도착까지
+                if (playerPos <= MapManager.Instance.crossroads)
+                {
+                    for (int i = playerPos; i < MapManager.Instance.crossroads; i++)
+                    {
+                        transform.position = Vector3.MoveTowards(transform.position, transform.parent.GetChild(playerPos + 1).position, 1f * Time.deltaTime);
+                        if (transform.position == transform.parent.GetChild(playerPos + 1).position)
+                        {
+                            playerPos++;
+                        }
+                    }
+                    if (transform.position == transform.parent.GetChild(MapManager.Instance.crossroads).position)
+                    {
+                        inCrossroads = true;
+                    }
+                    if (inCrossroads == true)
+                    {
+                        transform.position = Vector3.MoveTowards(transform.position, transform.parent.GetChild(MapManager.Instance.firstSubRoad).position, 1f * Time.deltaTime);
+                        if (transform.position == transform.parent.GetChild(MapManager.Instance.firstSubRoad).position)
+                        {
+                            playerPos = MapManager.Instance.firstSubRoad;
+                            //inCrossroads = false;
+                            Debug.Log(playerPos);
+                        }
+                    }
+                }
+                //갈림길 이후
+                if (playerPos >= MapManager.Instance.firstSubRoad && playerPos <= MapManager.Instance.lastSubRoad)
+                {
+                    if (targetPos > playerPos)
+                    {
+                        for (int i = playerPos; i < MapManager.Instance.lastSubRoad; i++)
+                        {
+                            transform.position = Vector3.MoveTowards(transform.position, transform.parent.GetChild(playerPos + 1).position, 1f * Time.deltaTime);
+                            if (transform.position == transform.parent.GetChild(playerPos + 1).position)
+                            {
+                                playerPos++;
+                            }
+                        }
+                    }
+                    else if(targetPos<playerPos)
+                    {
+                        for (int i = playerPos; i > MapManager.Instance.firstSubRoad; i--)
+                        {
+                            transform.position = Vector3.MoveTowards(transform.position, transform.parent.GetChild(playerPos - 1).position, 1f * Time.deltaTime);
+                            if (transform.position == transform.parent.GetChild(playerPos - 1).position)
+                            {
+                                playerPos--;
+                            }
+                        }
+                    }
+
+
                 }
             }
 
-            else if(playerPos > targetPos)
-            {
-                for (int i = playerPos; i > targetPos; i--)
-                {
-                    transform.position = Vector3.MoveTowards(transform.position, transform.parent.GetChild(playerPos - 1).position, 1f * Time.deltaTime);
-                    if (transform.position == transform.parent.GetChild(playerPos - 1).position)
-                    {
-                        playerPos--;
-                    }
-                }
-            }
 
 
             if (transform.position == transform.parent.GetChild(targetPos).position)
@@ -71,10 +127,6 @@ public class MapCharacter : MonoBehaviour
 
                 MapManager.Instance.moveCharacter = false;
             }
-            //
-            //test용
-
-
         }
 
     }

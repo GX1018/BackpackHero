@@ -50,7 +50,11 @@ public class MapManager : GSingleton<MapManager>
     public GameObject nearestMapBox;
     public int playerPos;
     public int targetPos;
-
+    //갈림길 이동 관련 변수
+    public int crossroads;
+    public int firstSubRoad;
+    public int lastSubRoad;
+    //
     public bool moveCharacter = false;
 
     public bool findChest = false;

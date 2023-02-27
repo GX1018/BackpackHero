@@ -21,6 +21,19 @@ public class mapBox : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     int test = 0;
 
 
+    //
+    public bool mainSteet;
+    public bool subSteet;
+
+    //갈림길 indext
+    int crossroads;
+
+    //갈림길에서 subSteet로 가는 첫번째 index
+    int firstSubRoad;
+    int lastSubRoad;
+
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -54,6 +67,20 @@ public class mapBox : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
                 isPassable = true;
             }
         }
+
+        //stage1_1
+        for (int i = 0; i < transform.parent.childCount; i++)
+        {
+            if (i <= 14)
+            {
+                transform.parent.GetChild(i).GetComponent<mapBox>().mainSteet = true;
+            }
+            else if (i > 14)
+            {
+                transform.parent.GetChild(i).GetComponent<mapBox>().subSteet = true;
+            }
+        }
+        //stage1_1
     }
 
     // Update is called once per frame
@@ -200,7 +227,6 @@ public class mapBox : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
 
         test = 1;
-        Debug.Log("?");
 
         InventoryManager.Instance.removeItem = true;
     }
@@ -215,18 +241,82 @@ public class mapBox : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     public void checkMove()
     {
-        for (int i = 0; i < thisPos; i++)
+        if (subSteet)
         {
-            if (transform.parent.GetChild(i).GetComponent<mapBox>().isFilled == true)
-            {
-                canMove = false;
-                break;
-            }
-            else if (transform.parent.GetChild(i).GetComponent<mapBox>().isFilled == false)
-            {
-                canMove = true;
-            }
+            //갈림길을 찾고
+            string[] findCrossraods = this.name.Split('_');
 
+            for (int i = 0; i < transform.parent.childCount; i++)
+            {
+                if (transform.parent.GetChild(i).name == findCrossraods[0])
+                {
+                    crossroads = i;
+                }
+                if (transform.parent.GetChild(i).name == findCrossraods[0] + "_1")
+                {
+                    firstSubRoad = i;
+                }
+                if (transform.parent.GetChild(i).name == findCrossraods[0] + "_End")
+                {
+                    lastSubRoad = i;
+                }
+            }
+            MapManager.Instance.crossroads = crossroads;
+            MapManager.Instance.firstSubRoad = firstSubRoad;
+            MapManager.Instance.lastSubRoad = lastSubRoad;
+            //
+
+
+
+            for (int i = 0; i < crossroads; i++)
+            {
+                if (transform.parent.GetChild(i).GetComponent<mapBox>().isFilled == true)
+                {
+                    canMove = false;
+                    break;
+                }
+                else if (transform.parent.GetChild(i).GetComponent<mapBox>().isFilled == false)
+                {
+                    for (int j = firstSubRoad; j <= thisPos; j++)
+                    {
+
+                        if (transform.parent.GetChild(j).GetComponent<mapBox>().isFilled == true)
+                        {
+                            if (j == thisPos)
+                            {
+                                canMove = true;
+                            }
+                            else
+                            {
+                                canMove = false;
+                                break;
+
+                            }
+                        }
+                        else if (transform.parent.GetChild(j).GetComponent<mapBox>().isFilled == false)
+                        {
+                            canMove = true;
+                        }
+                    }
+                }
+            }
+        }
+
+        else if (mainSteet)
+        {
+            for (int i = 0; i < thisPos; i++)
+            {
+                if (transform.parent.GetChild(i).GetComponent<mapBox>().isFilled == true)
+                {
+                    canMove = false;
+                    break;
+                }
+                else if (transform.parent.GetChild(i).GetComponent<mapBox>().isFilled == false)
+                {
+                    canMove = true;
+                }
+
+            }
         }
     }
 }
