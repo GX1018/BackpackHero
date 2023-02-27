@@ -13,6 +13,7 @@ public class MapCharacter : MonoBehaviour
     int moveDistance;
 
     public bool inCrossroads = false;
+    public bool subToMain = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -34,33 +35,60 @@ public class MapCharacter : MonoBehaviour
             //타겟 - 메인
             if (MapManager.Instance.mapBoxArray[targetPos].GetComponent<mapBox>().mainSteet)
             {
-                if (playerPos <= targetPos)
+                if (MapManager.Instance.mapBoxArray[playerPos].GetComponent<mapBox>().subSteet)
                 {
-                    for (int i = playerPos; i < targetPos; i++)
+                    for (int i = playerPos; i > MapManager.Instance.thisSub_1; i--)
                     {
-                        transform.position = Vector3.MoveTowards(transform.position, transform.parent.GetChild(playerPos + 1).position, 1f * Time.deltaTime);
-                        if (transform.position == transform.parent.GetChild(playerPos + 1).position)
-                        {
-                            playerPos++;
-                        }
-                    }
-                }
-
-                else if (playerPos > targetPos)
-                {
-                    for (int i = playerPos; i > targetPos; i--)
-                    {
-                        //playerPos~ firstSubRoad까지 i--, playerPos == firstSubRoad
-                        
                         transform.position = Vector3.MoveTowards(transform.position, transform.parent.GetChild(playerPos - 1).position, 1f * Time.deltaTime);
                         if (transform.position == transform.parent.GetChild(playerPos - 1).position)
                         {
                             playerPos--;
                         }
                     }
-
+                    if(transform.position == MapManager.Instance.mapBoxArray[MapManager.Instance.thisSub_1].transform.position)
+                    {
+                        subToMain = true;
+                    }
+                    if(subToMain)
+                    {
+                        transform.position = Vector3.MoveTowards(transform.position, MapManager.Instance.mapBoxArray[MapManager.Instance.thisCrossroad].transform.position, 1f * Time.deltaTime);
+                        if(transform.position == MapManager.Instance.mapBoxArray[MapManager.Instance.thisCrossroad].transform.position)
+                        {
+                            playerPos = MapManager.Instance.thisCrossroad;
+                            subToMain = false;
+                        }
+                    }
                 }
-                
+                else
+                {
+                    if (playerPos <= targetPos)
+                    {
+                        for (int i = playerPos; i < targetPos; i++)
+                        {
+                            transform.position = Vector3.MoveTowards(transform.position, transform.parent.GetChild(playerPos + 1).position, 1f * Time.deltaTime);
+                            if (transform.position == transform.parent.GetChild(playerPos + 1).position)
+                            {
+                                playerPos++;
+                            }
+                        }
+                    }
+
+                    else if (playerPos > targetPos)
+                    {
+                        for (int i = playerPos; i > targetPos; i--)
+                        {
+                            //playerPos~ firstSubRoad까지 i--, playerPos == firstSubRoad
+
+                            transform.position = Vector3.MoveTowards(transform.position, transform.parent.GetChild(playerPos - 1).position, 1f * Time.deltaTime);
+                            if (transform.position == transform.parent.GetChild(playerPos - 1).position)
+                            {
+                                playerPos--;
+                            }
+                        }
+
+                    }
+                }
+
             }
 
             //타겟 - 서브
@@ -88,8 +116,31 @@ public class MapCharacter : MonoBehaviour
                         if (transform.position == transform.parent.GetChild(MapManager.Instance.thisSub_1).position)
                         {
                             playerPos = MapManager.Instance.thisSub_1;
-                            //inCrossroads = false;
-                            Debug.Log(playerPos);
+                            inCrossroads = false;
+                        }
+                    }
+                }
+                else if(playerPos > MapManager.Instance.thisCrossroad&&MapManager.Instance.mapBoxArray[playerPos].GetComponent<mapBox>().mainSteet)
+                {
+                    for (int i = playerPos; i > MapManager.Instance.thisCrossroad; i--)
+                    {
+                        transform.position = Vector3.MoveTowards(transform.position, transform.parent.GetChild(playerPos - 1).position, 1f * Time.deltaTime);
+                        if (transform.position == transform.parent.GetChild(playerPos - 1).position)
+                        {
+                            playerPos--;
+                        }
+                    }
+                    if (transform.position == transform.parent.GetChild(MapManager.Instance.thisCrossroad).position)
+                    {
+                        inCrossroads = true;
+                    }
+                    if (inCrossroads == true)
+                    {
+                        transform.position = Vector3.MoveTowards(transform.position, transform.parent.GetChild(MapManager.Instance.thisSub_1).position, 1f * Time.deltaTime);
+                        if (transform.position == transform.parent.GetChild(MapManager.Instance.thisSub_1).position)
+                        {
+                            playerPos = MapManager.Instance.thisSub_1;
+                            inCrossroads = false;
                         }
                     }
                 }
@@ -118,9 +169,9 @@ public class MapCharacter : MonoBehaviour
                             }
                         }
                     }
-
-
                 }
+
+
             }
 
 

@@ -23,6 +23,7 @@ public class MapObjs : MonoBehaviour
     {
         if (MapManager.Instance.findChest == true)
         {
+            chest = transform.Find("Chest").gameObject;
             chest.SetActive(true);
         }
 
