@@ -50,6 +50,8 @@ public class MapCharacter : MonoBehaviour
                 {
                     for (int i = playerPos; i > targetPos; i--)
                     {
+                        //playerPos~ firstSubRoad까지 i--, playerPos == firstSubRoad
+                        
                         transform.position = Vector3.MoveTowards(transform.position, transform.parent.GetChild(playerPos - 1).position, 1f * Time.deltaTime);
                         if (transform.position == transform.parent.GetChild(playerPos - 1).position)
                         {
@@ -58,6 +60,7 @@ public class MapCharacter : MonoBehaviour
                     }
 
                 }
+                
             }
             //타겟 - 서브
             else if (transform.parent.GetChild(targetPos).GetComponent<mapBox>().subSteet)
@@ -103,7 +106,7 @@ public class MapCharacter : MonoBehaviour
                             }
                         }
                     }
-                    else if(targetPos<playerPos)
+                    else if (targetPos < playerPos)
                     {
                         for (int i = playerPos; i > MapManager.Instance.firstSubRoad; i--)
                         {

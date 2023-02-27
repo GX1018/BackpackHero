@@ -26,6 +26,7 @@ public class mapBox : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     public bool subSteet;
 
     //갈림길 indext
+    public bool isCrossroads;
     int crossroads;
 
     //갈림길에서 subSteet로 가는 첫번째 index
@@ -38,15 +39,19 @@ public class mapBox : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     void Start()
     {
 
-        for (int i = 0; i < transform.parent.childCount; i++)
+        /* for (int i = 0; i < transform.parent.childCount; i++)
         {
             if (transform.parent.GetChild(i).gameObject == this.gameObject)
             {
                 thisPos = i;
             }
-        }
+        } */
+        //박스의 index 지정
+        thisPos = MapManager.Instance.mapBoxArray.IndexOf(this.gameObject);
 
-
+        //시작시 캐릭터 위치를 box0의 위치로 설정
+        GameObject.Find("MapCharacter").transform.position = transform.parent.GetChild(0).position;
+        
         if (thisPos == 0)
         {
             isCharacterIn = true;
@@ -58,8 +63,7 @@ public class mapBox : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         }
 
 
-        GameObject.Find("MapCharacter").transform.position = transform.parent.GetChild(0).position;
-
+        //상점은 이동 가능하게 설정
         if (transform.childCount > 0)
         {
             if (transform.GetChild(0).name == "Store")
@@ -69,17 +73,17 @@ public class mapBox : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         }
 
         //stage1_1
-        for (int i = 0; i < transform.parent.childCount; i++)
-        {
-            if (i <= 14)
-            {
-                transform.parent.GetChild(i).GetComponent<mapBox>().mainSteet = true;
-            }
-            else if (i > 14)
-            {
-                transform.parent.GetChild(i).GetComponent<mapBox>().subSteet = true;
-            }
-        }
+        // for (int i = 0; i < transform.parent.childCount; i++)
+        // {
+        //     if (i <= 14)
+        //     {
+        //         transform.parent.GetChild(i).GetComponent<mapBox>().mainSteet = true;
+        //     }
+        //     else if (i > 14)
+        //     {
+        //         transform.parent.GetChild(i).GetComponent<mapBox>().subSteet = true;
+        //     }
+        // }
         //stage1_1
     }
 
@@ -167,11 +171,7 @@ public class mapBox : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             }
         }
 
-
-
-
-
-
+        //캐릭터와 가장 가까운 박스가 현재 박스이면
         if (MapManager.Instance.nearestMapBox == this.gameObject)
         {
             isCharacterIn = true;
@@ -180,7 +180,6 @@ public class mapBox : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         {
             isCharacterIn = false;
         }
-
 
         checkMove();
 
@@ -192,7 +191,6 @@ public class mapBox : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
         if (test == 1)
         {
-
             if (canMove == true)
             {
                 MapManager.Instance.targetPos = thisPos;
@@ -200,13 +198,6 @@ public class mapBox : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             }
 
             test = 0;
-            /* for (int i = 0; i < thisPos; i++)
-            {
-            //transform.parent.GetChild(transform.parent.childCount - 1).position = Vector3.MoveTowards(new Vector3(transform.parent.GetChild(transform.parent.childCount - 1).position.x,transform.parent.GetChild(transform.parent.childCount - 1).position.y,100), new Vector3(targetPos.x,targetPos.y,100), 1f * Time.deltaTime);
-                transform.parent.GetChild(transform.parent.childCount - 1).position = Vector3.MoveTowards(new Vector3(transform.parent.GetChild(transform.parent.childCount - 1).position.x, transform.parent.GetChild(transform.parent.childCount - 1).position.y, 100),
-            new Vector3(transform.parent.GetChild(i).position.x, transform.parent.GetChild(i).position.y, 100), 1f * Time.deltaTime);
-            } */
-
         }
 
 
@@ -216,15 +207,7 @@ public class mapBox : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
-
-        for (int i = 0; i < transform.parent.childCount; i++)
-        {
-            if (transform.parent.GetChild(i).gameObject == this.gameObject)
-            {
-                MapManager.Instance.targetPos = i;
-            }
-        }
-
+        MapManager.Instance.targetPos = thisPos;
 
         test = 1;
 
@@ -241,22 +224,30 @@ public class mapBox : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     public void checkMove()
     {
-        if (subSteet)
-        {
-            //갈림길을 찾고
-            string[] findCrossraods = this.name.Split('_');
+        //갈림길을 찾고
 
-            for (int i = 0; i < transform.parent.childCount; i++)
+        if (transform.parent.Find(this.name + "_1") != null)
+        {
+            isCrossroads = true;
+        }
+
+        if (isCrossroads && isCharacterIn)
+        {
+            crossroads = thisPos;
+            !!현재 작업중!!
+            
+
+            for (int i = 0; i < MapManager.Instance.mapBoxArray.Count; i++)
             {
-                if (transform.parent.GetChild(i).name == findCrossraods[0])
+                if (MapManager.Instance.mapBoxArray[i] == this.transform)
                 {
                     crossroads = i;
                 }
-                if (transform.parent.GetChild(i).name == findCrossraods[0] + "_1")
+                if (transform.parent.GetChild(i).name == this.transform.name + "_1")
                 {
                     firstSubRoad = i;
                 }
-                if (transform.parent.GetChild(i).name == findCrossraods[0] + "_End")
+                if (transform.parent.GetChild(i).name == this.transform.name + "_End")
                 {
                     lastSubRoad = i;
                 }
@@ -264,10 +255,34 @@ public class mapBox : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             MapManager.Instance.crossroads = crossroads;
             MapManager.Instance.firstSubRoad = firstSubRoad;
             MapManager.Instance.lastSubRoad = lastSubRoad;
-            //
+        }
 
 
+        /* string[] findCrossraods = this.name.Split('_');
 
+        for (int i = 0; i < transform.parent.childCount; i++)
+        {
+            if (transform.parent.GetChild(i).name == findCrossraods[0])
+            {
+                crossroads = i;
+            }
+            if (transform.parent.GetChild(i).name == findCrossraods[0] + "_1")
+            {
+                firstSubRoad = i;
+            }
+            if (transform.parent.GetChild(i).name == findCrossraods[0] + "_End")
+            {
+                lastSubRoad = i;
+            }
+        }
+        MapManager.Instance.crossroads = crossroads;
+        MapManager.Instance.firstSubRoad = firstSubRoad;
+        MapManager.Instance.lastSubRoad = lastSubRoad; */
+        //
+
+
+        if (subSteet)
+        {
             for (int i = 0; i < crossroads; i++)
             {
                 if (transform.parent.GetChild(i).GetComponent<mapBox>().isFilled == true)
@@ -277,7 +292,7 @@ public class mapBox : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
                 }
                 else if (transform.parent.GetChild(i).GetComponent<mapBox>().isFilled == false)
                 {
-                    for (int j = firstSubRoad; j <= thisPos; j++)
+                    for (int j = MapManager.Instance.firstSubRoad; j <= thisPos; j++)
                     {
 
                         if (transform.parent.GetChild(j).GetComponent<mapBox>().isFilled == true)

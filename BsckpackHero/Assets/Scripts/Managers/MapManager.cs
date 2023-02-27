@@ -117,4 +117,8 @@ public class MapManager : GSingleton<MapManager>
         enemyList.Add(clone);
 
     }
+
+    //not automaking
+    public List<GameObject> mapBoxArray = new List<GameObject>();
+
 }
