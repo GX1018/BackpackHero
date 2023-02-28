@@ -35,7 +35,7 @@ public class TestCreateItem : MonoBehaviour
 
     public void CreateItem(int num)
     {
-        if (MapManager.Instance.floor == 0)
+        if (MapManager.Instance.isTutorial)
         {
             ranNum = num;
         }

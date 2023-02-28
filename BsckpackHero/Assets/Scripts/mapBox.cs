@@ -28,14 +28,16 @@ public class mapBox : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     public int thisSub_1;
     public int thisSubEnd = default;
 
+    bool positionCheck;
+
 
 
 
     // Start is called before the first frame update
     void Start()
     {
-
         thisPos = MapManager.Instance.mapBoxArray.IndexOf(this.gameObject);
+
 
         //시작시 캐릭터 위치를 box0의 위치로 설정
         GameObject.Find("MapCharacter").transform.position = transform.parent.GetChild(0).position;
@@ -78,17 +80,73 @@ public class mapBox : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
                     thisSubEnd = i;
                 }
             }
-            if(thisSubEnd == default)
+            if (thisSubEnd == default)
             {
                 thisSubEnd = thisSub_1;
             }
         }
-
+        positionCheck = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!positionCheck)
+        {
+            thisPos = MapManager.Instance.mapBoxArray.IndexOf(this.gameObject);
+
+            if (subSteet)
+            {
+                split_name = this.name.Split("_");
+                for (int i = 0; i < MapManager.Instance.mapBoxArray.Count; i++)
+                {
+                    if (MapManager.Instance.mapBoxArray[i].name == split_name[0])
+                    {
+                        thisCrossroad = i;
+                    }
+                    if (MapManager.Instance.mapBoxArray[i].name == split_name[0] + "_1")
+                    {
+                        thisSub_1 = i;
+                    }
+                    if (MapManager.Instance.mapBoxArray[i].name == split_name[0] + "_End")
+                    {
+                        thisSubEnd = i;
+                    }
+                }
+                if (thisSubEnd == default)
+                {
+                    thisSubEnd = thisSub_1;
+                }
+            }
+
+            //시작시 캐릭터 위치를 box0의 위치로 설정
+            GameObject.Find("MapCharacter").transform.position = transform.parent.GetChild(0).position;
+
+            if (thisPos == 0)
+            {
+                isCharacterIn = true;
+                canMove = true;
+            }
+            else
+            {
+                isCharacterIn = false;
+            }
+
+
+            //상점은 이동 가능하게 설정
+            if (transform.childCount > 0)
+            {
+                if (transform.GetChild(0).name == "Store")
+                {
+                    isPassable = true;
+                }
+            }
+
+            positionCheck = true;
+        }
+
+
+
         //박스 안에 다른 오브젝트가 있는지 체크(배틀/이벤트/다음층)
         if (isPassable == true)
         {
@@ -133,6 +191,7 @@ public class mapBox : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
                     GameObject.Find("OnOffUi").transform.GetChild(0).gameObject.SetActive(true);
                     CharacterManager.Instance.actionPoint = 3;
                     CharacterManager.Instance.isBattleMode = false;
+                    MapManager.Instance.createEnd = false;
                     Destroy(transform.GetChild(0).gameObject);
                 }
             }
@@ -209,10 +268,10 @@ public class mapBox : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     public void OnPointerDown(PointerEventData eventData)
     {
         MapManager.Instance.targetPos = thisPos;
-        if(subSteet)
+        if (subSteet)
         {
-            MapManager.Instance.thisCrossroad =thisCrossroad;
-            MapManager.Instance.thisSub_1 =thisSub_1;
+            MapManager.Instance.thisCrossroad = thisCrossroad;
+            MapManager.Instance.thisSub_1 = thisSub_1;
             MapManager.Instance.thisSubEnd = thisSubEnd;
         }
 

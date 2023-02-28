@@ -115,7 +115,7 @@ public class ItemManager : MonoBehaviour
         } */
         //        
 
-        if (MapManager.Instance.floor == 0 && MapManager.Instance.inStore == false)
+        if (MapManager.Instance.isTutorial && MapManager.Instance.inStore == false)
         {
             ranNum = num;
         }

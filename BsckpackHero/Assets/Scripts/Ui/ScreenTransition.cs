@@ -41,7 +41,6 @@ public class ScreenTransition : MonoBehaviour
         time = 0;
 
         //temp
-        //this.gameObject.SetActive(false);
 
         text1DefaultPoint = transform.GetChild(2).position;
         text2DefaultPoint = transform.GetChild(3).position;
@@ -52,6 +51,7 @@ public class ScreenTransition : MonoBehaviour
         transform.GetChild(2).position = text1StartPoint;
         transform.GetChild(3).position = text2StartPoint;
 
+        this.gameObject.SetActive(false);
     }
 
     // Update is called once per frame

@@ -28,11 +28,13 @@ public class Door : MonoBehaviour, IPointerDownHandler
         if (characterMove == true)
         {
             CharacterManager.Instance.characterMain.transform.position = Vector3.MoveTowards(CharacterManager.Instance.characterMain.transform.position, transform.position, 3f * Time.deltaTime);
+            CharacterManager.Instance.animator.SetBool("isWalk", true);
         }
         
         if (CharacterManager.Instance.characterMain.transform.position == transform.position)
         {
             characterMove = false;
+            CharacterManager.Instance.animator.SetBool("isWalk", false);
             MapManager.Instance.nextFloor = true;
             MapManager.Instance.screenTrans.SetActive(true);
         }

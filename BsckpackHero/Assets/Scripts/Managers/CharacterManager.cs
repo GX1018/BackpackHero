@@ -52,6 +52,11 @@ public class CharacterManager : MonoBehaviour
             }
         }
 
+        if(currentHp <= 0)
+        {
+            Die();
+        }
+
     }
 
     public int actionPoint = 3;
@@ -107,6 +112,11 @@ public class CharacterManager : MonoBehaviour
                 def = 0;
             }
         }
+    }
+
+    public void Die()
+    {
+        ButtonManager.Instance.RetryBtn.SetActive(true);
     }
 
 }

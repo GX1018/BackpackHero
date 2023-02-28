@@ -57,6 +57,7 @@ public class InventoryManager : MonoBehaviour
 
     }
 
+    public bool isExpand;
 
     // inventoryImg에서 인벤 이미지 확장할때 사용
     public int expandRight = 0;

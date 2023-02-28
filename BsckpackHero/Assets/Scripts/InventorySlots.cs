@@ -7,7 +7,7 @@ public class InventorySlots : MonoBehaviour
     public GameObject slotPrefab;
     GameObject[,] itemSlot2DArray;
 
-    public bool isExpand =false;
+    public bool isExpand;
 
 
     // Start is called before the first frame update
@@ -29,6 +29,7 @@ public class InventorySlots : MonoBehaviour
             }
         }
         //슬롯 배열에 넣기?
+        isExpand = InventoryManager.Instance.isExpand;
     }
 
     // Update is called once per frame

@@ -18,6 +18,7 @@ public class StartGameBtn : MonoBehaviour
     }
 
     public void StartGameBtnClick(){
-        SceneManager.LoadScene("02.TutorialScene");
+        SceneManager.LoadScene("97.TestScene");
+        MapManager.Instance.gameStart = true;
     }
 }

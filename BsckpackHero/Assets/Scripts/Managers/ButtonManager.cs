@@ -7,6 +7,7 @@ public class ButtonManager : GSingleton<ButtonManager>
     public GameObject levelUpBtn;
     public GameObject lvUpDoneBtn;
     public GameObject changeBtn;
+    public GameObject RetryBtn;
 
 
     // Start is called before the first frame update

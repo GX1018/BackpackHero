@@ -5,46 +5,84 @@ using UnityEngine.UI;
 
 public class MapManager : GSingleton<MapManager>
 {
+    public bool gameStart;
+
     //다음층 이동 관련 변수
     public GameObject screenTrans;
 
-    public bool isTutorial = true;
+    public bool isTutorial;
     GameObject tutorialMap;
     GameObject stageMap;
-    
+
+
+    public GameObject MapRoot;
+
+
+
     //맵에서 이벤트 체크용
     public bool nextFloor = false;
     public bool inStore = false;
 
+
     // Start is called before the first frame update
     void Start()
     {
-        tutorialMap = GameObject.Find("TutorialMap");
-        stageMap = GameObject.Find("StageMap");
+
+
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (nextFloor == true)
+        if (gameStart)
         {
-            if (isTutorial == true)
-            {
-                tutorialMap.SetActive(false);
-                findDoor = false;
-                isTutorial = false;
-            }
-            else
-            {
-                //지우고
-                for (int i = 0; i < stageMap.transform.childCount; i++)
-                {
-                    Destroy(stageMap.transform.GetChild(i).gameObject);
-                }
+            tutorialMap = GameObject.Find("Map").transform.GetChild(1).gameObject;
+            stageMap = GameObject.Find("Map").transform.GetChild(2).gameObject;
+            tutorialMap.SetActive(true);
+            gameStart= false;
+        }
 
-                //만들어줌(함수 생성 후 삽입예정)
+        if (isTutorial)
+        {
+            if (nextFloor)
+            {
+                isTutorial = false;
+                findDoor = false;
+                tutorialMap.SetActive(false);
+                stage++;
+                floor++;
+                MapRoot.transform.GetChild(2).gameObject.SetActive(true);
+                MapRoot.transform.GetChild(2).GetChild(stage - 1).GetChild(floor - 1).gameObject.SetActive(true);
+                targetPos = 0;
+                playerPos = 0;
+                nextFloor = false;
             }
         }
+        // if (nextFloor == true)
+        // {
+        //     if (isTutorial == true)
+        //     {
+
+        //         
+        //     }
+
+        //     else if (!isTutorial)
+        //     {
+        //         //지우고
+        //         for (int i = 0; i < stageMap.transform.childCount; i++)
+        //         {
+        //             Destroy(MapRoot.transform.GetChild(2).GetChild(stage - 1).GetChild(floor - 1).gameObject);
+        //             //stage++;
+        //             //floor++;
+        //             // MapRoot.transform.GetChild(2).GetChild(stage - 1).GetChild(floor - 1).gameObject.SetActive(true);
+        //             // findDoor = false;    //일단 비활성화
+
+        //         }
+        //     
+        //         //만들어줌(함수 생성 후 삽입예정)
+        //     }
+        // }
     }
 
     public GameObject nearestMapBox;
@@ -65,6 +103,7 @@ public class MapManager : GSingleton<MapManager>
     //맵에서 계단에 도작했을때
     public bool findDoor = false;
 
+    public int stage = 0;
     public int floor = 0;
 
 
