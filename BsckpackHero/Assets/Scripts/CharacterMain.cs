@@ -54,6 +54,17 @@ public class CharacterMain : MonoBehaviour
         }
         //걸을때
 
+        //전투 승리
+        if(BattleManager.Instance.isWin == true)
+        {
+            transform.GetChild(0).GetComponent<Animator>().SetBool("isWin", true);
+        }
+        else if(BattleManager.Instance.isWin == false)
+        {
+            transform.GetChild(0).GetComponent<Animator>().SetBool("isWin", false);
+
+        }
+
 
         if (CharacterManager.Instance.isBattleMode == true)
         {
@@ -66,6 +77,7 @@ public class CharacterMain : MonoBehaviour
             transform.GetChild(0).GetComponent<Animator>().SetBool("isBattleMode", false);
             transform.GetChild(0).GetComponent<Animator>().SetBool("isMap", true);
         }
+        
 
         //애니메이션 관리        }
 

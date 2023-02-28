@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class RetryBtn : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
@@ -17,7 +18,7 @@ public class RetryBtn : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
         if(gameObject.activeSelf == true)
         {
-            
+
         }
     }
 
@@ -30,6 +31,7 @@ public class RetryBtn : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     public void OnPointerUp(PointerEventData eventData)
     {
+        SceneManager.LoadScene("01.TitleScene");
         gameObject.SetActive(false);
     }
 }

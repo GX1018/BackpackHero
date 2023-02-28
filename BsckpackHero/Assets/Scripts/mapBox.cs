@@ -189,6 +189,7 @@ public class mapBox : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
                 if (BattleManager.Instance.enemyInBattle.Count == 0)
                 {
                     GameObject.Find("OnOffUi").transform.GetChild(0).gameObject.SetActive(true);
+                    BattleManager.Instance.isWin = true;
                     CharacterManager.Instance.actionPoint = 3;
                     CharacterManager.Instance.isBattleMode = false;
                     MapManager.Instance.createEnd = false;

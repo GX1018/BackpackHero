@@ -54,6 +54,8 @@ public class BattleManager : GSingleton<BattleManager>
 
     public int turnCount = 1;
 
+    public bool isWin;
+
     //버튼
     public GameObject turnEndBtn;
     public void TurnEnd()

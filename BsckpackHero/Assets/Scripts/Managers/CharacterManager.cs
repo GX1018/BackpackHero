@@ -116,6 +116,7 @@ public class CharacterManager : MonoBehaviour
 
     public void Die()
     {
+        GameObject.Find("OnOffUi").transform.GetChild(2).gameObject.SetActive(true);
         ButtonManager.Instance.RetryBtn.SetActive(true);
     }
 
