@@ -54,6 +54,19 @@ public class ItemTest : MonoBehaviour, IPointerDownHandler,
     public Sprite itemImage2;
     public int chageTiming;
 
+    //아이템 소유권 관련
+    GameObject fieldItems;
+    GameObject inventoryItems;
+    List<GameObject> inventoryItemsList;
+
+    //
+    float ranPosX;
+    float ranPosY;
+
+    bool moveOutCheck = false;
+    public List<GameObject> moveOutItem = new List<GameObject>();
+    public List<Vector3> targetPos = new List<Vector3>();
+
 
 
     private RectTransform objRect = default;
@@ -71,6 +84,9 @@ public class ItemTest : MonoBehaviour, IPointerDownHandler,
 
         itemProperty = "none";
 
+        fieldItems = ItemManager.Instance.fieldItems;
+        inventoryItems = ItemManager.Instance.inventoryItems;
+        inventoryItemsList = ItemManager.Instance.inventoryItemsList;
 
     }
 
@@ -122,10 +138,7 @@ public class ItemTest : MonoBehaviour, IPointerDownHandler,
 
         }
 
-
-
         //{ 공격할때 움직임
-
         //시작위치
         Vector3 pos1 = CharacterManager.Instance.imgDefaultPos;
 
@@ -164,23 +177,51 @@ public class ItemTest : MonoBehaviour, IPointerDownHandler,
                 defenseWaypoint = 0;
             }
         }
-        //방어할때 움직임
 
-        //아이템 사용시 움직임  
 
-        //[itemTest.cs] 캐릭터 애니메이션 관련
-        //사용아이템 횟수 0일때  destroy로 설정하여 파괴시 SetTrigger("UseItemEnd") 실행 x 아이템 애니메이션 컨트롤을 다른곳에서 해야할것
-        //charactermanager에서 컨트롤 하도록 변경 예정
-        /* if (useItemWaypoint == 1)
+        if (transform.parent != inventoryItems.transform && inventoryItemsList.IndexOf(this.gameObject) != -1)
         {
-            time += Time.deltaTime;
-            if (time >= 0.5f)
+            transform.parent = inventoryItems.transform;
+        }
+
+        //
+        if (this.tag != "GainedItem")
+        {
+            for (int i = 0; i < InventoryManager.Instance.activeSlot.Count; i++)
             {
-                CharacterManager.Instance.animator.SetTrigger("UseItemEnd");
-                useItemWaypoint = 0;
-                time = 0;
+                if (InventoryManager.Instance.activeSlot[i].GetComponent<InvenSlot>().filledItem == this.gameObject)
+                {
+                    InventoryManager.Instance.activeSlot[i].GetComponent<InvenSlot>().filledItem = null;
+                    InventoryManager.Instance.activeSlot[i].GetComponent<InvenSlot>().isEmpty = true;
+                }
+
             }
-        } */
+        }
+
+        //
+        if (moveOutCheck)
+        {
+            Debug.Log(targetPos);
+            int moveEndCheck = 0;
+            for (int i = 0; i < moveOutItem.Count; i++)
+            {
+                moveOutItem[i].transform.position = Vector3.MoveTowards(moveOutItem[i].transform.position, targetPos[i], 10f * Time.deltaTime);
+            }
+            for (int i = 0; i < moveOutItem.Count; i++)
+            {
+                if (moveOutItem[i].transform.position == targetPos[i])
+                {
+                    moveEndCheck++;
+                }
+            }
+            if (moveEndCheck == moveOutItem.Count)
+            {
+                moveOutItem.Clear();
+                targetPos.Clear();
+
+                moveOutCheck = false;
+            }
+        }
 
     }
 
@@ -199,6 +240,7 @@ public class ItemTest : MonoBehaviour, IPointerDownHandler,
                     for (int i = 0; i < transform.childCount - 2; i++)
                     {
                         transform.GetChild(i).GetComponent<itemBlock>().nearestSlot.GetComponent<InvenSlot>().isEmpty = true;
+                        transform.GetChild(i).GetComponent<itemBlock>().nearestSlot.GetComponent<InvenSlot>().filledItem = null;
                     }
                 }
                 //} 아이템의 태그 상태가 인벤토리에 들어있는 상태(tag : "GainedItem")면 인벤토리 슬롯의 isempty를 true로 변경
@@ -233,11 +275,13 @@ public class ItemTest : MonoBehaviour, IPointerDownHandler,
 
                     for (int i = 0; i < enemyInBattle.Count; i++)
                     {
+
                         if (enemyInBattle[i].GetComponent<Enemy_Script>().isTarget == true)
                         {
                             enemyInBattle[i].GetComponent<Enemy_Script>().getDmg += atk;
                         }
                     }
+
                 }
                 if (heal > 0)
                 {
@@ -303,6 +347,49 @@ public class ItemTest : MonoBehaviour, IPointerDownHandler,
                     for (int i = 0; i < transform.childCount - 2; i++)
                     {
                         transform.GetChild(i).GetComponent<itemBlock>().nearestSlot.GetComponent<InvenSlot>().isEmpty = false;
+                        transform.GetChild(i).GetComponent<itemBlock>().nearestSlot.GetComponent<InvenSlot>().filledItem = this.gameObject;
+                    }
+
+
+                    transform.GetChild(transform.childCount - 2).transform.position
+                    = transform.GetChild(transform.childCount - 1).transform.position;
+                    transform.GetChild(transform.childCount - 2).GetComponent<Image>().color = new Color32(255, 255, 255, 100);
+
+                    transform.position = (transform.GetChild(0).GetComponent<itemBlock>().nearestSlot.transform.position
+                        + transform.GetChild(transform.childCount - 3).GetComponent<itemBlock>().nearestSlot.transform.position) / 2;
+                    this.tag = "GainedItem";
+
+                    itemProperty = "player";
+                }
+
+                if (invenSlotisActiveCnt == transform.childCount - 2 && invenSlotisEmptyCnt != transform.childCount - 2)
+                {
+
+                    for (int i = 0; i < transform.childCount - 2; i++)
+                    {
+                        if (transform.GetChild(i).GetComponent<itemBlock>().nearestSlot.GetComponent<InvenSlot>().filledItem != null)
+                        {
+                            ranPosX = Random.Range(-7.5f, 7.5f);
+                            ranPosY = Random.Range(1f, 4.5f);
+                            Vector3 target = new Vector3(ranPosX, ranPosY, 100);
+                            if (moveOutItem.IndexOf(transform.GetChild(i).GetComponent<itemBlock>().nearestSlot.GetComponent<InvenSlot>().filledItem) == -1)
+                            {
+                                moveOutItem.Add(transform.GetChild(i).GetComponent<itemBlock>().nearestSlot.GetComponent<InvenSlot>().filledItem);
+                                targetPos.Add(target);
+                            }
+                            /*transform.GetChild(i).GetComponent<itemBlock>().nearestSlot.GetComponent<InvenSlot>().filledItem.transform.position
+                            = new Vector3(ranPosX, ranPosY, 100); */
+                            //
+                            transform.GetChild(i).GetComponent<itemBlock>().nearestSlot.GetComponent<InvenSlot>().filledItem.tag = "Item";
+                            moveOutCheck = true;
+                        }
+                        //transform.GetChild(i).GetComponent<itemBlock>().nearestSlot.GetComponent<InvenSlot>().isEmpty = true;
+                        //transform.GetChild(i).GetComponent<itemBlock>().nearestSlot.GetComponent<InvenSlot>().filledItem = null;
+                    }
+                    for (int i = 0; i < transform.childCount - 2; i++)
+                    {
+                        transform.GetChild(i).GetComponent<itemBlock>().nearestSlot.GetComponent<InvenSlot>().isEmpty = false;
+                        transform.GetChild(i).GetComponent<itemBlock>().nearestSlot.GetComponent<InvenSlot>().filledItem = this.gameObject;
                     }
 
 
@@ -317,7 +404,7 @@ public class ItemTest : MonoBehaviour, IPointerDownHandler,
                     itemProperty = "player";
                 }
             }
-            else if(MapManager.Instance.inStore)
+            else if (MapManager.Instance.inStore)
             {
                 if (invenSlotisActiveCnt == transform.childCount - 2 && invenSlotisEmptyCnt == transform.childCount - 2)//인벤에 코인 있는지 확인하고 아이템 값보다 많은지
                 {
@@ -325,6 +412,7 @@ public class ItemTest : MonoBehaviour, IPointerDownHandler,
                     for (int i = 0; i < transform.childCount - 2; i++)
                     {
                         transform.GetChild(i).GetComponent<itemBlock>().nearestSlot.GetComponent<InvenSlot>().isEmpty = false;
+                        transform.GetChild(i).GetComponent<itemBlock>().nearestSlot.GetComponent<InvenSlot>().filledItem = this.gameObject;
                     }
 
 
@@ -355,15 +443,15 @@ public class ItemTest : MonoBehaviour, IPointerDownHandler,
             //클릭을 풀었을때 소유권 상태
             if (itemProperty == "none")
             {
-                float ranPosX = Random.Range(-7.5f, 7.5f);
-                float ranPosY = Random.Range(-1f, -4.5f);
+                ranPosX = Random.Range(-7.5f, 7.5f);
+                ranPosY = Random.Range(-1f, -4.5f);
                 transform.position = new Vector3(ranPosX, ranPosY, 100);
             }
 
             if (itemProperty == "neutrality")
             {
-                float ranPosX = Random.Range(-7.5f, 7.5f);
-                float ranPosY = Random.Range(1f, 4.5f);
+                ranPosX = Random.Range(-7.5f, 7.5f);
+                ranPosY = Random.Range(1f, 4.5f);
                 transform.position = new Vector3(ranPosX, ranPosY, 100);
             }
 

@@ -10,6 +10,7 @@ public class InvenSlot : MonoBehaviour
 
     // modifying
     public bool isEmpty = true;
+    public GameObject filledItem;
     // modifying
 
     public int xInArray;
@@ -26,6 +27,10 @@ public class InvenSlot : MonoBehaviour
         {
             isActive = true;
         }
+        if(isActive)
+        {
+            InventoryManager.Instance.activeSlot.Add(this.gameObject);
+        }
 
 
         for (int y = 0; y < InventoryManager.Instance.itemSlot2DArray.GetLength(1); y++)  //7
@@ -39,6 +44,7 @@ public class InvenSlot : MonoBehaviour
                 }
             }
         }
+
 
     }
 
@@ -61,7 +67,6 @@ public class InvenSlot : MonoBehaviour
         else if (InventoryManager.Instance.lvUpPoint <= 0)
         {
             gameObject.GetComponent<Image>().enabled = false;
-            isTemporary = false;
         }
 
         else if (isActive == false && isTemporary == false)
@@ -74,7 +79,7 @@ public class InvenSlot : MonoBehaviour
             ButtonManager.Instance.lvUpDoneBtn.SetActive(true);
         }
 
-        if(InventoryManager.Instance.isLvup == false && isActive == true)
+        if(InventoryManager.Instance.isLvup == false && (isActive == true || isTemporary == true))
         {
             isTemporary = false;
         }
@@ -85,12 +90,14 @@ public class InvenSlot : MonoBehaviour
         if (isTemporary == true && isActive == false)
         {
             isActive = true;
+            InventoryManager.Instance.activeSlot.Add(this.gameObject);
             InventoryManager.Instance.lvUpPoint--;
         }
 
         else if (isTemporary == true && isActive == true)
         {
             isActive = false;
+            InventoryManager.Instance.activeSlot.Remove(this.gameObject);
             InventoryManager.Instance.lvUpPoint++;
 
         }

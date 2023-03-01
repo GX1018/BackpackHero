@@ -52,7 +52,7 @@ public class Merchant : MonoBehaviour, IPointerDownHandler
         {
             if (merchantItem[i].GetComponent<ItemTest>().itemProperty == "player")
             {
-                merchantItem[i].transform.parent = ItemManager.Instance.inventoryItems.transform;
+                merchantItem[i].transform.parent = ItemManager.Instance.fieldItems.transform;
             }
         }
     }
@@ -61,9 +61,9 @@ public class Merchant : MonoBehaviour, IPointerDownHandler
     {
         if (openStore == false)
         {
-            for (int i = 0; i < ItemManager.Instance.inventoryItems.transform.childCount; i++)
+            for (int i = 0; i < ItemManager.Instance.fieldItems.transform.childCount; i++)
             {
-                playerItemInStore.Add(ItemManager.Instance.inventoryItems.transform.GetChild(i).gameObject);
+                playerItemInStore.Add(ItemManager.Instance.fieldItems.transform.GetChild(i).gameObject);
             }
             if (createItemInStore == true)
             {

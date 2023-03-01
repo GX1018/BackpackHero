@@ -7,7 +7,9 @@ public class ItemManager : MonoBehaviour
 {
     private static ItemManager instance;
 
+    public GameObject fieldItems;
     public GameObject inventoryItems;
+    public List<GameObject> inventoryItemsList;
 
     public static ItemManager Instance
     {
@@ -105,15 +107,8 @@ public class ItemManager : MonoBehaviour
     //{ 아이템 생성 함수
     public void CreateItem(int num)
     {
-        /* if (MapManager.Instance.floor == 0 && MapManager.Instance.inStore == false)
-        {
-            itemList = Resources.LoadAll<Item>("Items/Tutorial_Items");
-        }
-        else
-        {
-            itemList = Resources.LoadAll<Item>("Items");
-        } */
-        //        
+
+        
 
         if (MapManager.Instance.isTutorial && MapManager.Instance.inStore == false)
         {
@@ -142,8 +137,7 @@ public class ItemManager : MonoBehaviour
         isImageChange = item.IsImageChange;
         if (MapManager.Instance.inStore == false)
         {
-            clone = Instantiate(itemPrefab, GameObject.Find("Items").transform);//transform 조정 //test중
-
+            clone = Instantiate(itemPrefab, fieldItems.transform);//transform 조정 //test중
         }
         else if (MapManager.Instance.inStore == true)
         {

@@ -7,6 +7,8 @@ public class InventorySlots : MonoBehaviour
     public GameObject slotPrefab;
     GameObject[,] itemSlot2DArray;
 
+    List<GameObject> activeSlot;
+
     public bool isExpand;
 
 
@@ -16,6 +18,7 @@ public class InventorySlots : MonoBehaviour
         slotPrefab = Resources.Load<GameObject>("Prefabs/InvenSlot");
 
         itemSlot2DArray = InventoryManager.Instance.itemSlot2DArray;
+        activeSlot = InventoryManager.Instance.activeSlot;
 
         int count = 0;
         for (int y = 0; y < itemSlot2DArray.GetLength(1); y++)  //7
@@ -28,13 +31,16 @@ public class InventorySlots : MonoBehaviour
                 count++;
             }
         }
-        //슬롯 배열에 넣기?
-        isExpand = InventoryManager.Instance.isExpand;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (InventoryManager.Instance.isLvup != true)
+        {
+            isExpand = InventoryManager.Instance.isExpand;
+        }
+
         if (InventoryManager.Instance.isLvup == true && !isExpand)
         {
             //레벨업 텍스트, 버튼,
@@ -47,6 +53,7 @@ public class InventorySlots : MonoBehaviour
     }
     private void InventoryExpand()
     {
+        Debug.Log("확장?");
         InventoryManager.Instance.lvUpPoint = 4;
 
         for (int i = 0; i < transform.childCount; i++)

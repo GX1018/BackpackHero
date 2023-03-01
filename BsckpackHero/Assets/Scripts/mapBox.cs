@@ -254,8 +254,20 @@ public class mapBox : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         {
             if (canMove == true)
             {
-                MapManager.Instance.targetPos = thisPos;
-                MapManager.Instance.moveCharacter = true;
+                if (MapManager.Instance.isTutorial)
+                {
+                    if (transform.childCount > 0)
+                    {
+                        MapManager.Instance.targetPos = thisPos;
+                        MapManager.Instance.moveCharacter = true;
+                    }
+                    else{/*do nothing*/}
+                }
+                else
+                {
+                    MapManager.Instance.targetPos = thisPos;
+                    MapManager.Instance.moveCharacter = true;
+                }
             }
 
             test = 0;

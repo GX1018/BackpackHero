@@ -7,7 +7,7 @@ public class BattleManager : GSingleton<BattleManager>
     // Start is called before the first frame update
     void Start()
     {
-
+        enemy = GameObject.Find("Enemy");
     }
 
     // Update is called once per frame
@@ -16,6 +16,25 @@ public class BattleManager : GSingleton<BattleManager>
         if (isPlayerTurn == true && CharacterManager.Instance.isBattleMode == true)
         {
             turnEndBtn.SetActive(true);
+
+            int targetCheck = 0;
+            //targetCheck
+            for (int i = 0; i < enemyInBattle.Count; i++)
+            {
+                if (enemyInBattle[i].GetComponent<Enemy_Script>().isTarget == true)
+                {
+                    targetCheck ++;
+                    isTargetExists = true;
+                }
+            }
+            if(targetCheck == 0)
+            {
+                isTargetExists = false;
+            }
+            if (!isTargetExists)
+            {
+                enemyInBattle[enemyInBattle.Count-1].GetComponent<Enemy_Script>().isTarget = true;
+            }
 
         }
         else
@@ -43,18 +62,20 @@ public class BattleManager : GSingleton<BattleManager>
                 enemyActionCnt = 0;
             }
         }
-
-
-
     }
 
     public List<GameObject> enemyInBattle;
+
+    //타겟 확인용 변수
+    public bool isTargetExists = false;
 
     public bool isPlayerTurn = true;
 
     public int turnCount = 1;
 
     public bool isWin;
+
+    public GameObject enemy;
 
     //버튼
     public GameObject turnEndBtn;

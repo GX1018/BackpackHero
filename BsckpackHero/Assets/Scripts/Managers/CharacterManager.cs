@@ -69,7 +69,7 @@ public class CharacterManager : MonoBehaviour
     public int currentExperience;
     public int requiredExperience;      //5
 
-    public int[] requiredExperienceArray = { 5, 10, 25 };
+    public int[] requiredExperienceArray = { 5, 10, 25 ,50};
 
     public int level;
 

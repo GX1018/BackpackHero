@@ -39,9 +39,6 @@ public class InventoryManager : MonoBehaviour
         inventoryDefaultPos = new Vector3(inventory.transform.position.x - 17.78f, inventory.transform.position.y, inventory.transform.position.z);
         inventoryTargetPos = new Vector3(inventoryDefaultPos.x, inventoryDefaultPos.y - 0.69f, inventoryDefaultPos.z);
 
-        Debug.Log(inventory.transform.position);
-        Debug.Log(inventoryDefaultPos);
-        Debug.Log(inventoryTargetPos);
 
     }
 
@@ -73,9 +70,11 @@ public class InventoryManager : MonoBehaviour
 
     //inventoryslot
     public bool addItemAvailable = false;
+
     //
 
     public GameObject[,] itemSlot2DArray = new GameObject[11, 7];
+    public List<GameObject> activeSlot;
 
 
     public bool rootItemCheck = false;

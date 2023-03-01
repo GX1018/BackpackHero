@@ -2,18 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Inventory_Items : MonoBehaviour
+public class FieldItems : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
     {
-        ItemManager.Instance.inventoryItems = this.gameObject;
+        ItemManager.Instance.fieldItems = this.gameObject;
     }
 
     // Update is called once per frame
     void Update()
     {
         RemoveItem();
+
+        transform.position = InventoryManager.Instance.inventory.transform.position;
     }
 
 

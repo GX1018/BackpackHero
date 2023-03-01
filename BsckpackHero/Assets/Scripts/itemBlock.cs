@@ -61,10 +61,6 @@ public class itemBlock : MonoBehaviour
             }
             else { invenSlotisEmpty = false; }
             //가까운 인벤토리 슬롯이 비어있는지 여부 체크
-
-
-
-            
         }
 
     }

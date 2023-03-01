@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+//차후 UiManager로 통합예정
 public class ButtonManager : GSingleton<ButtonManager>
 {
     public GameObject levelUpBtn;
@@ -9,8 +11,7 @@ public class ButtonManager : GSingleton<ButtonManager>
     public GameObject changeBtn;
     public GameObject RetryBtn;
 
-
-    // Start is called before the first frame update
+    
     void Start()
     {
         
