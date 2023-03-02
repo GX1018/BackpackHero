@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: 03.meal
   m_EditorClassIdentifier: 
   itemName: meal
+  haveImageVariation: 0
   itemImage1: {fileID: 21300000, guid: 6122d26568c527948aa8048f350da586, type: 3}
+  itemImage2: {fileID: 0}
+  itemImage3: {fileID: 0}
   sizeX: 2
   sizeY: 1
   cost: 0
@@ -23,5 +26,5 @@ MonoBehaviour:
   consumable: 1
   consumableCount: 2
   isImageChange: 1
-  itemImage2: {fileID: 21300000, guid: fc550490066cd30418cb43a9cd307112, type: 3}
+  itemImageAfterChange: {fileID: 21300000, guid: fc550490066cd30418cb43a9cd307112, type: 3}
   chageTiming: 1

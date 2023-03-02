@@ -109,6 +109,10 @@ public class CharacterManager : MonoBehaviour
             if (def < 0)
             {
                 currentHp += def;
+                if(currentHp < 0)
+                {
+                    currentHp = 0;
+                }
                 def = 0;
             }
         }

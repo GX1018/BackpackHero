@@ -82,7 +82,6 @@ public class ScreenTransition : MonoBehaviour
         lowerScreenColor.a = 0.5f * time;
         lowerScreen.color = lowerScreenColor;
 
-        Debug.Log(time);
         if (time > 5)
         {
             transform.parent.GetComponent<Canvas>().sortingOrder = 0;

@@ -108,7 +108,7 @@ public class CharacterMain : MonoBehaviour
 
         if (MapManager.Instance.nextFloor == true)
         {
-            gameObject.SetActive(false);
+            //gameObject.SetActive(false);
         }
     }
 

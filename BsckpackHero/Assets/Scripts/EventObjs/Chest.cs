@@ -23,7 +23,7 @@ public class Chest : MonoBehaviour, IPointerDownHandler
         GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/Map/pack_1");
 
 
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 8; i++)
         {
             //GameObject.Find("TestCeateItem").GetComponent<TestCreateItem>().CreateItem(i);  //testcreateitem >> itemManager로 이동예정
             ItemManager.Instance.CreateItem(i);  //testcreateitem >> itemManager로 이동예정

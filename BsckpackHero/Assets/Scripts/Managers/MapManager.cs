@@ -117,6 +117,7 @@ public class MapManager : GSingleton<MapManager>
     public int minAtk;
     public int maxAtk;
     public int addDef;
+    public int addRegen;
     public int xp;
     public bool createEnd = false;
 
@@ -135,6 +136,7 @@ public class MapManager : GSingleton<MapManager>
         minAtk = enemy.EnemyMinAtk;
         maxAtk = enemy.EnemyMaxAtk;
         addDef = enemy.EnemyDef;
+        addRegen = enemy.EnemyRegen;
         xp = enemy.EnemyXp;
 
         GameObject clone = Instantiate(enemyPrefab, GameObject.Find("Enemy").transform);//transform 조정 //test중
@@ -145,6 +147,7 @@ public class MapManager : GSingleton<MapManager>
         clone.GetComponent<Enemy_Script>().minAtk = minAtk;
         clone.GetComponent<Enemy_Script>().maxAtk = maxAtk;
         clone.GetComponent<Enemy_Script>().addDef = addDef;
+        clone.GetComponent<Enemy_Script>().addRegen = addRegen;
         clone.GetComponent<Enemy_Script>().xp = xp;
 
         clone.transform.GetChild(0).GetComponent<Image>().sprite = enemy.EnemyImage;

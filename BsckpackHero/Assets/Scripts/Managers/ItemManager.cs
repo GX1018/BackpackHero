@@ -108,7 +108,7 @@ public class ItemManager : MonoBehaviour
     public void CreateItem(int num)
     {
 
-        
+
 
         if (MapManager.Instance.isTutorial && MapManager.Instance.inStore == false)
         {
@@ -158,8 +158,10 @@ public class ItemManager : MonoBehaviour
         clone.GetComponent<ItemTest>().consumable = consumable;
 
         clone.GetComponent<ItemTest>().isImageChange = item.IsImageChange;
-        clone.GetComponent<ItemTest>().itemImage2 = item.ItemImage2;
+        clone.GetComponent<ItemTest>().itemImage2 = item.ItemImageAfterChange;
         clone.GetComponent<ItemTest>().chageTiming = item.ChageTiming;
+
+
 
         //
         float ranPosX = Random.Range(-7.5f, 7.5f);
@@ -225,10 +227,27 @@ public class ItemManager : MonoBehaviour
         clone.GetComponent<RectTransform>().sizeDelta = new Vector2(70 * sizeX, 70 * sizeY);
 
         //메인 이미지
-        clone.transform.GetChild(10).GetComponent<Image>().sprite = item.ItemImage1;
+
+        int imgNum = 0;
+        if (item.HaveImageVariation)
+        {
+            Sprite[] itemImg = new Sprite[] { item.ItemImage1, item.ItemImage2, item.ItemImage3 };
+
+            while (itemImg[imgNum] == null)
+            {
+                imgNum = Random.Range(0, 2);
+            }
+            clone.transform.GetChild(10).GetComponent<Image>().sprite = itemImg[imgNum];
+            clone.transform.GetChild(9).GetComponent<Image>().sprite = itemImg[imgNum];
+        }
+
+        else
+        {
+            clone.transform.GetChild(10).GetComponent<Image>().sprite = item.ItemImage1;
+            clone.transform.GetChild(9).GetComponent<Image>().sprite = item.ItemImage1;
+        }
+
         clone.transform.GetChild(10).GetComponent<RectTransform>().sizeDelta = new Vector2(70 * sizeX, 70 * sizeY);
-        //인벤 체크용 이미지
-        clone.transform.GetChild(9).GetComponent<Image>().sprite = item.ItemImage1;
         clone.transform.GetChild(9).GetComponent<RectTransform>().sizeDelta = new Vector2(70 * sizeX, 70 * sizeY);
 
         //아이템 블록 위치 조정
@@ -255,6 +274,53 @@ public class ItemManager : MonoBehaviour
         InventoryManager.Instance.rootItemCheck = true;
     }
     //} 아이템 생성 함수
+
+    public void CreateItemInTitle()
+    {
+        ranNum = Random.Range(0, ItemManager.Instance.itemList.Length);
+
+        item = ItemManager.Instance.itemList[ranNum];
+
+        itemPrefab = Resources.Load<GameObject>("Prefabs/ItemPrefabInTitle");
+
+        clone = Instantiate(itemPrefab, GameObject.Find("ItemDrop").transform);
+        clone.AddComponent<ItemTitle>();
+
+        clone.name = item.ItemName;
+
+        float ranPosX = Random.Range(-7.5f, 7.5f);
+        //float ranPosY = Random.Range(-1f, -4.5f);
+        clone.transform.position = new Vector3(ranPosX, 5, 100);
+
+
+        sizeX = item.SizeX;
+        sizeY = item.SizeY;
+
+        float rotateZ = Random.Range(-180, 180);
+
+
+        clone.GetComponent<RectTransform>().sizeDelta = new Vector2(70 * sizeX, 70 * sizeY);
+        clone.GetComponent<RectTransform>().rotation = Quaternion.Euler(new Vector3(0, 0, rotateZ));
+        clone.GetComponent<CapsuleCollider2D>().size = new Vector2(50 * sizeX, 50 * sizeY);
+
+
+        int imgNum = 0;
+        if (item.HaveImageVariation)
+        {
+            Sprite[] itemImg = new Sprite[] { item.ItemImage1, item.ItemImage2, item.ItemImage3 };
+
+            while (itemImg[imgNum] == null)
+            {
+                imgNum = Random.Range(0, 2);
+            }
+            clone.transform.GetChild(0).GetComponent<Image>().sprite = itemImg[imgNum];
+        }
+        else
+        {
+            clone.transform.GetChild(0).GetComponent<Image>().sprite = item.ItemImage1;
+        }
+        clone.transform.GetChild(0).GetComponent<RectTransform>().sizeDelta = new Vector2(70 * sizeX, 70 * sizeY);
+    }
 
 
 

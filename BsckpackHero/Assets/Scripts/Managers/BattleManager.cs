@@ -23,17 +23,17 @@ public class BattleManager : GSingleton<BattleManager>
             {
                 if (enemyInBattle[i].GetComponent<Enemy_Script>().isTarget == true)
                 {
-                    targetCheck ++;
+                    targetCheck++;
                     isTargetExists = true;
                 }
             }
-            if(targetCheck == 0)
+            if (targetCheck == 0)
             {
                 isTargetExists = false;
             }
-            if (!isTargetExists)
+            if (enemyInBattle.Count > 0 && !isTargetExists)
             {
-                enemyInBattle[enemyInBattle.Count-1].GetComponent<Enemy_Script>().isTarget = true;
+                enemyInBattle[enemyInBattle.Count - 1].GetComponent<Enemy_Script>().isTarget = true;
             }
 
         }
@@ -100,6 +100,11 @@ public class BattleManager : GSingleton<BattleManager>
         for (int i = 0; i < enemyInBattle.Count; i++)
         {
             //
+            if (enemyInBattle[i].GetComponent<Enemy_Script>().regen > 0)
+            {
+                enemyInBattle[i].GetComponent<Enemy_Script>().hp += enemyInBattle[i].GetComponent<Enemy_Script>().regen;
+                enemyInBattle[i].GetComponent<Enemy_Script>().regen--;
+            }
             enemyInBattle[i].GetComponent<Enemy_Script>().def = 0;
             enemyInBattle[i].GetComponent<Enemy_Script>().Action();
             CharacterManager.Instance.GetDmgCheck();

@@ -54,8 +54,8 @@ public class Enemy_Script : MonoBehaviour, IPointerDownHandler
         pos1 = transform.GetChild(0).transform.position;
         pos2 = new Vector3(pos1.x - 1f, -2.78f, 100);
 
-        originSize = new Vector3(1,1,1);
-        targetSize = new Vector3(1,2,1);
+        originSize = new Vector3(1, 1, 1);
+        targetSize = new Vector3(1, 2, 1);
 
     }
 
@@ -127,8 +127,8 @@ public class Enemy_Script : MonoBehaviour, IPointerDownHandler
         {
             time += Time.deltaTime;
             transform.GetChild(0).localScale = new Vector3(1, 1 + 1f * time, 1);
-            
-            if (transform.GetChild(0).localScale.y>=1.3)
+
+            if (transform.GetChild(0).localScale.y >= 1.3)
             {
                 time = 0;
                 dffMove = 2;
@@ -138,13 +138,23 @@ public class Enemy_Script : MonoBehaviour, IPointerDownHandler
         {
             time += Time.deltaTime;
             transform.GetChild(0).localScale = new Vector3(1, 1.3f - 1f * time, 1);
-            if (transform.GetChild(0).localScale.y<=1)
+            if (transform.GetChild(0).localScale.y <= 1)
             {
                 time = 0;
                 dffMove = 0;
             }
         }
         //방어할때 움직임
+
+        if (hp > maxHp)
+        {
+            hp = maxHp;
+        }
+
+        if(regen > 0)
+        {
+
+        }
 
     }
 
@@ -161,34 +171,90 @@ public class Enemy_Script : MonoBehaviour, IPointerDownHandler
 
     public void ActionPreview()
     {
-        if (BattleManager.Instance.turnCount % 2 == 1)
+        if (BattleManager.Instance.turnCount == 1)
+        {
+            intAction = 1;
+        }
+        else
+        {
+
+        }
+
+        if (intAction == 1)
         {
 
             transform.GetChild(3).GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/Enemy/attack");
             transform.GetChild(3).GetChild(1).GetComponent<TMP_Text>().text = atk.ToString();
         }
-        else if (BattleManager.Instance.turnCount % 2 == 0)
+        else if (intAction == 0)
         {
-            transform.GetChild(3).GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/Enemy/defense");
-            transform.GetChild(3).GetChild(1).GetComponent<TMP_Text>().text = addDef.ToString();
+            if (addDef >= 1)
+            {
+                transform.GetChild(3).GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/Enemy/defense");
+                transform.GetChild(3).GetChild(1).GetComponent<TMP_Text>().text = addDef.ToString();
+            }
+            else
+            {
+                transform.GetChild(3).GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/Enemy/regen");
+                transform.GetChild(3).GetChild(1).GetComponent<TMP_Text>().text = addRegen.ToString();
+            }
         }
     }
 
+    int intAction = 0;
     public void Action()
     {
         //enemy turn에 실행될 함수
+        if (BattleManager.Instance.turnCount == 1)
+        {
+            intAction = 1;
+        }
 
 
-        if (BattleManager.Instance.turnCount % 2 == 1)
+        Debug.Log(intAction);
+        if (intAction == 1)
         {
             attMove = 1;
             CharacterManager.Instance.getDmg += atk;
         }
-        else if (BattleManager.Instance.turnCount % 2 == 0)
+        if (intAction == 0)
         {
-            dffMove = 1;
-            def += addDef;
+            if (addDef >= 1)
+            {
+                dffMove = 1;
+                def += addDef;
+            }
+            else
+            {
+                if (addRegen > 0)
+                {
+                    dffMove = 1;
+                    regen += addRegen;
+                    if (regen > addRegen)
+                    {
+                        regen = addRegen;
+                    }
+                }
+            }
+        }
+
+        if (BattleManager.Instance.turnCount != 1)
+        {
+            int randomAction = Random.Range(0, 9);
+
+            if (randomAction < 7)
+            {
+                intAction = 1;
+            }
+            else
+            {
+                intAction = 0;
+            }
         }
     }
+
+    public int addRegen;
+    public int regen;
+
 
 }

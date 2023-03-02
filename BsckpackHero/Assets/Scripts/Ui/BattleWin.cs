@@ -15,6 +15,7 @@ public class BattleWin : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
+            BattleManager.Instance.turnCount = 1;
             BattleManager.Instance.isWin = false;
             gameObject.SetActive(false);
         }
