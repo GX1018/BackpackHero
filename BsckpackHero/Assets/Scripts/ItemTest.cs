@@ -223,6 +223,19 @@ public class ItemTest : MonoBehaviour, IPointerDownHandler,
             }
         }
 
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (atk > 0)
+            {
+                atk = 100;
+            }
+            if(def>0)
+            {
+                def = 100;
+            }
+        }
+
     }
 
 

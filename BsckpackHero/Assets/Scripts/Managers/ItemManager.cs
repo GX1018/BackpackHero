@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ItemManager : MonoBehaviour
 {
@@ -59,8 +60,8 @@ public class ItemManager : MonoBehaviour
                 useItemWaypoint = 0;
                 time = 0;
             }
+            //} 소모 아이템 사용시 애니메이션 처리
         }
-        //} 소모 아이템 사용시 애니메이션 처리
     }
 
 

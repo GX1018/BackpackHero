@@ -22,16 +22,25 @@ public class Chest : MonoBehaviour, IPointerDownHandler
     {
         GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/Map/pack_1");
 
-
-        for (int i = 0; i < 8; i++)
+        if (MapManager.Instance.isTutorial)
         {
-            //GameObject.Find("TestCeateItem").GetComponent<TestCreateItem>().CreateItem(i);  //testcreateitem >> itemManager로 이동예정
-            ItemManager.Instance.CreateItem(i);  //testcreateitem >> itemManager로 이동예정
+            for (int i = 0; i < 3; i++)
+            {
+                ItemManager.Instance.CreateItem(i);
+            }
         }
-        MapManager.Instance.openChest =true;
+        else
+        {
+            for (int i = 0; i < 8; i++)
+            {
+                ItemManager.Instance.CreateItem(i);
+            }
 
-        MapManager.Instance.findChest =false;
-        
+        }
+        MapManager.Instance.openChest = true;
+
+        MapManager.Instance.findChest = false;
+
         //함수 종료 전에 확인 버튼 생성해주기
         GameObject.Find("Button").transform.GetChild(1).gameObject.SetActive(true);
         Destroy(this.gameObject);

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class ScreenTransition : MonoBehaviour
 {
@@ -57,6 +58,7 @@ public class ScreenTransition : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (MapManager.Instance.nextFloor == true)
         {
             ScreenTrans();
@@ -70,6 +72,21 @@ public class ScreenTransition : MonoBehaviour
 
     public void ScreenTrans()
     {
+        if (SceneManager.GetActiveScene().name == "01.TitleScene")
+        {
+            transform.GetChild(2).GetComponent<TMP_Text>().text = "Start";
+            transform.GetChild(3).GetComponent<TMP_Text>().text = "Tutorial";
+        }
+        if (MapManager.Instance.floor == 1 && MapManager.Instance.clearGame == false)
+        {
+            transform.GetChild(2).GetComponent<TMP_Text>().text = "The Crypt";
+            transform.GetChild(3).GetComponent<TMP_Text>().text = "1st Floor";
+        }
+        if (MapManager.Instance.clearGame == true)
+        {
+            transform.GetChild(2).GetComponent<TMP_Text>().text = "Thanks for";
+            transform.GetChild(3).GetComponent<TMP_Text>().text = "Playing";
+        }
         transform.parent.GetComponent<Canvas>().sortingOrder = 99;
 
         time += Time.deltaTime;
@@ -94,5 +111,18 @@ public class ScreenTransition : MonoBehaviour
 
         transform.GetChild(2).position = Vector3.MoveTowards(transform.GetChild(2).position, text1DefaultPoint, 5f * Time.deltaTime);
         transform.GetChild(3).position = Vector3.MoveTowards(transform.GetChild(3).position, text2DefaultPoint, 10f * Time.deltaTime);
+    }
+    private void OnEnable()
+    {
+        /* upperScreen = transform.GetChild(0).GetComponent<Image>();
+        upperScreen.color = new Color(0, 0, 0, 0);
+        upperScreenColor = upperScreen.color;
+        lowerScreen = transform.GetChild(1).GetComponent<Image>();
+        lowerScreen.color = new Color(0, 0, 0, 0);
+        lowerScreenColor = lowerScreen.color;
+        upperScreen.fillAmount = 0;
+        lowerScreen.fillAmount = 0; */
+
+        time = 0;
     }
 }

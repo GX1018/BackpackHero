@@ -240,9 +240,10 @@ public class Enemy_Script : MonoBehaviour, IPointerDownHandler
 
         if (BattleManager.Instance.turnCount != 1)
         {
+            //60% att, 40% other action
             int randomAction = Random.Range(0, 9);
 
-            if (randomAction < 7)
+            if (randomAction < 6)
             {
                 intAction = 1;
             }

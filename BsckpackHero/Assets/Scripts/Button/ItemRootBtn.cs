@@ -49,7 +49,11 @@ public class ItemRootBtn : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         }
 
         InventoryManager.Instance.removeItem = true;
-
+        if (MapManager.Instance.isTutorial)
+        {
+            MapManager.Instance.tutorialStepCheck = true;
+            ButtonManager.Instance.changeBtn.GetComponent<changeBtn>().changeBtnClick();
+        }
     }
 
     public void OnPointerUp(PointerEventData eventData)

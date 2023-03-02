@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class MapManager : GSingleton<MapManager>
 {
@@ -11,6 +12,7 @@ public class MapManager : GSingleton<MapManager>
     public GameObject screenTrans;
 
     public bool isTutorial;
+    public bool tutorialStepCheck = false;
     GameObject tutorialMap;
     GameObject stageMap;
 
@@ -22,6 +24,8 @@ public class MapManager : GSingleton<MapManager>
     //맵에서 이벤트 체크용
     public bool nextFloor = false;
     public bool inStore = false;
+
+    public bool clearGame = false;
 
 
     // Start is called before the first frame update
@@ -40,7 +44,7 @@ public class MapManager : GSingleton<MapManager>
             tutorialMap = GameObject.Find("Map").transform.GetChild(1).gameObject;
             stageMap = GameObject.Find("Map").transform.GetChild(2).gameObject;
             tutorialMap.SetActive(true);
-            gameStart= false;
+            gameStart = false;
         }
 
         if (isTutorial)
@@ -58,6 +62,23 @@ public class MapManager : GSingleton<MapManager>
                 playerPos = 0;
                 nextFloor = false;
             }
+        }
+
+        if (stage == 1 && floor == 1)
+        {
+            if (playerPos == 14 && BattleManager.Instance.isWin)
+            {
+                stage ++;
+                floor ++;
+                nextFloor = true;
+                clearGame = true;
+            }
+        }
+
+        if (clearGame)
+        {
+            screenTrans.SetActive(true);
+            StartCoroutine(WaitNextScene());
         }
         // if (nextFloor == true)
         // {
@@ -83,6 +104,22 @@ public class MapManager : GSingleton<MapManager>
         //         //만들어줌(함수 생성 후 삽입예정)
         //     }
         // }
+    }
+
+    public void QuitBtnClick()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+                Application.Quit();
+#endif
+    }
+
+    IEnumerator WaitNextScene()
+    {
+        yield return new WaitForSeconds(3);
+        QuitBtnClick();
+        MapManager.Instance.gameStart = false;
     }
 
     public GameObject nearestMapBox;

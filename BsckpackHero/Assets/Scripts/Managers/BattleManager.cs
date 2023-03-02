@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BattleManager : GSingleton<BattleManager>
 {
@@ -13,53 +14,57 @@ public class BattleManager : GSingleton<BattleManager>
     // Update is called once per frame
     void Update()
     {
-        if (isPlayerTurn == true && CharacterManager.Instance.isBattleMode == true)
+        if (SceneManager.GetActiveScene().name != "01.TiTleScene")
         {
-            turnEndBtn.SetActive(true);
 
-            int targetCheck = 0;
-            //targetCheck
-            for (int i = 0; i < enemyInBattle.Count; i++)
+            if (isPlayerTurn == true && CharacterManager.Instance.isBattleMode == true)
             {
-                if (enemyInBattle[i].GetComponent<Enemy_Script>().isTarget == true)
+                turnEndBtn.SetActive(true);
+
+                int targetCheck = 0;
+                //targetCheck
+                for (int i = 0; i < enemyInBattle.Count; i++)
                 {
-                    targetCheck++;
-                    isTargetExists = true;
+                    if (enemyInBattle[i].GetComponent<Enemy_Script>().isTarget == true)
+                    {
+                        targetCheck++;
+                        isTargetExists = true;
+                    }
                 }
-            }
-            if (targetCheck == 0)
-            {
-                isTargetExists = false;
-            }
-            if (enemyInBattle.Count > 0 && !isTargetExists)
-            {
-                enemyInBattle[enemyInBattle.Count - 1].GetComponent<Enemy_Script>().isTarget = true;
-            }
-
-        }
-        else
-        {
-            turnEndBtn.SetActive(false);
-        }
-
-        if (isPlayerTurn == false)
-        {
-            if (enemyActionCnt == enemyInBattle.Count)
-            {
-                turnCount++;
-
-                CharacterManager.Instance.actionPoint = 3;
-
-                if (CharacterManager.Instance.def > 0)
+                if (targetCheck == 0)
                 {
-
-                    CharacterManager.Instance.def = 0;
+                    isTargetExists = false;
+                }
+                if (enemyInBattle.Count > 0 && !isTargetExists)
+                {
+                    enemyInBattle[enemyInBattle.Count - 1].GetComponent<Enemy_Script>().isTarget = true;
                 }
 
-                isPlayerTurn = true;
-                enemyActionFin = false;
+            }
+            else
+            {
+                turnEndBtn.SetActive(false);
+            }
 
-                enemyActionCnt = 0;
+            if (isPlayerTurn == false)
+            {
+                if (enemyActionCnt == enemyInBattle.Count)
+                {
+                    turnCount++;
+
+                    CharacterManager.Instance.actionPoint = 3;
+
+                    if (CharacterManager.Instance.def > 0)
+                    {
+
+                        CharacterManager.Instance.def = 0;
+                    }
+
+                    isPlayerTurn = true;
+                    enemyActionFin = false;
+
+                    enemyActionCnt = 0;
+                }
             }
         }
     }

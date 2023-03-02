@@ -24,6 +24,7 @@ public class CharacterManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
+
             DontDestroyOnLoad(this.gameObject);
         }
         else
@@ -52,10 +53,13 @@ public class CharacterManager : MonoBehaviour
             }
         }
 
-        if(currentHp <= 0)
+
+        if (currentHp <= 0 &&isdead ==false)
         {
             Die();
+            isdead = true;
         }
+
 
     }
 
@@ -69,17 +73,17 @@ public class CharacterManager : MonoBehaviour
     public int currentExperience;
     public int requiredExperience;      //5
 
-    public int[] requiredExperienceArray = { 5, 10, 25 ,50};
+    public int[] requiredExperienceArray = { 5, 10, 25, 50 };
 
     public int level;
 
     public bool isWalk;
 
-    
+
 
     public bool isBattleMode = false;
 
-    
+
     //애니메이터관리
     public Animator animator;
 
@@ -97,7 +101,7 @@ public class CharacterManager : MonoBehaviour
             level++;
         }
         requiredExperience = requiredExperienceArray[level - 1];
-        InventoryManager.Instance.isLvup =true;
+        InventoryManager.Instance.isLvup = true;
     }
 
     public void GetDmgCheck()
@@ -109,7 +113,7 @@ public class CharacterManager : MonoBehaviour
             if (def < 0)
             {
                 currentHp += def;
-                if(currentHp < 0)
+                if (currentHp < 0)
                 {
                     currentHp = 0;
                 }
@@ -118,9 +122,15 @@ public class CharacterManager : MonoBehaviour
         }
     }
 
+    bool isdead;
     public void Die()
     {
+        animator.SetBool("isDead", true);
+        GameObject.Find("Inventory&Map").GetComponent<Canvas>().overrideSorting = true;
         GameObject.Find("OnOffUi").transform.GetChild(2).gameObject.SetActive(true);
+        BattleManager.Instance.turnEndBtn.SetActive(false);
+        GameObject.Find("Enemy").SetActive(false);
+
         ButtonManager.Instance.RetryBtn.SetActive(true);
     }
 

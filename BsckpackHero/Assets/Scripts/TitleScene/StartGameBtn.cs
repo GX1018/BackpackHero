@@ -14,10 +14,17 @@ public class StartGameBtn : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        GameObject.Find("UiObjs").transform.GetChild(1).GetComponent<ScreenTransition>().ScreenTrans();
     }
 
     public void StartGameBtnClick(){
+        GameObject.Find("UiObjs").transform.GetChild(1).gameObject.SetActive(true);
+        StartCoroutine(WaitNextScene());
+    }
+
+    IEnumerator WaitNextScene()
+    {
+        yield return new WaitForSeconds(3);
         SceneManager.LoadScene("97.TestScene");
         MapManager.Instance.gameStart = true;
     }

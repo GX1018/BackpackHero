@@ -23,16 +23,20 @@ public class LvUpDoneBtn : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     public void OnPointerDown(PointerEventData eventData)
     {
         InventoryManager.Instance.moveCheckInt = 2;
-        InventoryManager.Instance.isExpand =false;
+        InventoryManager.Instance.isExpand = false;
         InventoryManager.Instance.isLvup = false;
 
+        if (MapManager.Instance.isTutorial)
+        {
+            MapManager.Instance.tutorialStepCheck = false;
+        }
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
         //인벤토리 하이라키 원래대로
         GameObject.Find("Inventory&Map").transform.SetSiblingIndex(1);
-        
+
         GameObject.Find("OnOffUi").transform.GetChild(1).gameObject.SetActive(false);
         gameObject.SetActive(false);
 
